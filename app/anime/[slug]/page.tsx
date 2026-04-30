@@ -7,6 +7,7 @@ import { getCuadrante } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import NolanChart from '@/components/NolanChart';
+import SpoilerText from '@/components/SpoilerText';
 
 export default async function AnimePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -84,17 +85,37 @@ export default async function AnimePage({ params }: { params: Promise<{ slug: st
             <Separator className="mb-8" />
             <div className="space-y-10">
               <section>
-                <p className="text-muted-foreground leading-relaxed font-medium">
-                  {anime.sinopsis}
-                </p>
+                  <p className="text-muted-foreground leading-relaxed font-medium">
+                    {anime.sinopsis}
+                  </p>
               </section>
 
                 <h2 className="text-xl font-black text-foreground mb-4">
                   Análisis
                 </h2>
-                <p className="text-lg leading-relaxed text-foreground/80 whitespace-pre-line">
-                  &ldquo;{anime.analisisPolitico}&rdquo;
-                </p>
+                {anime.analisisPolitico ? (() => {
+                  const lines = anime.analisisPolitico.split(/\r?\n/);
+                  const firstLine = lines[0] || "";
+                  const rest = lines.slice(1).join("\n");
+                  return (
+                    <>
+                      {firstLine && (
+                        <p className="text-lg leading-relaxed text-foreground/80 whitespace-pre-line">
+                          &ldquo;{firstLine}&rdquo;
+                        </p>
+                      )}
+                      {rest && (
+                        <SpoilerText>
+                          <p className="text-lg leading-relaxed text-foreground/80 whitespace-pre-line">
+                            {rest}
+                          </p>
+                        </SpoilerText>
+                      )}
+                    </>
+                  );
+                })() : (
+                  <p className="text-muted-foreground italic">Sin análisis disponible.</p>
+                )}
             </div>
           </div>
         </div>
