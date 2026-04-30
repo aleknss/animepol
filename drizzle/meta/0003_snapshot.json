@@ -1,0 +1,217 @@
+{
+  "id": "c269b54b-3907-4fd9-aa42-624c97e75513",
+  "prevId": "b3f84d10-3744-432f-c656-11ed1bb9238a",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.animes": {
+      "name": "animes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nombres_alternativos": {
+          "name": "nombres_alternativos",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{}'"
+        },
+        "sinopsis": {
+          "name": "sinopsis",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "analisis_politico": {
+          "name": "analisis_politico",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "año_lanzamiento": {
+          "name": "año_lanzamiento",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "imagen_url": {
+          "name": "imagen_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "libertad_economica": {
+          "name": "libertad_economica",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "libertad_personal": {
+          "name": "libertad_personal",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creado_en": {
+          "name": "creado_en",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "animes_titulo_unique": {
+          "name": "animes_titulo_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "titulo"
+          ]
+        },
+        "animes_slug_unique": {
+          "name": "animes_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "chk_libertad_econ": {
+          "name": "chk_libertad_econ",
+          "value": "\"animes\".\"libertad_economica\" BETWEEN 1 AND 5"
+        },
+        "chk_libertad_pers": {
+          "name": "chk_libertad_pers",
+          "value": "\"animes\".\"libertad_personal\" BETWEEN 1 AND 5"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.animes_generos": {
+      "name": "animes_generos",
+      "schema": "",
+      "columns": {
+        "anime_id": {
+          "name": "anime_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "genero_id": {
+          "name": "genero_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "animes_generos_anime_id_animes_id_fk": {
+          "name": "animes_generos_anime_id_animes_id_fk",
+          "tableFrom": "animes_generos",
+          "tableTo": "animes",
+          "columnsFrom": [
+            "anime_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "animes_generos_genero_id_generos_id_fk": {
+          "name": "animes_generos_genero_id_generos_id_fk",
+          "tableFrom": "animes_generos",
+          "tableTo": "generos",
+          "columnsFrom": [
+            "genero_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "animes_generos_anime_id_genero_id_pk": {
+          "name": "animes_generos_anime_id_genero_id_pk",
+          "columns": [
+            "anime_id",
+            "genero_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.generos": {
+      "name": "generos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "generos_nombre_unique": {
+          "name": "generos_nombre_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nombre"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

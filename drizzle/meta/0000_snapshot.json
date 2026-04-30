@@ -1,0 +1,184 @@
+{
+  "id": "c78b17bb-1b22-4332-8fe6-ba5c31e91bad",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.animes": {
+      "name": "animes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sinopsis": {
+          "name": "sinopsis",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "año_lanzamiento": {
+          "name": "año_lanzamiento",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "libertad_economica": {
+          "name": "libertad_economica",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "libertad_personal": {
+          "name": "libertad_personal",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cuadrante": {
+          "name": "cuadrante",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "animes_titulo_unique": {
+          "name": "animes_titulo_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "titulo"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "chk_libertad_econ": {
+          "name": "chk_libertad_econ",
+          "value": "\"animes\".\"libertad_economica\" BETWEEN 1 AND 5"
+        },
+        "chk_libertad_pers": {
+          "name": "chk_libertad_pers",
+          "value": "\"animes\".\"libertad_personal\" BETWEEN 1 AND 5"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.animes_generos": {
+      "name": "animes_generos",
+      "schema": "",
+      "columns": {
+        "anime_id": {
+          "name": "anime_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "genero_id": {
+          "name": "genero_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "animes_generos_anime_id_animes_id_fk": {
+          "name": "animes_generos_anime_id_animes_id_fk",
+          "tableFrom": "animes_generos",
+          "tableTo": "animes",
+          "columnsFrom": [
+            "anime_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "animes_generos_genero_id_genres_id_fk": {
+          "name": "animes_generos_genero_id_genres_id_fk",
+          "tableFrom": "animes_generos",
+          "tableTo": "genres",
+          "columnsFrom": [
+            "genero_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "animes_generos_anime_id_genero_id_pk": {
+          "name": "animes_generos_anime_id_genero_id_pk",
+          "columns": [
+            "anime_id",
+            "genero_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.genres": {
+      "name": "genres",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "genres_nombre_unique": {
+          "name": "genres_nombre_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nombre"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
