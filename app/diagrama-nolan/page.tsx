@@ -90,14 +90,11 @@ export default function DiagramaNolanPage() {
             </h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>
-                <strong>Eje horizontal — Libertad económica:</strong> ¿Cuánto
-                controla el Estado la economía? Derecha = libre mercado.
-                Izquierda = intervención estatal.
+                <strong>Eje Izquierdo — Libertades Sociopolíticas: </strong>Mide cuánto control tiene el Estado sobre tu vida privada. Cuanto más subes por esta flecha, más apoyas que cada persona viva como quiera.
               </li>
               <li>
-                <strong>Eje vertical — Libertad personal:</strong> ¿Cuánto
-                controla el Estado la vida privada? Arriba = libertades
-                individuales. Abajo = control social.
+                <strong> Eje Derecho — Libertades Económicas: </strong>Mide cuánto control tiene el Estado sobre el dinero y el mercado. Cuanto más subes por esta flecha, más apoyas el libre mercado y la propiedad privada.
+
               </li>
             </ul>
           </section>
