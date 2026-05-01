@@ -5,6 +5,8 @@ import SearchBar from './SearchBar';
 import AnimeList from './AnimeList';
 import ThemeToggle from './ThemeToggle';
 import { AnimeConGeneros } from '@/lib/types';
+import Link from 'next/link';
+import { DiagramaNolanIcon } from './DiagramaNolanIcon';
 import { Button } from './ui/button';
 
 interface Props {
@@ -48,8 +50,14 @@ const animesFiltrados = useMemo(() => {
           ¿Cuál es tu alineamiento político según tu anime favorito?
           <span className='text-muted-foreground'> #humor</span>
         </p>
-        <div className='flex justify-center gap-4'>
-          <Button className="my-4 py-4 px-4 hover:cursor-pointer hover:bg-primary/70">Diagrama de Nolan</Button>
+        <div className='flex justify-center gap-4 items-center'>
+          <Link
+            href="/diagrama-nolan"
+            className="my-4 inline-block transition-transform hover:scale-110"
+            aria-label="Diagrama de Nolan"
+          >
+            <DiagramaNolanIcon />
+          </Link>
           <Button className="my-4 py-4 px-4 hover:cursor-pointer" variant="secondary">Envía una sugerencia</Button>
         </div>
       </div>
