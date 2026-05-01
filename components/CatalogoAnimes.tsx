@@ -1,13 +1,14 @@
 'use client'; 
 
 import { useState, useMemo } from 'react';
-import SearchBar from './SearchBar';
-import AnimeList from './AnimeList';
-import ThemeToggle from './ThemeToggle';
+import SearchBar from './search/SearchBar';
+import AnimeList from './anime/AnimeList';
+import ThemeToggle from './theme/ThemeToggle';
 import { AnimeConGeneros } from '@/lib/types';
 import Link from 'next/link';
-import { DiagramaNolanIcon } from './DiagramaNolanIcon';
+import { DiagramaNolanIcon } from './nolan/DiagramaNolanIcon';
 import { Button } from './ui/button';
+import Creditos from './Creditos';
 
 interface Props {
   initialData: AnimeConGeneros[]; 
@@ -33,9 +34,10 @@ const animesFiltrados = useMemo(() => {
 }, [busqueda, initialData]);
 
   return (
-    <div className="min-h-screen bg-background py-10 px-4">
+    <div className="min-h-screen bg-background py-6 px-4">
+      <Creditos />
       <div className="sticky top-6">
-        <ThemeToggle />
+        <ThemeToggle className='absolute right-20' />
       </div>
       <div className="text-center mb-10">
         <img

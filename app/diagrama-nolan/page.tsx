@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { DiagramaNolanIcon } from '@/components/DiagramaNolanIcon';
+import { DiagramaNolanIcon } from '@/components/nolan/DiagramaNolanIcon';
 
 export default function DiagramaNolanPage() {
   const [eco, setEco] = useState(3);
@@ -137,9 +137,7 @@ export default function DiagramaNolanPage() {
           </section>
 
           <p className="text-muted-foreground text-sm pt-4 border-t">
-            En Animepol, cada anime se posiciona en este diagrama según los
-            valores que transmite su trama, personajes y mundo. Mueve los
-            sliders arriba para explorar cómo cambia la posición en el gráfico.
+            Cada anime lo represento con este sistema de categorización. Va muy tirado por las <i>vibes</i>.
           </p>
         </div>
       </div>

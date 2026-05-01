@@ -7,3 +7,4 @@
 - [x] la lupa se convierte en x para borrar la búsqueda
 - [x] spoiler literal (clicar para leer)
 - [ ] filtros de búsqueda (géneros y alineamientos políticos)
+- [ ] sistema tickets sugerencias

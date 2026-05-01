@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { AnimeConGeneros } from "@/lib/types";
 import Image from "next/image";
-import MiniNolanChart from "@/components/MiniNolanChart";
+import MiniNolanChart from "@/components/nolan/MiniNolanChart";
 
 const renderEstrellas = (puntos: number) =>
   "★".repeat(puntos) + "☆".repeat(5 - puntos);

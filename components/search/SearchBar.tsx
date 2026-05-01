@@ -30,7 +30,7 @@ export default function SearchBar({ busqueda, alCambiar }: SearchBarProps) {
       <Input
         ref={inputRef}
         type="text"
-        placeholder="Buscar por título o alias (ej: SNK)..."
+        placeholder="Buscar por título o alias..."
         value={busqueda}
         onChange={(e) => alCambiar(e.target.value)}
         className="h-12 pl-4 pr-28 text-lg bg-white shadow-lg shadow-white/40 dark:bg-gray-800 dark:shadow-black/40"
@@ -57,7 +57,7 @@ export default function SearchBar({ busqueda, alCambiar }: SearchBarProps) {
             <X className="h-5 w-5" />
           </button>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-1">
           <Kbd>Ctrl</Kbd>
           <span className="text-xs">+</span>
           <Kbd>K</Kbd>

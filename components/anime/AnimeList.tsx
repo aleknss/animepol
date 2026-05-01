@@ -1,5 +1,5 @@
 import { AnimeConGeneros } from "@/lib/types";
-import AnimeCard from "@/components/AnimeCard";
+import AnimeCard from "@/components/anime/AnimeCard";
 
 export default function AnimeList({ animes }: { animes: AnimeConGeneros[] }) {
   if (animes.length === 0)

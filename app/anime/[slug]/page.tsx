@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { getCuadrante } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
-import NolanChart from '@/components/NolanChart';
+import NolanChart from '@/components/nolan/NolanChart';
 import SpoilerText from '@/components/SpoilerText';
 
 export default async function AnimePage({ params }: { params: Promise<{ slug: string }> }) {
