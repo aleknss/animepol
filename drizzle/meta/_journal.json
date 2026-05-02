@@ -29,6 +29,20 @@
       "when": 1777502354113,
       "tag": "0003_boring_ender_wiggin",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1777729462705,
+      "tag": "0004_absent_lilandra",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1777738588599,
+      "tag": "0005_awesome_nick_fury",
+      "breakpoints": true
     }
   ]
 }

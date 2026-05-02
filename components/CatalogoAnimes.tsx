@@ -35,9 +35,9 @@ const animesFiltrados = useMemo(() => {
 
   return (
     <div className="min-h-screen bg-background py-6 px-4">
+      <div className='top-6 max-w-6xl m-auto flex justify-between'>
       <Creditos />
-      <div className="sticky top-6">
-        <ThemeToggle className='absolute right-20' />
+      <ThemeToggle />
       </div>
       <div className="text-center mb-10">
         <img
