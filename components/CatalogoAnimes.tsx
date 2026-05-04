@@ -8,30 +8,92 @@ import { AnimeConGeneros } from '@/lib/types';
 import Link from 'next/link';
 import { DiagramaNolanIcon } from './nolan/DiagramaNolanIcon';
 import { Button } from './ui/button';
+import { Badge } from './ui/badge';
 import Creditos from './Creditos';
 
 interface Props {
   initialData: AnimeConGeneros[]; 
 }
 
+type Ideologia = "Libertario" | "Autoritario" | "Conservador" | "Progresista"
+
+const IDEO_COLORS: Record<Ideologia, { bg: string; text: string }> = {
+  Libertario: { bg: "bg-green-500/15", text: "text-green-600 dark:text-green-400" },
+  Autoritario: { bg: "bg-yellow-500/15", text: "text-yellow-600 dark:text-yellow-400" },
+  Conservador:  { bg: "bg-blue-500/15", text: "text-blue-600 dark:text-blue-400" },
+  Progresista:  { bg: "bg-red-500/15", text: "text-red-600 dark:text-red-400" },
+}
+
+function getIdeologia(eco: number, per: number): Ideologia {
+  if (eco >= 3 && per >= 3) return "Libertario"
+  if (eco < 3 && per < 3) return "Autoritario"
+  if (eco >= 3 && per < 3) return "Conservador"
+  if (eco < 3 && per >= 3) return "Progresista"
+  return "Progresista"
+}
+
 export default function CatalogoAnimes({ initialData }: Props) {
   const [busqueda, setBusqueda] = useState('');
+  const [generosFiltro, setGenerosFiltro] = useState<number[]>([])
+  const [ideologiasFiltro, setIdeologiasFiltro] = useState<Ideologia[]>([])
 
-const animesFiltrados = useMemo(() => {
-  if (!busqueda.trim()) return initialData;
+  const generos = useMemo(() => {
+    const map = new Map<number, string>()
+    for (const anime of initialData) {
+      for (const ag of anime.animesGeneros || []) {
+        if (!map.has(ag.generoId)) map.set(ag.generoId, ag.genero.nombre)
+      }
+    }
+    return Array.from(map.entries()).sort((a, b) => a[1].localeCompare(b[1]))
+  }, [initialData])
 
-  const term = busqueda.toLowerCase().trim();
+  const toggleGenero = (id: number) => {
+    setGenerosFiltro(prev =>
+      prev.includes(id) ? prev.filter(g => g !== id) : [...prev, id]
+    )
+  }
 
-  return initialData.filter((anime) => {
-    const coincideTitulo = anime.titulo.toLowerCase().includes(term);
+  const toggleIdeologia = (id: Ideologia) => {
+    setIdeologiasFiltro(prev =>
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    )
+  }
 
-    const coincideAlias = anime.nombresAlternativos?.some((alias) =>
-      alias.toLowerCase().includes(term)
-    );
+  const animesFiltrados = useMemo(() => {
+    let result = initialData
 
-    return coincideTitulo || coincideAlias;
-  });
-}, [busqueda, initialData]);
+    if (busqueda.trim()) {
+      const term = busqueda.toLowerCase().trim()
+      result = result.filter((anime) => {
+        const coincideTitulo = anime.titulo.toLowerCase().includes(term)
+        const coincideAlias = anime.nombresAlternativos?.some((alias) =>
+          alias.toLowerCase().includes(term)
+        )
+        return coincideTitulo || coincideAlias
+      })
+    }
+
+    if (generosFiltro.length > 0) {
+      result = result.filter((anime) =>
+        (anime.animesGeneros || []).some((ag) => generosFiltro.includes(ag.generoId))
+      )
+    }
+
+    if (ideologiasFiltro.length > 0) {
+      result = result.filter((anime) =>
+        ideologiasFiltro.includes(getIdeologia(anime.libertadEconomica, anime.libertadPersonal))
+      )
+    }
+
+    return result
+  }, [busqueda, initialData, generosFiltro, ideologiasFiltro])
+
+  const limpiarFiltros = () => {
+    setGenerosFiltro([])
+    setIdeologiasFiltro([])
+  }
+
+  const filtrosActivos = generosFiltro.length > 0 || ideologiasFiltro.length > 0
 
   return (
     <div className="min-h-screen bg-background py-6 px-4">
@@ -60,11 +122,64 @@ const animesFiltrados = useMemo(() => {
           >
             <DiagramaNolanIcon />
           </Link>
-          <Button className="my-4 py-4 px-4 hover:cursor-pointer" variant="secondary">Envía una sugerencia</Button>
+          <Link href="/sugerir">
+            <Button className="my-4 py-4 px-4 hover:cursor-pointer" variant="secondary">Envía una sugerencia</Button>
+          </Link>
         </div>
       </div>
 
       <SearchBar busqueda={busqueda} alCambiar={setBusqueda} />
+
+      <div className="max-w-6xl mx-auto mb-6 space-y-4">
+        <div className="space-y-2">
+          <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">Géneros</p>
+          <div className="flex flex-wrap gap-1.5">
+            {generos.map(([id, nombre]) => (
+              <Badge
+                key={id}
+                variant={generosFiltro.includes(id) ? "default" : "outline"}
+                className="cursor-pointer transition-colors"
+                onClick={() => toggleGenero(id)}
+              >
+                {nombre}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">Ideología</p>
+          <div className="flex flex-wrap gap-1.5">
+            {(Object.keys(IDEO_COLORS) as Ideologia[]).map((id) => {
+              const active = ideologiasFiltro.includes(id)
+              return (
+                <button
+                  key={id}
+                  onClick={() => toggleIdeologia(id)}
+                  className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer border ${
+                    active
+                      ? `${IDEO_COLORS[id].bg} ${IDEO_COLORS[id].text} border-current`
+                      : "bg-muted/50 text-muted-foreground hover:bg-muted border-transparent"
+                  }`}
+                >
+                  {id}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {filtrosActivos && (
+          <div className="flex items-center gap-2 pt-1">
+            <span className="text-xs text-muted-foreground">
+              {animesFiltrados.length} resultado{animesFiltrados.length !== 1 ? 's' : ''}
+            </span>
+            <Button size="xs" variant="ghost" onClick={limpiarFiltros}>
+              Limpiar filtros
+            </Button>
+          </div>
+        )}
+      </div>
 
       <div className="mt-10">
         <AnimeList animes={animesFiltrados} />

@@ -112,9 +112,9 @@ export default function DiagramaNolanPage() {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <span className="inline-block w-4 h-4 rounded-sm bg-red-500 mt-1 shrink-0" />
+                <span className="inline-block w-4 h-4 rounded-sm bg-yellow-400 mt-1 shrink-0" />
                 <div>
-                  <strong>Autoritario (rojo):</strong> Baja libertad económica +
+                  <strong>Autoritario (amarillo):</strong> Baja libertad económica +
                   baja libertad personal. Estado grande e intrusivo en todo.
                 </div>
               </div>
@@ -126,9 +126,9 @@ export default function DiagramaNolanPage() {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <span className="inline-block w-4 h-4 rounded-sm bg-yellow-400 mt-1 shrink-0" />
+                <span className="inline-block w-4 h-4 rounded-sm bg-red-500 mt-1 shrink-0" />
                 <div>
-                  <strong>Progresista (amarillo):</strong> Baja libertad económica
+                  <strong>Progresista (rojo):</strong> Baja libertad económica
                   + alta libertad personal. Intervención económica con libertad
                   social.
                 </div>

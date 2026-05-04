@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
-import { sugerencias, sugerenciasGeneros, generos } from "@/db/schema"
+import { sugerencias } from "@/db/schema"
 import { auth } from "@/lib/auth"
 import { eq, asc } from "drizzle-orm"
 
@@ -40,36 +40,25 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const { titulo, slug, nombresAlternativos, sinopsis, analisisPolitico, añoLanzamiento, imagenUrl, libertadEconomica, libertadPersonal, generoIds } = body
+  const { titulo, cuerpo } = body
 
-  if (!titulo || !slug || libertadEconomica == null || libertadPersonal == null) {
-    return NextResponse.json({ error: "Faltan campos requeridos" }, { status: 400 })
+  if (!titulo) {
+    return NextResponse.json({ error: "El título es requerido" }, { status: 400 })
   }
+
+  const slug = titulo.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
 
   const [sugerencia] = await db
     .insert(sugerencias)
     .values({
       titulo,
       slug,
-      nombresAlternativos: nombresAlternativos || [],
-      sinopsis: sinopsis || null,
-      analisisPolitico: analisisPolitico || null,
-      añoLanzamiento: añoLanzamiento || null,
-      imagenUrl: imagenUrl || null,
-      libertadEconomica,
-      libertadPersonal,
+      sinopsis: cuerpo || null,
+      libertadEconomica: 3,
+      libertadPersonal: 3,
       creadoPor: session.user.id,
     })
     .returning()
-
-  if (generoIds && generoIds.length > 0) {
-    await db.insert(sugerenciasGeneros).values(
-      generoIds.map((gid: number) => ({
-        sugerenciaId: sugerencia.id,
-        generoId: gid,
-      }))
-    )
-  }
 
   return NextResponse.json(sugerencia, { status: 201 })
 }
