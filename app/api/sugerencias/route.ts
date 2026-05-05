@@ -32,11 +32,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await auth.api.getSession({
-    headers: req.headers,
-  }).catch(() => null)
+  const [session, body] = await Promise.all([
+    auth.api.getSession({ headers: req.headers }).catch(() => null),
+    req.json(),
+  ])
 
-  const body = await req.json()
   const { titulo, cuerpo } = body
 
   if (!titulo) {

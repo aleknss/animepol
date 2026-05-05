@@ -15,7 +15,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL || "https://animepol.xyz";
+const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "https://www.animepol.xyz";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),

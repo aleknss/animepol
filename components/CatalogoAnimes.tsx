@@ -1,6 +1,6 @@
 'use client'; 
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { FilterIcon, XIcon } from 'lucide-react';
 import SearchBar from './search/SearchBar';
 import AnimeList from './anime/AnimeList';
@@ -34,12 +34,62 @@ function getIdeologia(eco: number, per: number): Ideologia {
   return "Progresista"
 }
 
+const SHUFFLE_KEY = "animepol-shuffle-v1"
+const SHUFFLE_TTL = 30 * 60 * 1000
+
+function shuffleIds(ids: number[]): number[] {
+  const copy = [...ids]
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[copy[i], copy[j]] = [copy[j], copy[i]]
+  }
+  return copy
+}
+
+function arraysMatch(a: number[], b: number[]): boolean {
+  if (a.length !== b.length) return false
+  const sa = [...a].sort((x, y) => x - y)
+  const sb = [...b].sort((x, y) => x - y)
+  return sa.every((v, i) => v === sb[i])
+}
+
+function loadShuffle() {
+  if (typeof window === "undefined") return null
+  try {
+    const raw = localStorage.getItem(SHUFFLE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed.ids) || typeof parsed.expiry !== "number") return null
+    if (parsed.expiry < Date.now()) return null
+    return parsed.ids as number[]
+  } catch {
+    return null
+  }
+}
+
+function saveShuffle(ids: number[]) {
+  localStorage.setItem(SHUFFLE_KEY, JSON.stringify({ ids, expiry: Date.now() + SHUFFLE_TTL }))
+}
+
 export default function CatalogoAnimes({ initialData }: Props) {
   const [busqueda, setBusqueda] = useState('');
   const [generosFiltro, setGenerosFiltro] = useState<number[]>([])
   const [ideologiasFiltro, setIdeologiasFiltro] = useState<Ideologia[]>([])
   const [mostrarFiltros, setMostrarFiltros] = useState(false)
   const { data: session } = useSession()
+  const [masterOrder, setMasterOrder] = useState<number[]>(() => initialData.map(a => a.id))
+
+  useEffect(() => {
+    const currentIds = initialData.map(a => a.id)
+    const stored = loadShuffle()
+    if (stored && arraysMatch(stored, currentIds)) {
+      setMasterOrder(stored)
+      return
+    }
+    const newOrder = shuffleIds(currentIds)
+    saveShuffle(newOrder)
+    setMasterOrder(newOrder)
+  }, [])
 
   const generos = useMemo(() => {
     const map = new Map<number, string>()
@@ -90,8 +140,13 @@ export default function CatalogoAnimes({ initialData }: Props) {
       )
     }
 
+    const orderMap = new Map(masterOrder.map((id, i) => [id, i]))
+    result = [...result].sort((a, b) => {
+      return (orderMap.get(a.id) ?? Infinity) - (orderMap.get(b.id) ?? Infinity)
+    })
+
     return result
-  }, [busqueda, initialData, generosFiltro, ideologiasFiltro])
+  }, [busqueda, initialData, generosFiltro, ideologiasFiltro, masterOrder])
 
   const limpiarFiltros = () => {
     setGenerosFiltro([])
