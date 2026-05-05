@@ -21,9 +21,6 @@ export async function GET(req: NextRequest) {
     where,
     with: {
       creadoPorUser: true,
-      sugerenciasGeneros: {
-        with: { genero: true },
-      },
     },
     orderBy: asc(sugerencias.creadoEn),
   })
@@ -31,11 +28,9 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(data)
 }
 
+
 export async function POST(req: NextRequest) {
-  const [session, body] = await Promise.all([
-    auth.api.getSession({ headers: req.headers }).catch(() => null),
-    req.json(),
-  ])
+  const body = await req.json()
 
   const { titulo, cuerpo } = body
 
@@ -51,9 +46,7 @@ export async function POST(req: NextRequest) {
       titulo,
       slug,
       sinopsis: cuerpo || null,
-      libertadEconomica: 3,
-      libertadPersonal: 3,
-      creadoPor: session?.user?.id ?? null,
+      creadoPor: null,
     })
     .returning()
 

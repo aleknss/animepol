@@ -164,50 +164,18 @@ export const sugerencias = pgTable('sugerencias', {
   id: serial('id').primaryKey(),
   titulo: varchar('titulo', { length: 255 }).notNull(),
   slug: varchar('slug', { length: 255 }).notNull(),
-  nombresAlternativos: text('nombres_alternativos').array().default([]),
   sinopsis: text('sinopsis'),
-  analisisPolitico: text('analisis_politico'),
-  añoLanzamiento: integer('año_lanzamiento'),
-  imagenUrl: text('imagen_url'),
-  libertadEconomica: integer('libertad_economica').notNull(),
-  libertadPersonal: integer('libertad_personal').notNull(),
   estado: estadoSugerenciaEnum('estado').notNull().default('pendiente'),
   creadoPor: text('creado_por').references(() => user.id, { onDelete: 'set null' }),
   creadoEn: timestamp('creado_en').defaultNow().notNull(),
 }, (table) => ({
   slugIdx: index('sugerencias_slug_idx').on(table.slug),
   estadoIdx: index('sugerencias_estado_idx').on(table.estado),
-  chkEconomica: check('sug_chk_libertad_econ', sql`${table.libertadEconomica} BETWEEN 1 AND 5`),
-  chkPersonal: check('sug_chk_libertad_pers', sql`${table.libertadPersonal} BETWEEN 1 AND 5`),
 }));
 
-export const sugerenciasGeneros = pgTable('sugerencias_generos', {
-  sugerenciaId: integer('sugerencia_id')
-    .notNull()
-    .references(() => sugerencias.id, { onDelete: 'cascade' }),
-  generoId: integer('genero_id')
-    .notNull()
-    .references(() => generos.id, { onDelete: 'cascade' }),
-}, (t) => ({
-  pk: primaryKey({ columns: [t.sugerenciaId, t.generoId] }),
-  generoIdIdx: index('sugerencias_generos_genero_id_idx').on(t.generoId),
-}));
-
-export const sugerenciasRelations = relations(sugerencias, ({ many, one }) => ({
-  sugerenciasGeneros: many(sugerenciasGeneros),
+export const sugerenciasRelations = relations(sugerencias, ({ one }) => ({
   creadoPorUser: one(user, {
     fields: [sugerencias.creadoPor],
     references: [user.id],
-  }),
-}));
-
-export const sugerenciasGenerosRelations = relations(sugerenciasGeneros, ({ one }) => ({
-  sugerencia: one(sugerencias, {
-    fields: [sugerenciasGeneros.sugerenciaId],
-    references: [sugerencias.id],
-  }),
-  genero: one(generos, {
-    fields: [sugerenciasGeneros.generoId],
-    references: [generos.id],
   }),
 }));

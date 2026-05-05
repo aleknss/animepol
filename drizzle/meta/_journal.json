@@ -50,6 +50,13 @@
       "when": 1777984335536,
       "tag": "0006_gigantic_doctor_doom",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1778005697564,
+      "tag": "0007_silky_korvac",
+      "breakpoints": true
     }
   ]
 }
