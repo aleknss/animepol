@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Spinner } from "@/components/ui/spinner"
+import SugerenciaSectionSkeleton from "./SugerenciaSectionSkeleton"
 import type { SugerenciaConRelaciones } from "@/lib/types"
 
 type Estado = "pendiente" | "completado" | "descartado"
@@ -28,10 +28,6 @@ export function SugerenciaSection() {
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<Estado | "todas">("todas")
   const [statusMsg, setStatusMsg] = useState("")
-
-  const [form, setForm] = useState({ titulo: "", cuerpo: "" })
-  const [formSubmitting, setFormSubmitting] = useState(false)
-  const [formError, setFormError] = useState("")
 
   const fetchTickets = useCallback(async () => {
     const params = filter !== "todas" ? `?estado=${filter}` : ""
@@ -58,29 +54,6 @@ export function SugerenciaSection() {
       setTimeout(() => setStatusMsg(""), 2000)
       fetchTickets()
     }
-  }
-
-  async function handleCreateSugerencia(e: React.FormEvent) {
-    e.preventDefault()
-    setFormError("")
-    setFormSubmitting(true)
-
-    const res = await fetch("/api/sugerencias", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    })
-
-    if (res.ok) {
-      setForm({ titulo: "", cuerpo: "" })
-      setStatusMsg("Sugerencia creada")
-      setTimeout(() => setStatusMsg(""), 2000)
-      fetchTickets()
-    } else {
-      const err = await res.json()
-      setFormError(err.error || "Error al crear")
-    }
-    setFormSubmitting(false)
   }
 
   return (
@@ -112,9 +85,7 @@ export function SugerenciaSection() {
       <Separator className="mb-4" />
 
       {loading ? (
-        <div className="flex justify-center py-12">
-          <Spinner className="size-6" />
-        </div>
+        <SugerenciaSectionSkeleton />
       ) : tickets.length === 0 ? (
         <p className="text-center text-muted-foreground py-12">
           No hay sugerencias {filter !== "todas" ? ESTADO_LABELS[filter].toLowerCase() + "s" : ""}
@@ -176,43 +147,6 @@ export function SugerenciaSection() {
           ))}
         </div>
       )}
-
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold">Enviar sugerencia</h2>
-      </div>
-
-      <Separator className="mb-4" />
-
-      <form onSubmit={handleCreateSugerencia} className="space-y-4 max-w-2xl">
-        {formError && (
-          <p className="text-sm text-destructive">{formError}</p>
-        )}
-
-        <div>
-          <label className="text-sm font-medium">Título *</label>
-          <Input
-            required
-            value={form.titulo}
-            onChange={(e) => setForm((p) => ({ ...p, titulo: e.target.value }))}
-            placeholder="¿Qué anime sugieres?"
-          />
-        </div>
-
-        <div>
-          <label className="text-sm font-medium">Cuerpo</label>
-          <textarea
-            rows={4}
-            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-            value={form.cuerpo}
-            onChange={(e) => setForm((p) => ({ ...p, cuerpo: e.target.value }))}
-            placeholder="Describe por qué debería añadirse este anime."
-          />
-        </div>
-
-        <Button type="submit" disabled={formSubmitting}>
-          {formSubmitting ? "Enviando..." : "Enviar sugerencia"}
-        </Button>
-      </form>
     </div>
   )
 }

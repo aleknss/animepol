@@ -9,6 +9,29 @@ import Image from 'next/image';
 import NolanChart from '@/components/nolan/NolanChart';
 import SpoilerText from '@/components/SpoilerText';
 
+type TextPart = { type: "text" | "spoiler"; content: string }
+
+function parseSpoilers(text: string): TextPart[] {
+  const parts: TextPart[] = []
+  const regex = /\(Spoiler\)\[([^\]]*)\]/g
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({ type: "text", content: text.slice(lastIndex, match.index) })
+    }
+    parts.push({ type: "spoiler", content: match[1] })
+    lastIndex = regex.lastIndex
+  }
+
+  if (lastIndex < text.length) {
+    parts.push({ type: "text", content: text.slice(lastIndex) })
+  }
+
+  return parts
+}
+
 export default async function AnimePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const anime = await db.query.animes.findFirst({
@@ -85,35 +108,35 @@ export default async function AnimePage({ params }: { params: Promise<{ slug: st
             <Separator className="mb-8" />
             <div className="space-y-10">
               <section>
-                  <p className="text-muted-foreground leading-relaxed font-medium">
-                    {anime.sinopsis}
-                  </p>
+                {anime.sinopsis ? (
+                  <div className="text-muted-foreground leading-relaxed font-medium whitespace-pre-line">
+                    {parseSpoilers(anime.sinopsis).map((part, i) =>
+                      part.type === "spoiler" ? (
+                        <SpoilerText key={i}>{part.content}</SpoilerText>
+                      ) : (
+                        part.content
+                      )
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-muted-foreground italic">Sin sinopsis disponible.</p>
+                )}
               </section>
 
                 <h2 className="text-xl font-black text-foreground mb-4">
                   Análisis
                 </h2>
-                {anime.analisisPolitico ? (() => {
-                  const lines = anime.analisisPolitico.split(/\r?\n/);
-                  const firstLine = lines[0] || "";
-                  const rest = lines.slice(1).join("\n");
-                  return (
-                    <>
-                      {firstLine && (
-                        <p className="text-lg leading-relaxed text-foreground/80 whitespace-pre-line">
-                          &ldquo;{firstLine}&rdquo;
-                        </p>
-                      )}
-                      {rest && (
-                        <SpoilerText>
-                          <p className="text-lg leading-relaxed text-foreground/80 whitespace-pre-line">
-                            {rest}
-                          </p>
-                        </SpoilerText>
-                      )}
-                    </>
-                  );
-                })() : (
+                {anime.analisisPolitico ? (
+                  <div className="text-lg leading-relaxed text-foreground/80 whitespace-pre-line">
+                    {parseSpoilers(anime.analisisPolitico).map((part, i) =>
+                      part.type === "spoiler" ? (
+                        <SpoilerText key={i}>{part.content}</SpoilerText>
+                      ) : (
+                        part.content
+                      )
+                    )}
+                  </div>
+                ) : (
                   <p className="text-muted-foreground italic">Sin análisis disponible.</p>
                 )}
             </div>

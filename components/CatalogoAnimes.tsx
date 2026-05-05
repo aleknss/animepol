@@ -1,6 +1,7 @@
 'use client'; 
 
 import { useState, useMemo } from 'react';
+import { FilterIcon, XIcon } from 'lucide-react';
 import SearchBar from './search/SearchBar';
 import AnimeList from './anime/AnimeList';
 import ThemeToggle from './theme/ThemeToggle';
@@ -10,6 +11,7 @@ import { DiagramaNolanIcon } from './nolan/DiagramaNolanIcon';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import Creditos from './Creditos';
+import { useSession } from '@/lib/auth-client';
 
 interface Props {
   initialData: AnimeConGeneros[]; 
@@ -36,6 +38,8 @@ export default function CatalogoAnimes({ initialData }: Props) {
   const [busqueda, setBusqueda] = useState('');
   const [generosFiltro, setGenerosFiltro] = useState<number[]>([])
   const [ideologiasFiltro, setIdeologiasFiltro] = useState<Ideologia[]>([])
+  const [mostrarFiltros, setMostrarFiltros] = useState(false)
+  const { data: session } = useSession()
 
   const generos = useMemo(() => {
     const map = new Map<number, string>()
@@ -97,9 +101,16 @@ export default function CatalogoAnimes({ initialData }: Props) {
 
   return (
     <div className="min-h-screen bg-background py-6 px-4">
-      <div className='top-6 max-w-6xl m-auto flex justify-between'>
-      <Creditos />
-      <ThemeToggle />
+      <div className='top-6 max-w-6xl m-auto flex justify-between items-center'>
+        <Creditos />
+        <div className='flex items-center gap-2'>
+          {session ? (
+            <Link href="/dashboard">
+              <Button variant="outline" size="xs">Dashboard</Button>
+            </Link>
+          ) : null}
+          <ThemeToggle />
+        </div>
       </div>
       <div className="text-center mb-10">
         <img
@@ -130,56 +141,74 @@ export default function CatalogoAnimes({ initialData }: Props) {
 
       <SearchBar busqueda={busqueda} alCambiar={setBusqueda} />
 
-      <div className="max-w-6xl mx-auto mb-6 space-y-4">
-        <div className="space-y-2">
-          <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">Géneros</p>
-          <div className="flex flex-wrap gap-1.5">
-            {generos.map(([id, nombre]) => (
-              <Badge
-                key={id}
-                variant={generosFiltro.includes(id) ? "default" : "outline"}
-                className="cursor-pointer transition-colors"
-                onClick={() => toggleGenero(id)}
-              >
-                {nombre}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">Ideología</p>
-          <div className="flex flex-wrap gap-1.5">
-            {(Object.keys(IDEO_COLORS) as Ideologia[]).map((id) => {
-              const active = ideologiasFiltro.includes(id)
-              return (
-                <button
-                  key={id}
-                  onClick={() => toggleIdeologia(id)}
-                  className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer border ${
-                    active
-                      ? `${IDEO_COLORS[id].bg} ${IDEO_COLORS[id].text} border-current`
-                      : "bg-muted/50 text-muted-foreground hover:bg-muted border-transparent"
-                  }`}
-                >
-                  {id}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-
-        {filtrosActivos && (
-          <div className="flex items-center gap-2 pt-1">
-            <span className="text-xs text-muted-foreground">
-              {animesFiltrados.length} resultado{animesFiltrados.length !== 1 ? 's' : ''}
+      <div className="max-w-6xl mx-auto mb-6">
+        <Button
+          variant={mostrarFiltros ? "secondary" : "outline"}
+          size="default"
+          onClick={() => setMostrarFiltros(prev => !prev)}
+        >
+          {mostrarFiltros ? <XIcon className="size-4" /> : <FilterIcon className="size-4" />}
+          Filtros
+          {filtrosActivos ? (
+            <span className="ml-1 bg-primary text-primary-foreground rounded-full min-w-5 h-5 inline-flex items-center justify-center text-[11px] px-1 leading-none">
+              {generosFiltro.length + ideologiasFiltro.length}
             </span>
-            <Button size="xs" variant="ghost" onClick={limpiarFiltros}>
-              Limpiar filtros
-            </Button>
-          </div>
-        )}
+          ) : null}
+        </Button>
       </div>
+
+      {mostrarFiltros && (
+        <div className="max-w-6xl mx-auto mb-6 space-y-4">
+          <div className="space-y-2">
+            <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">Géneros</p>
+            <div className="flex flex-wrap gap-1.5">
+              {generos.map(([id, nombre]) => (
+                <Badge
+                  key={id}
+                  variant={generosFiltro.includes(id) ? "default" : "outline"}
+                  className="cursor-pointer transition-colors"
+                  onClick={() => toggleGenero(id)}
+                >
+                  {nombre}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">Ideología</p>
+            <div className="flex flex-wrap gap-1.5">
+              {(Object.keys(IDEO_COLORS) as Ideologia[]).map((id) => {
+                const active = ideologiasFiltro.includes(id)
+                return (
+                  <button
+                    key={id}
+                    onClick={() => toggleIdeologia(id)}
+                    className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer border ${
+                      active
+                        ? `${IDEO_COLORS[id].bg} ${IDEO_COLORS[id].text} border-current`
+                        : "bg-muted/50 text-muted-foreground hover:bg-muted border-transparent"
+                    }`}
+                  >
+                    {id}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {filtrosActivos && (
+            <div className="flex items-center gap-2 pt-1">
+              <span className="text-xs text-muted-foreground">
+                {animesFiltrados.length} resultado{animesFiltrados.length !== 1 ? 's' : ''}
+              </span>
+              <Button size="xs" variant="ghost" onClick={limpiarFiltros}>
+                Limpiar filtros
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="mt-10">
         <AnimeList animes={animesFiltrados} />

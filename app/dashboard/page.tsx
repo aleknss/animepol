@@ -4,10 +4,11 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useSession, signOut } from "@/lib/auth-client"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
-import { Spinner } from "@/components/ui/spinner"
 import { AnimeCrudSection } from "@/components/dashboard/AnimeCrudSection"
 import { SugerenciaSection } from "@/components/dashboard/SugerenciaSection"
+import DashboardSkeleton from "@/components/dashboard/DashboardSkeleton"
 
 type Tab = "animes" | "sugerencias"
 
@@ -23,16 +24,15 @@ export default function DashboardPage() {
   }, [session, sessionLoading, router])
 
   if (sessionLoading || !session) {
-    return (
-      <div className="flex min-h-[80vh] items-center justify-center">
-        <Spinner className="size-8" />
-      </div>
-    )
+    return <DashboardSkeleton />
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8">
+    <div className="mx-auto w-5xl px-4 py-8">
       <div className="flex items-center justify-between mb-6">
+        <Link href="/">
+            <Button variant="outline">← Catálogo</Button>
+          </Link>
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="text-sm text-muted-foreground">

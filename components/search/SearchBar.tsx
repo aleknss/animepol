@@ -33,7 +33,7 @@ export default function SearchBar({ busqueda, alCambiar }: SearchBarProps) {
         placeholder="Buscar por título o alias..."
         value={busqueda}
         onChange={(e) => alCambiar(e.target.value)}
-        className="h-12 pl-4 pr-28 text-lg bg-white shadow-lg shadow-white/40 dark:bg-gray-800 dark:shadow-black/40"
+        className="h-12 pl-4 pr-28 text-lg bg-card shadow-lg dark:bg-gray-800 dark:shadow-black/40"
       />
       <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2 text-muted-foreground">
         <div className="relative size-5">

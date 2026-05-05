@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Spinner } from "@/components/ui/spinner"
+import AnimeCrudSectionSkeleton from "./AnimeCrudSectionSkeleton"
 import {
   Dialog, DialogTrigger, DialogPortal, DialogBackdrop,
   DialogPopup, DialogClose, DialogTitle,
@@ -204,11 +204,7 @@ export function AnimeCrudSection() {
     : animes
 
   if (loading) {
-    return (
-      <div className="flex justify-center py-12">
-        <Spinner className="size-6" />
-      </div>
-    )
+    return <AnimeCrudSectionSkeleton />
   }
 
   return (
