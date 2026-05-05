@@ -1,8 +1,7 @@
 "use client"
 
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -30,18 +29,23 @@ export function SugerenciaSection() {
   const [statusMsg, setStatusMsg] = useState("")
 
   const fetchTickets = useCallback(async () => {
-    const params = filter !== "todas" ? `?estado=${filter}` : ""
-    const res = await fetch(`/api/sugerencias${params}`)
+    setLoading(true)
+    const res = await fetch("/api/sugerencias")
     if (res.ok) {
       const data = await res.json()
       setTickets(data)
     }
     setLoading(false)
-  }, [filter])
+  }, [])
 
   useEffect(() => {
     fetchTickets()
-  }, [filter, fetchTickets])
+  }, [fetchTickets])
+
+  const filteredTickets = useMemo(() => {
+    if (filter === "todas") return tickets
+    return tickets.filter((t) => t.estado === filter)
+  }, [tickets, filter])
 
   async function handleStatusChange(id: number, estado: Estado) {
     const res = await fetch(`/api/sugerencias/${id}`, {
@@ -65,7 +69,7 @@ export function SugerenciaSection() {
       )}
 
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold">Sugerencias ({tickets.length})</h2>
+        <h2 className="text-lg font-semibold">Sugerencias ({filteredTickets.length})</h2>
         <div className="flex gap-1">
           {(["todas", "pendiente", "completado", "descartado"] as const).map(
             (f) => (
@@ -86,13 +90,13 @@ export function SugerenciaSection() {
 
       {loading ? (
         <SugerenciaSectionSkeleton />
-      ) : tickets.length === 0 ? (
+      ) : filteredTickets.length === 0 ? (
         <p className="text-center text-muted-foreground py-12">
           No hay sugerencias {filter !== "todas" ? ESTADO_LABELS[filter].toLowerCase() + "s" : ""}
         </p>
       ) : (
         <div className="flex flex-col gap-3 mb-8">
-          {tickets.map((ticket) => (
+          {filteredTickets.map((ticket) => (
             <Card key={ticket.id}>
               <CardContent className="py-3">
                 <div className="flex items-start justify-between gap-4">
