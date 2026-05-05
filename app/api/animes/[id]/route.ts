@@ -3,6 +3,7 @@ import { db } from "@/lib/db"
 import { animes, animesGeneros } from "@/db/schema"
 import { auth } from "@/lib/auth"
 import { eq } from "drizzle-orm"
+import { revalidatePath } from "next/cache"
 
 export async function PUT(
   req: NextRequest,
@@ -50,6 +51,7 @@ export async function PUT(
     }
   }
 
+  revalidatePath("/")
   return NextResponse.json({ success: true })
 }
 
@@ -67,5 +69,6 @@ export async function DELETE(
   const { id } = await params
   await db.delete(animes).where(eq(animes.id, parseInt(id)))
 
+  revalidatePath("/")
   return NextResponse.json({ success: true })
 }

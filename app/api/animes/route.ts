@@ -3,6 +3,7 @@ import { db } from "@/lib/db"
 import { animes, animesGeneros } from "@/db/schema"
 import { auth } from "@/lib/auth"
 import { asc } from "drizzle-orm"
+import { revalidatePath } from "next/cache"
 
 export async function GET() {
   const data = await db.query.animes.findMany({
@@ -56,5 +57,6 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  revalidatePath("/")
   return NextResponse.json(anime, { status: 201 })
 }

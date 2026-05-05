@@ -109,7 +109,7 @@ export function SugerenciaSection() {
                       </p>
                     )}
                     <p className="text-xs text-muted-foreground mt-1">
-                      por {ticket.creadoPorUser?.name || ticket.creadoPorUser?.email}
+                      por {ticket.creadoPorUser?.name || ticket.creadoPorUser?.email || "Anónimo"}
                     </p>
                   </div>
                   <div className="flex gap-1 shrink-0">

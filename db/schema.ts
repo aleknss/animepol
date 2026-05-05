@@ -172,7 +172,7 @@ export const sugerencias = pgTable('sugerencias', {
   libertadEconomica: integer('libertad_economica').notNull(),
   libertadPersonal: integer('libertad_personal').notNull(),
   estado: estadoSugerenciaEnum('estado').notNull().default('pendiente'),
-  creadoPor: text('creado_por').notNull().references(() => user.id, { onDelete: 'cascade' }),
+  creadoPor: text('creado_por').references(() => user.id, { onDelete: 'set null' }),
   creadoEn: timestamp('creado_en').defaultNow().notNull(),
 }, (table) => ({
   slugIdx: index('sugerencias_slug_idx').on(table.slug),

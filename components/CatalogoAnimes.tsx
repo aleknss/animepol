@@ -73,7 +73,8 @@ export default function CatalogoAnimes({ initialData }: Props) {
         const coincideAlias = anime.nombresAlternativos?.some((alias) =>
           alias.toLowerCase().includes(term)
         )
-        return coincideTitulo || coincideAlias
+        const coincideAño = anime.añoLanzamiento?.toString().includes(term)
+        return coincideTitulo || coincideAlias || coincideAño
       })
     }
 

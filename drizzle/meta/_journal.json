@@ -43,6 +43,13 @@
       "when": 1777738588599,
       "tag": "0005_awesome_nick_fury",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1777984335536,
+      "tag": "0006_gigantic_doctor_doom",
+      "breakpoints": true
     }
   ]
 }

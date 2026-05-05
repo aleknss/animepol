@@ -190,7 +190,8 @@ export function AnimeCrudSection() {
         return (
           a.titulo.toLowerCase().includes(q) ||
           a.slug.toLowerCase().includes(q) ||
-          a.nombresAlternativos?.some((n) => n.toLowerCase().includes(q))
+          a.nombresAlternativos?.some((n) => n.toLowerCase().includes(q)) ||
+          a.añoLanzamiento?.toString().includes(q)
         )
       })
     : animes

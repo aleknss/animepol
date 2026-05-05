@@ -34,10 +34,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const session = await auth.api.getSession({
     headers: req.headers,
-  })
-  if (!session) {
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 })
-  }
+  }).catch(() => null)
 
   const body = await req.json()
   const { titulo, cuerpo } = body
@@ -56,7 +53,7 @@ export async function POST(req: NextRequest) {
       sinopsis: cuerpo || null,
       libertadEconomica: 3,
       libertadPersonal: 3,
-      creadoPor: session.user.id,
+      creadoPor: session?.user?.id ?? null,
     })
     .returning()
 
