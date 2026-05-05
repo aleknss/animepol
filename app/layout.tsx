@@ -15,9 +15,49 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL || "https://animepol.xyz";
+
 export const metadata: Metadata = {
-  title: "animepol",
-  description: "animepol",
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: "Animepol — Catálogo de anime con análisis político",
+    template: "%s | Animepol",
+  },
+  description:
+    "Catálogo de anime con análisis político. Explora series y películas evaluadas en los ejes de libertad económica y personal según el diagrama de Nolan.",
+  keywords: [
+    "anime",
+    "política",
+    "libertad",
+    "diagrama de Nolan",
+    "análisis político",
+    "catálogo de anime",
+    "libertad económica",
+    "libertad personal",
+  ],
+  authors: [{ name: "Animepol" }, { name: "Alek Suso" }],
+  creator: "Alek Suso",
+  publisher: "Animepol",
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    siteName: "Animepol",
+    title: "Animepol — Catálogo de anime con análisis político",
+    description:
+      "Explora series y películas evaluadas en los ejes de libertad económica y personal según el diagrama de Nolan.",
+    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Animepol — Catálogo de anime con análisis político",
+    description:
+      "Explora series y películas evaluadas en los ejes de libertad económica y personal.",
+    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" }],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -46,6 +86,20 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Analytics />
         <ThemeProvider>{children}</ThemeProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Animepol",
+              url: baseUrl,
+              description:
+                "Catálogo de anime con análisis político basado en el diagrama de Nolan.",
+              inLanguage: "es",
+            }),
+          }}
+        />
       </body>
     </html>
   );
