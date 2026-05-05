@@ -9,19 +9,10 @@ import { Input } from "@/components/ui/input"
 import { Spinner } from "@/components/ui/spinner"
 
 export default function SugerirPage() {
-  const { data: session, isPending: sessionLoading } = useSession()
-  const router = useRouter()
-
   const [form, setForm] = useState({ titulo: "", cuerpo: "" })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
-
-  useEffect(() => {
-    if (!sessionLoading && !session) {
-      router.push("/login")
-    }
-  }, [session, sessionLoading, router])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -41,14 +32,6 @@ export default function SugerirPage() {
       setError(err.error || "Error al enviar la sugerencia")
     }
     setSubmitting(false)
-  }
-
-  if (sessionLoading || !session) {
-    return (
-      <div className="flex min-h-[80vh] items-center justify-center">
-        <Spinner className="size-8" />
-      </div>
-    )
   }
 
   if (success) {
