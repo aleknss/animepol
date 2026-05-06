@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { db } from '@/lib/db';
+import { generos } from '@/db/schema';
+import { asc } from 'drizzle-orm';
 import CatalogoAnimes from '@/components/CatalogoAnimes';
 
 export const metadata: Metadata = {
@@ -21,13 +23,16 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const data = await db.query.animes.findMany({
-    with: {
-      animesGeneros: {
-        with: { genero: true },
+  const [data, allGeneros] = await Promise.all([
+    db.query.animes.findMany({
+      with: {
+        animesGeneros: {
+          with: { genero: true },
+        },
       },
-    },
-  });
+    }),
+    db.select().from(generos).orderBy(asc(generos.nombre)),
+  ]);
 
-  return <CatalogoAnimes initialData={data} />;
+  return <CatalogoAnimes initialData={data} allGeneros={allGeneros} />;
 }

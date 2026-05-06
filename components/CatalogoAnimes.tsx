@@ -5,7 +5,7 @@ import { FilterIcon, XIcon } from 'lucide-react';
 import SearchBar from './search/SearchBar';
 import AnimeList from './anime/AnimeList';
 import ThemeToggle from './theme/ThemeToggle';
-import { AnimeConGeneros } from '@/lib/types';
+import { AnimeConGeneros, Genero } from '@/lib/types';
 import Link from 'next/link';
 import { DiagramaNolanIcon } from './nolan/DiagramaNolanIcon';
 import { Button } from './ui/button';
@@ -14,7 +14,8 @@ import Creditos from './Creditos';
 import { useSession } from '@/lib/auth-client';
 
 interface Props {
-  initialData: AnimeConGeneros[]; 
+  initialData: AnimeConGeneros[];
+  allGeneros: Genero[];
 }
 
 type Ideologia = "Libertario" | "Autoritario" | "Conservador" | "Progresista"
@@ -71,7 +72,7 @@ function saveShuffle(ids: number[]) {
   localStorage.setItem(SHUFFLE_KEY, JSON.stringify({ ids, expiry: Date.now() + SHUFFLE_TTL }))
 }
 
-export default function CatalogoAnimes({ initialData }: Props) {
+export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
   const [busqueda, setBusqueda] = useState('');
   const [generosFiltro, setGenerosFiltro] = useState<number[]>([])
   const [ideologiasFiltro, setIdeologiasFiltro] = useState<Ideologia[]>([])
@@ -90,16 +91,6 @@ export default function CatalogoAnimes({ initialData }: Props) {
     saveShuffle(newOrder)
     setMasterOrder(newOrder)
   }, [])
-
-  const generos = useMemo(() => {
-    const map = new Map<number, string>()
-    for (const anime of initialData) {
-      for (const ag of anime.animesGeneros || []) {
-        if (!map.has(ag.generoId)) map.set(ag.generoId, ag.genero.nombre)
-      }
-    }
-    return Array.from(map.entries()).sort((a, b) => a[1].localeCompare(b[1]))
-  }, [initialData])
 
   const toggleGenero = (id: number) => {
     setGenerosFiltro(prev =>
@@ -218,14 +209,14 @@ export default function CatalogoAnimes({ initialData }: Props) {
           <div className="space-y-2">
             <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">Géneros</p>
             <div className="flex flex-wrap gap-1.5">
-              {generos.map(([id, nombre]) => (
+              {allGeneros.map((g) => (
                 <Badge
-                  key={id}
-                  variant={generosFiltro.includes(id) ? "default" : "outline"}
+                  key={g.id}
+                  variant={generosFiltro.includes(g.id) ? "default" : "outline"}
                   className="cursor-pointer transition-colors"
-                  onClick={() => toggleGenero(id)}
+                  onClick={() => toggleGenero(g.id)}
                 >
-                  {nombre}
+                  {g.nombre}
                 </Badge>
               ))}
             </div>

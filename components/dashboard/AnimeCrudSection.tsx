@@ -62,23 +62,22 @@ export function AnimeCrudSection() {
     if (res.ok) {
       const data: AnimeConGeneros[] = await res.json()
       setAnimes(data)
-
-      const allGenres = new Map<string, Genero>()
-      for (const anime of data) {
-        for (const ag of anime.animesGeneros || []) {
-          if (ag.genero && !allGenres.has(ag.genero.nombre)) {
-            allGenres.set(ag.genero.nombre, ag.genero)
-          }
-        }
-      }
-      setGeneros(Array.from(allGenres.values()))
     }
     setLoading(false)
   }, [])
 
+  const fetchGeneros = useCallback(async () => {
+    const res = await fetch("/api/generos")
+    if (res.ok) {
+      const data: Genero[] = await res.json()
+      setGeneros(data)
+    }
+  }, [])
+
   useEffect(() => {
     fetchAnimes()
-  }, [fetchAnimes])
+    fetchGeneros()
+  }, [fetchAnimes, fetchGeneros])
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault()
