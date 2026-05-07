@@ -153,7 +153,7 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
         <div className='flex items-center gap-2'>
           {session ? (
             <Link href="/dashboard">
-              <Button variant="outline" size="xs">Dashboard</Button>
+              <Button variant="outline">Dashboard</Button>
             </Link>
           ) : null}
           <ThemeToggle />
