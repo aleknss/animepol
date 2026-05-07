@@ -7,14 +7,12 @@ async function insertarGenerosBase() {
   const listaGeneros = [
     { nombre: "Shonen" },
     { nombre: "Seinen" },
-    { nombre: "Shojo" },
-    { nombre: "Josei" },
     { nombre: "Isekai" },
     { nombre: "Mecha" },
     { nombre: "Cyberpunk" },
     { nombre: "Slice of Life" },
     { nombre: "Fantasía" },
-    { nombre: "Sci-Fi (Ciencia Ficción)" },
+    { nombre: "Ciencia Ficción" },
     { nombre: "Acción" },
     { nombre: "Aventura" },
     { nombre: "Drama" },
@@ -22,9 +20,13 @@ async function insertarGenerosBase() {
     { nombre: "Romance" },
     { nombre: "Misterio" },
     { nombre: "Terror / Horror" },
-    { nombre: "Deportes (Spokon)" },
+    { nombre: "Spokon" },
     { nombre: "Magia" },
     { nombre: "Psicológico" },
+    { nombre: "Thriller" },
+    { nombre: "Sobrenatural" },
+    { nombre: "Gore" },
+    { nombre: "Espacial" },
   ];
 
   try {

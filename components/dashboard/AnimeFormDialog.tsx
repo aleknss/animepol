@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -42,6 +43,9 @@ export function AnimeFormDialog({
   const maxH = isCreate ? "max-h-[70vh]" : "max-h-[85vh]"
   const textareaResize = isCreate ? "" : "resize-y"
 
+  const [uploading, setUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
   function toggleGenero(id: number) {
     setForm((prev) => ({
       ...prev,
@@ -49,6 +53,67 @@ export function AnimeFormDialog({
         ? prev.generoIds.filter((g) => g !== id)
         : [...prev.generoIds, id],
     }))
+  }
+
+  function compressImage(file: File): Promise<File> {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      const url = URL.createObjectURL(file)
+      img.onload = () => {
+        URL.revokeObjectURL(url)
+        const MAX_W = 1200
+        const MAX_H = 1800
+        let { width, height } = img
+        if (width > MAX_W) {
+          height = Math.round(height * (MAX_W / width))
+          width = MAX_W
+        }
+        if (height > MAX_H) {
+          width = Math.round(width * (MAX_H / height))
+          height = MAX_H
+        }
+        const canvas = document.createElement("canvas")
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext("2d")!
+        ctx.drawImage(img, 0, 0, width, height)
+        const isPng = file.type === "image/png"
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) return reject(new Error("Compression failed"))
+            const name = file.name.replace(/\.[^.]+$/, isPng ? ".png" : ".jpg")
+            resolve(new File([blob], name, { type: isPng ? "image/png" : "image/jpeg" }))
+          },
+          isPng ? "image/png" : "image/jpeg",
+          0.75
+        )
+      }
+      img.onerror = () => reject(new Error("Failed to load image"))
+      img.src = url
+    })
+  }
+
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const compressed = await compressImage(file)
+      const fd = new FormData()
+      fd.append("file", compressed)
+      const res = await fetch("/api/upload", { method: "POST", body: fd })
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || "Error al subir")
+      }
+      const data = await res.json()
+      setForm((p) => ({ ...p, imagenUrl: data.url }))
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Error al subir imagen")
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ""
+    }
   }
 
   return (
@@ -111,21 +176,61 @@ export function AnimeFormDialog({
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-sm font-medium">{isCreate ? "Año de lanzamiento" : "Año"}</label>
-                <Input
-                  type="number"
-                  value={form.añoLanzamiento}
-                  onChange={(e) => setForm((p) => ({ ...p, añoLanzamiento: e.target.value }))}
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium">URL de imagen</label>
-                <Input
-                  value={form.imagenUrl}
-                  onChange={(e) => setForm((p) => ({ ...p, imagenUrl: e.target.value }))}
-                />
+            <div>
+              <label className="text-sm font-medium">{isCreate ? "Año de lanzamiento" : "Año"}</label>
+              <Input
+                type="number"
+                value={form.añoLanzamiento}
+                onChange={(e) => setForm((p) => ({ ...p, añoLanzamiento: e.target.value }))}
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Imagen</label>
+              <div className="flex gap-3 items-start">
+                {form.imagenUrl && (
+                  <img
+                    src={form.imagenUrl}
+                    alt="Preview"
+                    className="w-16 h-20 object-cover rounded border border-border shrink-0"
+                  />
+                )}
+                <div className="flex-1 space-y-2">
+                  <div className="flex gap-2">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleFileChange}
+                    />
+                    <Button
+                      type="button"
+                      size="xs"
+                      variant="outline"
+                      disabled={uploading}
+                      onClick={() => fileInputRef.current?.click()}
+                    >
+                      {uploading ? "Subiendo..." : "Subir archivo"}
+                    </Button>
+                    {form.imagenUrl && (
+                      <Button
+                        type="button"
+                        size="xs"
+                        variant="ghost"
+                        className="text-muted-foreground"
+                        onClick={() => setForm((p) => ({ ...p, imagenUrl: "" }))}
+                      >
+                        Quitar
+                      </Button>
+                    )}
+                  </div>
+                  <Input
+                    value={form.imagenUrl}
+                    onChange={(e) => setForm((p) => ({ ...p, imagenUrl: e.target.value }))}
+                    placeholder="O pega una URL"
+                  />
+                </div>
               </div>
             </div>
 

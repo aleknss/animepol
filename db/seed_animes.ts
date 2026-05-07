@@ -290,7 +290,7 @@ Frente a esto, Miyuki Shirogane encarna el ideal del "self-made man" liberal. Su
       añoLanzamiento: 2019,
       libertadEconomica: 4,
       libertadPersonal: 3,
-      generos: ["Comedia", "Romance", "Psicológico", "Recuentos de la vida"],
+      generos: ["Comedia", "Romance", "Psicológico", "Slice of Life"],
     },
     {
       titulo: "Koe no Katachi",
@@ -352,7 +352,7 @@ Finalmente, la película propone una filosofía de la empatía radical como úni
       añoLanzamiento: 2000,
       libertadEconomica: 5,
       libertadPersonal: 4,
-      generos: ["Deportes", "Acción", "Comedia", "Drama"],
+      generos: ["Spokon", "Acción", "Comedia", "Drama"],
     },
     {
       titulo: "Mob Psycho 100",
@@ -375,7 +375,7 @@ Finalmente, la película propone una filosofía de la empatía radical como úni
         "Comedia",
         "Sobrenatural",
         "Psicológico",
-        "Recuentos de la vida",
+        "Slice of Life",
       ],
     },
     {
