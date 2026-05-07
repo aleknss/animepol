@@ -55,22 +55,20 @@ export function AnimeFormDialog({
     }))
   }
 
-  function compressImage(file: File): Promise<File> {
+  function slugify(s: string): string {
+    return s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "").replace(/-+/g, "-").replace(/^-|-$/g, "")
+  }
+
+  function compressImage(file: File, maxW: number, quality: number): Promise<File> {
     return new Promise((resolve, reject) => {
       const img = new Image()
       const url = URL.createObjectURL(file)
       img.onload = () => {
         URL.revokeObjectURL(url)
-        const MAX_W = 1200
-        const MAX_H = 1800
         let { width, height } = img
-        if (width > MAX_W) {
-          height = Math.round(height * (MAX_W / width))
-          width = MAX_W
-        }
-        if (height > MAX_H) {
-          width = Math.round(width * (MAX_H / height))
-          height = MAX_H
+        if (width > maxW) {
+          height = Math.round(height * (maxW / width))
+          width = maxW
         }
         const canvas = document.createElement("canvas")
         canvas.width = width
@@ -85,7 +83,7 @@ export function AnimeFormDialog({
             resolve(new File([blob], name, { type: isPng ? "image/png" : "image/jpeg" }))
           },
           isPng ? "image/png" : "image/jpeg",
-          0.75
+          quality
         )
       }
       img.onerror = () => reject(new Error("Failed to load image"))
@@ -93,14 +91,25 @@ export function AnimeFormDialog({
     })
   }
 
+  function getUploadSlug(): string {
+    const s = form.slug || slugify(form.titulo)
+    return s || `${Date.now()}`
+  }
+
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
     try {
-      const compressed = await compressImage(file)
+      const slug = getUploadSlug()
+      const [full, thumb] = await Promise.all([
+        compressImage(file, 1200, 0.8),
+        compressImage(file, 250, 0.65),
+      ])
       const fd = new FormData()
-      fd.append("file", compressed)
+      fd.append("file", full)
+      fd.append("thumb", thumb)
+      fd.append("slug", slug)
       const res = await fetch("/api/upload", { method: "POST", body: fd })
       if (!res.ok) {
         const err = await res.json()
@@ -108,6 +117,9 @@ export function AnimeFormDialog({
       }
       const data = await res.json()
       setForm((p) => ({ ...p, imagenUrl: data.url }))
+      if (!form.slug && slug) {
+        setForm((p) => (p.slug ? p : { ...p, slug }))
+      }
     } catch (err) {
       alert(err instanceof Error ? err.message : "Error al subir imagen")
     } finally {

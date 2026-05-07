@@ -14,6 +14,10 @@ import type { AnimeConGeneros, Genero } from "@/lib/types"
 const renderEstrellas = (puntos: number) =>
   "\u2605".repeat(puntos) + "\u2606".repeat(5 - puntos)
 
+function getThumbUrl(url: string): string {
+  return url.replace(/(\.\w+)$/, "-thumb$1")
+}
+
 export type AnimeFormData = {
   titulo: string
   slug: string
@@ -237,7 +241,7 @@ export function AnimeCrudSection() {
                   <div className="relative w-14 h-20 rounded-md overflow-hidden shrink-0 bg-muted border border-border/50">
                     {anime.imagenUrl ? (
                       <Image
-                        src={anime.imagenUrl}
+                        src={getThumbUrl(anime.imagenUrl)}
                         alt={anime.titulo}
                         fill
                         className="object-cover"
