@@ -2,13 +2,19 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import dynamic from "next/dynamic"
 import { useSession, signOut } from "@/lib/auth-client"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
-import { AnimeCrudSection } from "@/components/dashboard/AnimeCrudSection"
-import { SugerenciaSection } from "@/components/dashboard/SugerenciaSection"
 import DashboardSkeleton from "@/components/dashboard/DashboardSkeleton"
+
+const AnimeCrudSection = dynamic(() => import("@/components/dashboard/AnimeCrudSection").then(m => ({ default: m.AnimeCrudSection })), {
+  loading: () => <DashboardSkeleton />
+})
+const SugerenciaSection = dynamic(() => import("@/components/dashboard/SugerenciaSection").then(m => ({ default: m.SugerenciaSection })), {
+  loading: () => <DashboardSkeleton />
+})
 
 type Tab = "animes" | "sugerencias"
 

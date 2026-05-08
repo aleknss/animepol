@@ -94,6 +94,7 @@ export default function RootLayout({
         <link
           rel="preconnect"
           href="https://eoexiosolkkesdwxljbv.supabase.co"
+          crossOrigin="anonymous"
         />
       </head>
       <body className="min-h-full flex flex-col">

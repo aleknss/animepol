@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { cn } from "@/lib/utils";
 
 interface MiniNolanChartProps {
@@ -12,7 +13,7 @@ function calcularPosicion(eco: number, pers: number) {
   return { x, y };
 }
 
-export default function MiniNolanChart({ eco, pers, className }: MiniNolanChartProps) {
+const MiniNolanChart = memo(function MiniNolanChart({ eco, pers, className }: MiniNolanChartProps) {
   const { x: dotX, y: dotY } = calcularPosicion(eco, pers);
 
   return (
@@ -54,4 +55,6 @@ export default function MiniNolanChart({ eco, pers, className }: MiniNolanChartP
       </svg>
     </div>
   );
-}
+});
+
+export default MiniNolanChart;

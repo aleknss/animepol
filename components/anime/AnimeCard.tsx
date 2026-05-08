@@ -1,4 +1,5 @@
 "use client";
+import { memo } from "react";
 import Link from "next/link";
 import { AnimeCatalogo } from "@/lib/types";
 import Image from "next/image";
@@ -7,7 +8,7 @@ import MiniNolanChart from "@/components/nolan/MiniNolanChart";
 const renderEstrellas = (puntos: number) =>
   "★".repeat(puntos) + "☆".repeat(5 - puntos);
 
-export default function AnimeCard({ anime, priority }: { anime: AnimeCatalogo; priority?: boolean }) {
+const AnimeCard = memo(function AnimeCard({ anime, priority }: { anime: AnimeCatalogo; priority?: boolean }) {
   return (
     <Link
       href={`/anime/${anime.slug}`}
@@ -26,6 +27,7 @@ export default function AnimeCard({ anime, priority }: { anime: AnimeCatalogo; p
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   priority={priority}
+                  fetchPriority={priority ? "high" : undefined}
                 />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-muted-foreground">
@@ -84,4 +86,6 @@ export default function AnimeCard({ anime, priority }: { anime: AnimeCatalogo; p
       </div>
     </Link>
   );
-}
+});
+
+export default AnimeCard;

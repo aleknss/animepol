@@ -1,6 +1,7 @@
 'use client'; 
 
 import { useState, useMemo, useEffect, useDeferredValue } from 'react';
+import dynamic from 'next/dynamic';
 import { FilterIcon, XIcon } from 'lucide-react';
 import SearchBar from './search/SearchBar';
 import AnimeList from './anime/AnimeList';
@@ -12,7 +13,8 @@ import { DiagramaNolanIcon } from './nolan/DiagramaNolanIcon';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import Creditos from './Creditos';
-import { useSession } from '@/lib/auth-client';
+
+const DashboardButton = dynamic(() => import('./DashboardButton'), { ssr: false });
 
 interface Props {
   initialData: AnimeCatalogo[];
@@ -80,7 +82,6 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
   const [generosFiltro, setGenerosFiltro] = useState<number[]>([])
   const [ideologiasFiltro, setIdeologiasFiltro] = useState<Ideologia[]>([])
   const [mostrarFiltros, setMostrarFiltros] = useState(false)
-  const { data: session } = useSession()
   const [masterOrder, setMasterOrder] = useState<number[]>(() => initialData.map(a => a.id))
 
   useEffect(() => {
@@ -154,11 +155,7 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
       <header className='top-6 max-w-6xl m-auto flex justify-between items-center'>
         <Creditos />
         <div className='flex items-center gap-2'>
-          {session ? (
-            <Link href="/dashboard">
-              <Button variant="outline">Dashboard</Button>
-            </Link>
-          ) : null}
+          <DashboardButton />
           <ThemeToggle />
         </div>
       </header>
@@ -187,7 +184,7 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
             <DiagramaNolanIcon />
           </Link>
           <Link href="/sugerir">
-            <Button className="my-4 py-5 px-4 hover:cursor-pointer" variant="secondary">Envía una sugerencia</Button>
+            <Button className="my-4 py-6 px-5 hover:cursor-pointer" variant="secondary">Envía una sugerencia</Button>
           </Link>
         </div>
       </main>
