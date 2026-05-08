@@ -1,7 +1,7 @@
-import { AnimeConGeneros } from "@/lib/types";
+import { AnimeCatalogo } from "@/lib/types";
 import AnimeCard from "@/components/anime/AnimeCard";
 
-export default function AnimeList({ animes }: { animes: AnimeConGeneros[] }) {
+export default function AnimeList({ animes }: { animes: AnimeCatalogo[] }) {
   if (animes.length === 0)
     return (
       <div className="text-center py-10 text-muted-foreground">

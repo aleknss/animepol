@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Animepol",
   },
   description:
-    "Catálogo de anime con análisis político. Explora series y películas evaluadas en los ejes de libertad económica y personal según el diagrama de Nolan.",
+    "Animepol, una página web humorística que te secciona a un pensamiento ideológico político del diagrama de Nolan según tu anime favorito.",
   keywords: [
     "anime",
     "política",
@@ -88,10 +88,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Analytics />
         <ThemeProvider>{children}</ThemeProvider>
-        <script
-          type="application/ld+json"
+        <div
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: `<script type="application/ld+json">${JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "Animepol",
@@ -99,7 +98,7 @@ export default function RootLayout({
               description:
                 "Catálogo de anime con análisis político basado en el diagrama de Nolan.",
               inLanguage: "es",
-            }),
+            })}</script>`,
           }}
         />
       </body>

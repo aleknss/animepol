@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import { AnimeConGeneros } from "@/lib/types";
+import { AnimeCatalogo } from "@/lib/types";
 import Image from "next/image";
 import MiniNolanChart from "@/components/nolan/MiniNolanChart";
 
 const renderEstrellas = (puntos: number) =>
   "★".repeat(puntos) + "☆".repeat(5 - puntos);
 
-export default function AnimeCard({ anime, priority }: { anime: AnimeConGeneros; priority?: boolean }) {
+export default function AnimeCard({ anime, priority }: { anime: AnimeCatalogo; priority?: boolean }) {
   return (
     <Link
       href={`/anime/${anime.slug}`}

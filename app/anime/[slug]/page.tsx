@@ -197,9 +197,10 @@ export default async function AnimePage({ params }: { params: Promise<{ slug: st
           </div>
         </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`,
+          }}
         />
       </div>
     </main>

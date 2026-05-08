@@ -11,6 +11,12 @@ export type AnimeConGeneros = Anime & {
   })[];
 };
 
+export type AnimeCatalogo = Omit<Anime, 'analisisPolitico'> & {
+  animesGeneros: (InferSelectModel<typeof animesGeneros> & {
+    genero: Genero;
+  })[];
+};
+
 export type SugerenciaConRelaciones = Sugerencia & {
   creadoPorUser: { id: string; name: string; email: string };
 };

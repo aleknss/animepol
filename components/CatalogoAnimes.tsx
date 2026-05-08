@@ -1,11 +1,11 @@
 'use client'; 
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useDeferredValue } from 'react';
 import { FilterIcon, XIcon } from 'lucide-react';
 import SearchBar from './search/SearchBar';
 import AnimeList from './anime/AnimeList';
 import ThemeToggle from './theme/ThemeToggle';
-import { AnimeConGeneros, Genero } from '@/lib/types';
+import { AnimeCatalogo, Genero } from '@/lib/types';
 import Link from 'next/link';
 import { DiagramaNolanIcon } from './nolan/DiagramaNolanIcon';
 import { Button } from './ui/button';
@@ -14,7 +14,7 @@ import Creditos from './Creditos';
 import { useSession } from '@/lib/auth-client';
 
 interface Props {
-  initialData: AnimeConGeneros[];
+  initialData: AnimeCatalogo[];
   allGeneros: Genero[];
 }
 
@@ -74,6 +74,8 @@ function saveShuffle(ids: number[]) {
 
 export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
   const [busqueda, setBusqueda] = useState('');
+  const busquedaDiferida = useDeferredValue(busqueda)
+  const buscando = busqueda !== busquedaDiferida
   const [generosFiltro, setGenerosFiltro] = useState<number[]>([])
   const [ideologiasFiltro, setIdeologiasFiltro] = useState<Ideologia[]>([])
   const [mostrarFiltros, setMostrarFiltros] = useState(false)
@@ -107,8 +109,8 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
   const animesFiltrados = useMemo(() => {
     let result = initialData
 
-    if (busqueda.trim()) {
-      const term = busqueda.toLowerCase().trim()
+    if (busquedaDiferida.trim()) {
+      const term = busquedaDiferida.toLowerCase().trim()
       result = result.filter((anime) => {
         const coincideTitulo = anime.titulo.toLowerCase().includes(term)
         const coincideAlias = anime.nombresAlternativos?.some((alias) =>
@@ -137,7 +139,7 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
     })
 
     return result
-  }, [busqueda, initialData, generosFiltro, ideologiasFiltro, masterOrder])
+  }, [busquedaDiferida, initialData, generosFiltro, ideologiasFiltro, masterOrder])
 
   const limpiarFiltros = () => {
     setGenerosFiltro([])
@@ -257,7 +259,7 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
         </div>
       )}
 
-      <div className="mt-10">
+      <div className={`mt-10 transition-opacity duration-150 ${buscando ? 'opacity-50' : ''}`}>
         <AnimeList animes={animesFiltrados} />
       </div>
     

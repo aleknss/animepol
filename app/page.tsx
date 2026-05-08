@@ -25,6 +25,9 @@ export const metadata: Metadata = {
 export default async function Page() {
   const [data, allGeneros] = await Promise.all([
     db.query.animes.findMany({
+      columns: {
+        analisisPolitico: false,
+      },
       with: {
         animesGeneros: {
           with: { genero: true },
