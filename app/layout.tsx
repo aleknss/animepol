@@ -84,6 +84,8 @@ export default function RootLayout({
             } catch(e) {}
           })();`}
         </Script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9010858966499346"
+     crossOrigin="anonymous"/>
       </head>
       <body className="min-h-full flex flex-col">
         <Analytics />
