@@ -3,15 +3,18 @@ import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import ThemeProvider from "@/components/theme/ThemeProvider";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import AdSense from "@/components/AdSense";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  display: "swap",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  display: "swap",
   subsets: ["latin"],
 });
 
@@ -47,14 +50,18 @@ export const metadata: Metadata = {
     title: "Animepol — Catálogo de anime con análisis político",
     description:
       "Explora series y películas evaluadas en los ejes de libertad económica y personal según el diagrama de Nolan.",
-    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" }],
+    images: [
+      { url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Animepol — Catálogo de anime con análisis político",
     description:
       "Explora series y películas evaluadas en los ejes de libertad económica y personal.",
-    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" }],
+    images: [
+      { url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" },
+    ],
   },
   robots: {
     index: true,
@@ -84,8 +91,10 @@ export default function RootLayout({
             } catch(e) {}
           })();`}
         </Script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9010858966499346"
-     crossOrigin="anonymous"/>
+        <link
+          rel="preconnect"
+          href="https://eoexiosolkkesdwxljbv.supabase.co"
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <Analytics />
@@ -103,6 +112,7 @@ export default function RootLayout({
             })}</script>`,
           }}
         />
+        <AdSense pId="9012345678901234" />
       </body>
     </html>
   );

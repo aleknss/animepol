@@ -102,7 +102,7 @@ export function SugerenciaSection() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-semibold truncate">{ticket.titulo}</h3>
+                      <h1 className="font-semibold truncate">{ticket.titulo}</h1>
                       <Badge variant={ESTADO_VARIANTS[ticket.estado]}>
                         {ESTADO_LABELS[ticket.estado]}
                       </Badge>

@@ -254,7 +254,7 @@ export function AnimeCrudSection() {
                     )}
                   </div>
                   <div className="min-w-0 flex-1 flex flex-col">
-                    <h3 className="font-semibold text-sm truncate">{anime.titulo}</h3>
+                    <h2 className="font-semibold text-sm truncate">{anime.titulo}</h2>
                     {anime.sinopsis && (
                       <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
                         {anime.sinopsis}

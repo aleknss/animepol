@@ -8,6 +8,7 @@ import {
   Dialog, DialogPortal, DialogBackdrop,
   DialogPopup, DialogClose, DialogTitle,
 } from "@/components/ui/dialog"
+import Image from "next/image"
 import type { Genero } from "@/lib/types"
 import type { AnimeFormData } from "./AnimeCrudSection"
 
@@ -201,10 +202,12 @@ export function AnimeFormDialog({
               <label className="text-sm font-medium">Imagen</label>
               <div className="flex gap-3 items-start">
                 {form.imagenUrl && (
-                  <img
+                  <Image
                     src={form.imagenUrl}
                     alt="Preview"
-                    className="w-16 h-20 object-cover rounded border border-border shrink-0"
+                    width={64}
+                    height={80}
+                    className="object-cover rounded border border-border shrink-0"
                   />
                 )}
                 <div className="flex-1 space-y-2">

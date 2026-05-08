@@ -7,6 +7,7 @@ import AnimeList from './anime/AnimeList';
 import ThemeToggle from './theme/ThemeToggle';
 import { AnimeCatalogo, Genero } from '@/lib/types';
 import Link from 'next/link';
+import Image from 'next/image';
 import { DiagramaNolanIcon } from './nolan/DiagramaNolanIcon';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -150,7 +151,7 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
 
   return (
     <div className="min-h-screen bg-background py-6 px-4">
-      <div className='top-6 max-w-6xl m-auto flex justify-between items-center'>
+      <header className='top-6 max-w-6xl m-auto flex justify-between items-center'>
         <Creditos />
         <div className='flex items-center gap-2'>
           {session ? (
@@ -160,12 +161,15 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
           ) : null}
           <ThemeToggle />
         </div>
-      </div>
-      <div className="text-center mb-10">
-        <img
+      </header>
+      <main className="text-center mb-10">
+        <Image
           src="/kanji.svg"
           alt="Animepol"
+          width={100}
+          height={100}
           className="mx-auto mb-4 h-40 w-auto"
+          priority
         />
         <h1 className="text-4xl font-extrabold text-primary mb-4 tracking-tighter">
           Animepol
@@ -183,10 +187,10 @@ export default function CatalogoAnimes({ initialData, allGeneros }: Props) {
             <DiagramaNolanIcon />
           </Link>
           <Link href="/sugerir">
-            <Button className="my-4 py-4 px-4 hover:cursor-pointer" variant="secondary">Envía una sugerencia</Button>
+            <Button className="my-4 py-5 px-4 hover:cursor-pointer" variant="secondary">Envía una sugerencia</Button>
           </Link>
         </div>
-      </div>
+      </main>
 
       <SearchBar busqueda={busqueda} alCambiar={setBusqueda} />
 

@@ -39,9 +39,9 @@ export default function AnimeCard({ anime, priority }: { anime: AnimeCatalogo; p
         </div>
 
         <div className="p-4 flex flex-col grow">
-          <h3 className="text-lg font-bold text-card-foreground leading-tight mb-1 group-hover:text-primary transition-colors line-clamp-2">
+          <h2 className="text-lg font-bold text-card-foreground leading-tight mb-1 group-hover:text-primary transition-colors line-clamp-2">
             {anime.titulo}
-          </h3>
+          </h2>
 
           {anime.sinopsis && (
             <p className="text-xs text-muted-foreground mb-3 line-clamp-2 grow">
