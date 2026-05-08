@@ -62,7 +62,7 @@ export function AnimeFormDialog({
 
   function compressImage(file: File, maxW: number, quality: number): Promise<File> {
     return new Promise((resolve, reject) => {
-      const img = new Image()
+      const img = new window.Image()
       const url = URL.createObjectURL(file)
       img.onload = () => {
         URL.revokeObjectURL(url)
