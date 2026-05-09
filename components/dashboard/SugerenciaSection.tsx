@@ -60,6 +60,15 @@ export function SugerenciaSection() {
     }
   }
 
+  async function handleDelete(id: number) {
+    const res = await fetch(`/api/sugerencias/${id}`, { method: "DELETE" })
+    if (res.ok) {
+      setStatusMsg("Sugerencia eliminada")
+      setTimeout(() => setStatusMsg(""), 2000)
+      fetchTickets()
+    }
+  }
+
   return (
     <div>
       {statusMsg && (
@@ -144,6 +153,13 @@ export function SugerenciaSection() {
                         Reabrir
                       </Button>
                     )}
+                    <Button
+                      size="xs"
+                      variant="destructive"
+                      onClick={() => handleDelete(ticket.id)}
+                    >
+                      Borrar
+                    </Button>
                   </div>
                 </div>
               </CardContent>
