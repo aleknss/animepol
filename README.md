@@ -1,8 +1,17 @@
-# Animepol
+<p align="center">
+  <img src="public/kanji.svg" alt="Animepol" width="100" />
+</p>
 
-Catálogo de anime clasificado según el [diagrama de Nolan](https://es.wikipedia.org/wiki/Diagrama_de_Nolan). Cada serie y película recibe una puntuación de libertad económica (1–5) y libertad personal (1–5).
+<h1 align="center">Animepol</h1>
 
-**[animepol.xyz](https://animepol.xyz)**
+<p align="center">
+  Catálogo de anime clasificado según el <a href="https://es.wikipedia.org/wiki/Diagrama_de_Nolan">diagrama de Nolan</a>.
+  Cada serie y película recibe una puntuación de libertad económica (1–5) y libertad personal (1–5).
+</p>
+
+<p align="center">
+  <a href="https://animepol.xyz">animepol.xyz</a>
+</p>
 
 ## Stack
 
@@ -23,12 +32,6 @@ cd animepol
 npm install
 ```
 
-1. Copiá `.env.example` a `.env` y completá las variables:
-
-```bash
-cp .env.example .env
-```
-
 Variables requeridas:
 
 | Variable | Descripción |
@@ -39,19 +42,19 @@ Variables requeridas:
 | `SUPABASE_URL` | URL del proyecto de Supabase |
 | `SUPABASE_SERVICE_ROLE_KEY` | Service role key de Supabase |
 
-2. Sincronizá el esquema de base de datos:
+2. Sincroniza el esquema de base de datos:
 
 ```bash
 npx drizzle-kit push
 ```
 
-3. Iniciá el servidor de desarrollo:
+3. Inicia el servidor de desarrollo:
 
 ```bash
 npm run dev
 ```
 
-Abrí [http://localhost:3000](http://localhost:3000).
+Abre [http://localhost:3000](http://localhost:3000).
 
 ## Estructura del proyecto
 
@@ -79,9 +82,8 @@ animepol/
 
 ## Contribuir
 
-- **Sugerir anime**: Usá el formulario en [/sugerir](https://animepol.xyz/sugerir)
-- **Reportar bugs**: Abrí un [issue](https://github.com/4lekius/animepol/issues)
-- **Pull requests**: Bienvenidas. Si es un cambio grande, abrí un issue primero para discutirlo.
+- **Sugerir anime**: Usa el formulario en [/sugerir](https://animepol.xyz/sugerir)
+- **Pull requests**: Bienvenidas. Si es un cambio grande, abre un issue primero para discutirlo.
 
 ## Licencia
 
