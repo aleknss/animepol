@@ -7,19 +7,7 @@ import CatalogoAnimes from '@/components/CatalogoAnimes';
 export const metadata: Metadata = {
   title: "Catálogo",
   description:
-    "Explora nuestro catálogo completo de anime con puntuaciones de libertad económica y personal. Filtra por género, año y puntuación en el diagrama de Nolan.",
-  openGraph: {
-    title: "Animepol — Catálogo de anime con análisis político",
-    description:
-      "Explora nuestro catálogo completo de anime con puntuaciones de libertad económica y personal.",
-    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" }],
-  },
-  twitter: {
-    title: "Animepol — Catálogo de anime con análisis político",
-    description:
-      "Explora nuestro catálogo completo de anime con puntuaciones de libertad económica y personal.",
-    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" }],
-  },
+    "Explora cientos de animes con puntuación de libertad económica y personal. Filtra por género, año y posición en el diagrama de Nolan para encontrar tu anime ideal.",
 };
 
 export default async function Page() {

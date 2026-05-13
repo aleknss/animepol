@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import { sugerencias } from "@/db/schema"
 import { auth } from "@/lib/auth"
-import { eq, asc } from "drizzle-orm"
+import { eq, asc, desc } from "drizzle-orm"
 
 export async function GET(req: NextRequest) {
   const session = await auth.api.getSession({
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     with: {
       creadoPorUser: true,
     },
-    orderBy: asc(sugerencias.creadoEn),
+    orderBy: desc(sugerencias.creadoEn),
   })
 
   return NextResponse.json(data)

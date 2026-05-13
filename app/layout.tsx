@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | Animepol",
   },
   description:
-    "Animepol, una página web humorística que te secciona a un pensamiento ideológico político del diagrama de Nolan según tu anime favorito.",
+    "Catálogo de anime clasificado según el diagrama de Nolan. Descubre la orientación política de tus series favoritas en los ejes de libertad económica y personal.",
   keywords: [
     "anime",
     "política",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "Animepol",
     title: "Animepol — Catálogo de anime con análisis político",
     description:
-      "Explora series y películas evaluadas en los ejes de libertad económica y personal según el diagrama de Nolan.",
+      "Descubre la puntuación de cada anime en los ejes de libertad económica y personal. Catálogo con filtros por género, año y afiliación política en el diagrama de Nolan.",
     images: [
       { url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" },
     ],
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Animepol — Catálogo de anime con análisis político",
     description:
-      "Explora series y películas evaluadas en los ejes de libertad económica y personal.",
+      "Descubre la puntuación de cada anime en los ejes de libertad económica y personal. Filtros por género, año y afiliación política.",
     images: [
       { url: "/og-image.webp", width: 1200, height: 630, alt: "Animepol" },
     ],
