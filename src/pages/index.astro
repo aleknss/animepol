@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content'
+import Catalogo from '@/components/Catalogo.astro'
+import Layout from '@/layouts/Layout.astro'
+
+const animes = (await getCollection('animes')).sort((a, b) =>
+  a.data.titulo.localeCompare(b.data.titulo, 'es'),
+)
+const generos = (await getCollection('generos')).sort((a, b) =>
+  a.data.nombre.localeCompare(b.data.nombre, 'es'),
+)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Animepol',
+  url: Astro.site?.toString(),
+  description: 'Catálogo de anime con análisis político basado en el diagrama de Nolan.',
+  inLanguage: 'es',
+}
+---
+
+<Layout
+  title="Catálogo"
+  description="Explora cientos de animes con puntuación de libertad económica y personal. Filtra por género, año y posición en el diagrama de Nolan para encontrar tu anime ideal."
+  jsonLd={jsonLd}
+>
+  <Catalogo animes={animes} generos={generos} />
+</Layout>

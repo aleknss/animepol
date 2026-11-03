@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import AnimeCard from '@/components/anime/AnimeCard.astro'
+
+interface Props {
+  animes: CollectionEntry<'animes'>[]
+}
+
+const { animes } = Astro.props
+---
+
+{
+  animes.length === 0 ? (
+    <div class="text-center py-10 text-muted-foreground">No hay resultados.</div>
+  ) : (
+    <div id="anime-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {animes.map((anime, index) => (
+        <AnimeCard anime={anime} priority={index < 3} />
+      ))}
+    </div>
+  )
+}

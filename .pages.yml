@@ -1,0 +1,121 @@
+media:
+  - name: images
+    label: Imágenes
+    input: public/images/animes
+    output: /images/animes
+    rename: safe
+    extensions: [jpg, jpeg, png, webp, avif]
+    categories: [image]
+
+content:
+  - name: animes
+    label: Animes
+    type: collection
+    path: src/content/animes
+    format: yaml-frontmatter
+    filename:
+      template: "{fields.slug}.md"
+      field: create
+    view:
+      fields: [titulo, anoLanzamiento, libertadEconomica, libertadPersonal]
+      primary: titulo
+      sort: [titulo, anoLanzamiento]
+      search: [titulo, nombresAlternativos, slug]
+      default:
+        sort: titulo
+        order: asc
+    fields:
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+
+      - name: slug
+        label: Slug
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+        description: "URL: /anime/<slug>. No cambiar sin redirect."
+
+      - name: nombresAlternativos
+        label: Nombres alternativos
+        type: string
+        list: true
+
+      - name: sinopsis
+        label: Sinopsis
+        type: text
+
+      - name: analisisPolitico
+        label: Análisis político
+        type: text
+
+      - name: anoLanzamiento
+        label: Año
+        type: number
+        options:
+          min: 1900
+          max: 2100
+          step: 1
+
+      - name: imagen
+        label: Imagen
+        type: image
+        options:
+          media: images
+          extensions: [jpg, jpeg, png, webp, avif]
+
+      - name: libertadEconomica
+        label: Libertad económica
+        type: number
+        required: true
+        options:
+          min: 1
+          max: 5
+          step: 1
+
+      - name: libertadPersonal
+        label: Libertad personal
+        type: number
+        required: true
+        options:
+          min: 1
+          max: 5
+          step: 1
+
+      - name: generos
+        label: Géneros
+        type: reference
+        options:
+          collection: generos
+          multiple: true
+          value: "{primary}"
+          label: "{primary}"
+
+  - name: generos
+    label: Géneros
+    type: collection
+    path: src/content/generos
+    format: json
+    filename:
+      template: "{fields.slug}.json"
+      field: create
+    view:
+      fields: [nombre, slug]
+      primary: nombre
+      sort: [nombre]
+      search: [nombre, slug]
+      default:
+        sort: nombre
+        order: asc
+    fields:
+      - name: nombre
+        label: Nombre
+        type: string
+        required: true
+
+      - name: slug
+        label: Slug
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"

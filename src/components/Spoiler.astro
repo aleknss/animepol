@@ -1,0 +1,23 @@
+---
+import { EyeOff } from '@lucide/astro'
+
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<details class:list={['spoiler group my-2', className]}>
+  <summary
+    class="inline-flex cursor-pointer list-none items-center gap-2 rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted [&::-webkit-details-marker]:hidden"
+  >
+    <EyeOff class="size-4" />
+    <span class="group-open:hidden">Mostrar spoiler</span>
+    <span class="hidden group-open:inline">Ocultar spoiler</span>
+  </summary>
+
+  <div class="mt-2 rounded-lg border border-border bg-muted/40 p-4">
+    <slot />
+  </div>
+</details>

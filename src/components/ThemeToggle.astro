@@ -1,0 +1,47 @@
+---
+import { Moon, Sun } from '@lucide/astro'
+
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Cambiar tema"
+  class:list={[
+    'inline-flex items-center justify-center rounded-lg border border-border bg-background p-2 text-foreground transition-colors hover:bg-muted',
+    className,
+  ]}
+>
+  <Sun class="hidden size-4 dark:block" />
+  <Moon class="size-4 dark:hidden" />
+</button>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('#theme-toggle')
+
+  if (button) {
+    const updateLabel = () => {
+      button.setAttribute(
+        'aria-label',
+        document.documentElement.classList.contains('dark') ? 'Tema claro' : 'Tema oscuro',
+      )
+    }
+
+    updateLabel()
+
+    button.addEventListener('click', () => {
+      const dark = document.documentElement.classList.toggle('dark')
+
+      try {
+        localStorage.setItem('theme', dark ? 'dark' : 'light')
+      } catch {}
+
+      updateLabel()
+    })
+  }
+</script>

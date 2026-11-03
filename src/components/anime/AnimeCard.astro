@@ -1,0 +1,91 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import NolanChart from '@/components/NolanChart.astro'
+import { getIdeologia, normalizeSearch, renderEstrellas } from '@/lib/utils'
+
+interface Props {
+  anime: CollectionEntry<'animes'>
+  priority?: boolean
+}
+
+const { anime, priority = false } = Astro.props
+const { data } = anime
+const ideologia = getIdeologia(data.libertadEconomica, data.libertadPersonal)
+const search = normalizeSearch(
+  [data.titulo, ...data.nombresAlternativos, data.anoLanzamiento ?? ''].join(' '),
+)
+---
+
+<a
+  href={`/anime/${data.slug}`}
+  class="block group"
+  data-anime-card
+  data-id={anime.id}
+  data-search={search}
+  data-generos={data.generos.join('|')}
+  data-ideologia={ideologia}
+>
+  <article
+    class="rounded-2xl shadow-sm border border-border overflow-hidden group-hover:shadow-md transition-all flex flex-col h-full group-hover:-translate-y-1"
+  >
+    <div class="relative w-full aspect-3/4 bg-muted overflow-hidden shrink-0">
+      {
+        data.imagen ? (
+          <img
+            src={data.imagen}
+            alt={data.titulo}
+            loading={priority ? 'eager' : 'lazy'}
+            fetchpriority={priority ? 'high' : undefined}
+            decoding="async"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <div class="flex h-full w-full items-center justify-center text-muted-foreground">
+            Sin póster
+          </div>
+        )
+      }
+
+      <div class="absolute top-2 right-2">
+        <NolanChart eco={data.libertadEconomica} pers={data.libertadPersonal} class="w-16 h-16 drop-shadow-sm" />
+      </div>
+    </div>
+
+    <div class="p-4 flex flex-col grow">
+      <h2 class="text-lg font-bold text-card-foreground leading-tight mb-1 group-hover:text-primary transition-colors line-clamp-2">
+        {data.titulo}
+      </h2>
+
+      {
+        data.sinopsis && (
+          <p class="text-xs text-muted-foreground mb-3 line-clamp-2 grow">
+            {data.sinopsis}
+          </p>
+        )
+      }
+
+      {
+        data.generos.length > 0 && (
+          <div class="flex flex-wrap gap-1 mb-3">
+            {data.generos.map((genero) => (
+              <span class="text-[10px] text-muted-foreground bg-muted/50 px-1.5 py-0.5 rounded-full border border-border/50">
+                {genero}
+              </span>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="mt-auto pt-3 border-t border-border space-y-1">
+        <div class="flex justify-between items-center text-[11px]">
+          <span class="text-muted-foreground uppercase font-bold">Econ</span>
+          <span class="text-yellow-500">{renderEstrellas(data.libertadEconomica)}</span>
+        </div>
+        <div class="flex justify-between items-center text-[11px]">
+          <span class="text-muted-foreground uppercase font-bold">Pers</span>
+          <span class="text-blue-500">{renderEstrellas(data.libertadPersonal)}</span>
+        </div>
+      </div>
+    </div>
+  </article>
+</a>

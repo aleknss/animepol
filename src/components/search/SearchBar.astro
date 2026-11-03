@@ -1,0 +1,39 @@
+---
+import { Search, X } from '@lucide/astro'
+---
+
+<div class="sticky top-6 z-10 w-full max-w-2xl mx-auto mb-8 relative">
+  <label for="catalogo-search" class="sr-only">Buscar anime</label>
+  <input
+    id="catalogo-search"
+    type="text"
+    placeholder="Buscar por título o alias..."
+    autocomplete="off"
+    spellcheck="false"
+    aria-controls="anime-grid"
+    class="h-12 w-full pl-4 pr-28 text-lg bg-card shadow-lg dark:bg-gray-800 dark:shadow-black/40 rounded-lg border border-input outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+  />
+
+  <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2 text-muted-foreground">
+    <button
+      id="catalogo-search-clear"
+      type="button"
+      class="hidden rounded-md p-1 transition-colors hover:text-foreground"
+      aria-label="Borrar búsqueda"
+    >
+      <X class="size-4" />
+    </button>
+
+    <Search class="size-4" />
+
+    <div class="hidden md:flex items-center gap-1">
+      <kbd class="pointer-events-none inline-flex h-5 select-none items-center rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+        Ctrl
+      </kbd>
+      <span class="text-xs">+</span>
+      <kbd class="pointer-events-none inline-flex h-5 select-none items-center rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+        K
+      </kbd>
+    </div>
+  </div>
+</div>

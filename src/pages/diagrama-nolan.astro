@@ -1,0 +1,171 @@
+---
+import { ArrowLeft } from '@lucide/astro'
+import Layout from '@/layouts/Layout.astro'
+import NolanChart from '@/components/NolanChart.astro'
+---
+
+<Layout
+  title="Diagrama de Nolan"
+  description="Un modelo político de dos dimensiones. Explicación de los ejes de libertad económica y libertad personal, y de los cuatro cuadrantes."
+>
+  <div class="min-h-screen bg-background py-10 px-4">
+    <div class="max-w-3xl mx-auto">
+      <a
+        href="/"
+        class="text-sm text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-1.5 transition-colors"
+      >
+        <ArrowLeft class="size-4" />
+        Volver al catálogo
+      </a>
+
+      <h1 class="text-3xl font-bold text-primary mb-2 text-center">Diagrama de Nolan</h1>
+      <p class="text-muted-foreground text-center mb-8">Un modelo político de dos dimensiones</p>
+
+      <div class="flex flex-col items-center mb-8">
+        <div id="nolan-preview">
+          <NolanChart eco={3} pers={3} class="w-48 h-48 drop-shadow-md" />
+        </div>
+        <div class="mt-2 text-sm text-muted-foreground">
+          Punto: Económica <span id="eco-label">3</span>, Personal <span id="pers-label">3</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div>
+          <label for="eco-input" class="text-sm font-medium text-foreground">
+            Libertad económica: <span id="eco-value">3</span>
+          </label>
+          <input
+            id="eco-input"
+            type="range"
+            min="1"
+            max="5"
+            step="1"
+            value="3"
+            class="w-full mt-1 accent-primary"
+          />
+          <div class="flex justify-between text-xs text-muted-foreground mt-1">
+            <span>Izquierda (1)</span>
+            <span>Derecha (5)</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="pers-input" class="text-sm font-medium text-foreground">
+            Libertad personal: <span id="pers-value">3</span>
+          </label>
+          <input
+            id="pers-input"
+            type="range"
+            min="1"
+            max="5"
+            step="1"
+            value="3"
+            class="w-full mt-1 accent-primary"
+          />
+          <div class="flex justify-between text-xs text-muted-foreground mt-1">
+            <span>Autoritario (1)</span>
+            <span>Libertario (5)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6 text-foreground leading-relaxed bg-card rounded-lg p-6 border">
+        <section>
+          <h2 class="text-xl font-semibold text-primary mb-3">¿Qué es?</h2>
+          <p>
+            Creado por David Nolan en 1969, este diagrama mide la ideología política en
+            <strong>dos ejes</strong> independientes. El eje tradicional izquierda-derecha es
+            insuficiente: mezcla economía y libertades civiles en una sola línea.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-primary mb-3">Los dos ejes</h2>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>
+              <strong>Eje Izquierdo - Libertades Sociopolíticas:</strong> Mide cuánto control tiene el
+              Estado sobre tu vida privada. Cuanto más subes por esta flecha, más apoyas que cada
+              persona viva como quiera.
+            </li>
+            <li>
+              <strong>Eje Derecho - Libertades Económicas:</strong> Mide cuánto control tiene el Estado
+              sobre el dinero y el mercado. Cuanto más subes por esta flecha, más apoyas el libre
+              mercado y la propiedad privada.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-primary mb-3">Los cuatro cuadrantes</h2>
+          <div class="space-y-3">
+            <div class="flex items-start gap-2">
+              <span class="inline-block w-4 h-4 rounded-sm bg-green-500 mt-1 shrink-0"></span>
+              <div>
+                <strong>Libertario (verde):</strong> Alta libertad económica + alta libertad personal.
+                Estado mínimo en ambos ejes.
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="inline-block w-4 h-4 rounded-sm bg-yellow-400 mt-1 shrink-0"></span>
+              <div>
+                <strong>Autoritario (amarillo):</strong> Baja libertad económica + baja libertad
+                personal. Estado grande e intrusivo en todo.
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="inline-block w-4 h-4 rounded-sm bg-blue-500 mt-1 shrink-0"></span>
+              <div>
+                <strong>Conservador (azul):</strong> Alta libertad económica + baja libertad personal.
+                Libre mercado con control social.
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="inline-block w-4 h-4 rounded-sm bg-red-500 mt-1 shrink-0"></span>
+              <div>
+                <strong>Progresista (rojo):</strong> Baja libertad económica + alta libertad personal.
+                Intervención económica con libertad social.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <p class="text-muted-foreground text-sm pt-4 border-t">
+          Cada anime lo represento con este sistema de categorización. Va muy tirado por las <i>vibes</i>.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const ecoInput = document.querySelector<HTMLInputElement>('#eco-input')
+  const persInput = document.querySelector<HTMLInputElement>('#pers-input')
+  const ecoValue = document.querySelector<HTMLElement>('#eco-value')
+  const persValue = document.querySelector<HTMLElement>('#pers-value')
+  const ecoLabel = document.querySelector<HTMLElement>('#eco-label')
+  const persLabel = document.querySelector<HTMLElement>('#pers-label')
+  const svg = document.querySelector<SVGSVGElement>('#nolan-preview svg')
+  const dot = svg?.querySelector<SVGCircleElement>('.nolan-dot')
+
+  function update() {
+    const eco = Number(ecoInput?.value ?? 3)
+    const pers = Number(persInput?.value ?? 3)
+    const x = (eco - pers + 4) * 12.5
+    const y = 100 - (eco + pers - 2) * 12.5
+
+    if (ecoValue) ecoValue.textContent = String(eco)
+    if (persValue) persValue.textContent = String(pers)
+    if (ecoLabel) ecoLabel.textContent = String(eco)
+    if (persLabel) persLabel.textContent = String(pers)
+
+    dot?.setAttribute('cx', String(x))
+    dot?.setAttribute('cy', String(y))
+    svg?.setAttribute('aria-label', `Gráfico de Nolan: Económica ${eco}, Personal ${pers}`)
+  }
+
+  ecoInput?.addEventListener('input', update)
+  persInput?.addEventListener('input', update)
+
+  update()
+</script>
