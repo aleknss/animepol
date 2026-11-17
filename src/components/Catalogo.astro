@@ -1,8 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import { ListFilter, MessageCircle } from '@lucide/astro'
+import { ListFilter } from '@lucide/astro'
 import AnimeList from '@/components/anime/AnimeList.astro'
 import Creditos from '@/components/Creditos.astro'
+import DiscordIcon from '@/components/DiscordIcon.astro'
 import NolanChart from '@/components/NolanChart.astro'
 import SearchBar from '@/components/search/SearchBar.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
@@ -19,19 +20,7 @@ const { animes, generos } = Astro.props
 <div class="min-h-screen bg-background py-6 px-4">
   <header class="top-6 max-w-6xl m-auto flex justify-between items-center">
     <Creditos />
-    <div class="flex items-center gap-2">
-      <a
-        href={DISCORD_INVITE}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted"
-        aria-label="Únete al Discord de Animepol"
-      >
-        <MessageCircle class="size-4" />
-        <span class="hidden sm:inline">Discord</span>
-      </a>
-      <ThemeToggle />
-    </div>
+    <ThemeToggle />
   </header>
 
   <main class="text-center mb-10">
@@ -50,6 +39,21 @@ const { animes, generos } = Astro.props
       >
         <NolanChart eco={3} pers={3} class="w-24 h-24 drop-shadow-sm" />
       </a>
+    </div>
+
+    <div class="flex flex-col items-center gap-2">
+      <a
+        href={DISCORD_INVITE}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 text-sm font-bold text-card-foreground transition-all hover:scale-105 hover:border-primary"
+      >
+        <DiscordIcon class="size-5 text-[#5865F2]" />
+        Únete al Discord
+      </a>
+      <p class="text-xs text-muted-foreground">
+        Recomienda series, discute las fichas y avisa de erratas.
+      </p>
     </div>
   </main>
 
