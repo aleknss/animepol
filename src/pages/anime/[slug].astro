@@ -1,10 +1,11 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { ArrowLeft } from '@lucide/astro'
+import { ArrowLeft, MessageCircle } from '@lucide/astro'
 import Layout from '@/layouts/Layout.astro'
 import NolanChart from '@/components/NolanChart.astro'
 import Spoiler from '@/components/Spoiler.astro'
 import { parseSpoilers, stripSpoilers } from '@/lib/spoilers'
+import { DISCORD_INVITE } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const animes = await getCollection('animes')
@@ -150,6 +151,25 @@ const jsonLd = {
                   <p class="text-muted-foreground italic">Sin análisis disponible.</p>
                 )
               }
+            </section>
+
+            <section class="rounded-2xl border border-border bg-muted/50 p-6">
+              <p class="text-[10px] font-black uppercase tracking-tighter text-muted-foreground mb-2">
+                Debate
+              </p>
+              <p class="text-sm text-foreground mb-4">
+                ¿Crees que {data.titulo} está mal clasificado? ¿Falta un género o la sinopsis destripa
+                algo? Cuéntalo en el Discord y se corrige en la ficha.
+              </p>
+              <a
+                href={DISCORD_INVITE}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
+              >
+                <MessageCircle class="size-4" />
+                Debatir en Discord
+              </a>
             </section>
           </div>
         </div>

@@ -1,3 +1,5 @@
+export const DISCORD_INVITE = 'https://discord.gg/animepol'
+
 export type Ideologia = 'Libertario' | 'Autoritario' | 'Conservador' | 'Progresista'
 
 export const IDEOLOGIAS: Ideologia[] = [
