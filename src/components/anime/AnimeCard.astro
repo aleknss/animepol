@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import NolanChart from '@/components/NolanChart.astro'
-import { getIdeologia, normalizeSearch, partidosActivos, renderEstrellas } from '@/lib/utils'
+import { getIdeologia, normalizeSearch, partidosActivos, renderEstrellas, textoSobreColor } from '@/lib/utils'
 
 interface Props {
   anime: CollectionEntry<'animes'>
@@ -50,16 +50,6 @@ const partido = data.partido ? partidos.find((item) => item.id === data.partido)
         )
       }
 
-      {
-        partido && (
-          <div
-            class="pointer-events-none absolute top-0 left-0 size-32 -translate-x-1/3 -translate-y-1/3 rounded-full"
-            style={`background:radial-gradient(circle, ${partido.data.color} 0%, ${partido.data.color}b3 40%, transparent 70%)`}
-            aria-hidden="true"
-          />
-        )
-      }
-
       <div class="absolute top-2 right-2">
         <NolanChart eco={data.libertadEconomica} pers={data.libertadPersonal} class="w-16 h-16 drop-shadow-sm" />
       </div>
@@ -101,5 +91,31 @@ const partido = data.partido ? partidos.find((item) => item.id === data.partido)
         </div>
       </div>
     </div>
+
+    {
+      partido && (
+        <div
+          class="mt-auto flex items-center gap-2 px-4 py-2"
+          style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)}`}
+        >
+          <img
+            src={partido.data.logo}
+            alt={partido.data.nombre}
+            width="64"
+            height="20"
+            loading="lazy"
+            class:list={[
+              'h-4 w-auto max-w-16 object-contain',
+              textoSobreColor(partido.data.color) === '#ffffff'
+                ? 'brightness-0 invert'
+                : 'brightness-0',
+            ]}
+          />
+          <span class="text-[10px] font-black uppercase tracking-widest">
+            {partido.data.nombre}
+          </span>
+        </div>
+      )
+    }
   </article>
 </a>
