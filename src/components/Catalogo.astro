@@ -8,7 +8,7 @@ import DiscordIcon from '@/components/DiscordIcon.astro'
 import NolanChart from '@/components/NolanChart.astro'
 import SearchBar from '@/components/search/SearchBar.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
-import { DISCORD_INVITE, IDEOLOGIAS, IDEO_COLORS, partidosActivos } from '@/lib/utils'
+import { DISCORD_INVITE, IDEOLOGIAS, IDEO_COLORS, partidosActivos, textoSobreColor } from '@/lib/utils'
 
 interface Props {
   animes: CollectionEntry<'animes'>[]
@@ -78,7 +78,10 @@ const partidos = partidosActivos()
                 width="80"
                 height="24"
                 loading="lazy"
-                class="h-5 w-auto max-w-full object-contain brightness-0 invert"
+                class:list={[
+                  'h-5 w-auto max-w-full object-contain brightness-0',
+                  textoSobreColor(partido.data.color) === '#ffffff' ? 'invert' : '',
+                ]}
               />
             </button>
           ))}
