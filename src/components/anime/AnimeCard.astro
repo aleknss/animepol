@@ -50,6 +50,30 @@ const partido = data.partido ? partidos.find((item) => item.id === data.partido)
         )
       }
 
+      {
+        partido && (
+          <div
+            class="absolute top-2 left-2 flex h-9 min-w-9 -rotate-2 items-center justify-center rounded-xl px-1.5 shadow-md ring-2 ring-white/80"
+            style={`background-color:${partido.data.color}`}
+            title={partido.data.nombre}
+          >
+            <img
+              src={partido.data.logo}
+              alt={partido.data.nombre}
+              width="52"
+              height="20"
+              loading="lazy"
+              class:list={[
+                'h-4 w-auto max-w-12 object-contain',
+                textoSobreColor(partido.data.color) === '#ffffff'
+                  ? 'brightness-0 invert'
+                  : 'brightness-0',
+              ]}
+            />
+          </div>
+        )
+      }
+
       <div class="absolute top-2 right-2">
         <NolanChart eco={data.libertadEconomica} pers={data.libertadPersonal} class="w-16 h-16 drop-shadow-sm" />
       </div>
@@ -91,31 +115,5 @@ const partido = data.partido ? partidos.find((item) => item.id === data.partido)
         </div>
       </div>
     </div>
-
-    {
-      partido && (
-        <div
-          class="mt-auto flex items-center gap-2 px-4 py-2"
-          style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)}`}
-        >
-          <img
-            src={partido.data.logo}
-            alt={partido.data.nombre}
-            width="64"
-            height="20"
-            loading="lazy"
-            class:list={[
-              'h-4 w-auto max-w-16 object-contain',
-              textoSobreColor(partido.data.color) === '#ffffff'
-                ? 'brightness-0 invert'
-                : 'brightness-0',
-            ]}
-          />
-          <span class="text-[10px] font-black uppercase tracking-widest">
-            {partido.data.nombre}
-          </span>
-        </div>
-      )
-    }
   </article>
 </a>
