@@ -69,33 +69,25 @@ const partidos = partidosActivos()
   {
     partidos.length > 0 && (
       <div class="max-w-6xl mx-auto mb-4">
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        <div class="flex flex-wrap items-center gap-1.5">
           {partidos.map((partido) => (
             <button
               type="button"
               data-filter-partido={partido.id}
               aria-pressed="false"
-              class="relative h-24 overflow-hidden rounded-xl border border-border bg-card text-left transition-transform hover:-translate-y-0.5 aria-pressed:ring-2 aria-pressed:ring-offset-2 aria-pressed:ring-offset-background"
-              style={`background-image:linear-gradient(to bottom, ${partido.data.color} 0%, ${partido.data.color}55 45%, transparent 100%);--tw-ring-color:${partido.data.color}`}
+              class="inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-black uppercase tracking-wide opacity-45 transition-all hover:opacity-75 aria-pressed:opacity-100 aria-pressed:ring-2 aria-pressed:ring-offset-1 aria-pressed:ring-offset-background"
+              style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)};--tw-ring-color:${partido.data.color}`}
             >
-              <span
-                class="absolute top-2 left-2.5 right-2.5 text-xs font-black leading-tight tracking-tighter"
-                style={`color:${textoSobreColor(partido.data.color)}`}
-              >
-                {partido.data.nombre}
-              </span>
-              <span class="absolute bottom-2 left-2.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                {partido.data.siglas}
-              </span>
+              {partido.data.siglas}
             </button>
           ))}
+          <a
+            href="/partidos"
+            class="ml-1 text-[11px] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          >
+            Ver el reparto completo
+          </a>
         </div>
-        <a
-          href="/partidos"
-          class="mt-2 inline-block text-[11px] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-        >
-          Ver el reparto completo
-        </a>
       </div>
     )
   }

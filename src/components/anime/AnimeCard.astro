@@ -50,18 +50,21 @@ const partido = data.partido ? partidos.find((item) => item.id === data.partido)
         )
       }
 
-      <div class="absolute top-2 left-2">
-        {
-          partido && (
+      {
+        partido && (
+          <div
+            class="pointer-events-none absolute inset-x-0 top-0 h-24"
+            style={`background-image:linear-gradient(to bottom, ${partido.data.color} 0%, ${partido.data.color}cc 35%, transparent 100%)`}
+          >
             <span
-              class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-black uppercase tracking-wide shadow-sm"
-              style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)}`}
+              class="absolute top-2 left-3 text-sm font-black leading-tight tracking-tighter"
+              style={`color:${textoSobreColor(partido.data.color)}`}
             >
-              {partido.data.siglas}
+              {partido.data.nombre}
             </span>
-          )
-        }
-      </div>
+          </div>
+        )
+      }
 
       <div class="absolute top-2 right-2">
         <NolanChart eco={data.libertadEconomica} pers={data.libertadPersonal} class="w-16 h-16 drop-shadow-sm" />
