@@ -72,14 +72,16 @@ const partidos = partidosActivos()
               class="inline-flex h-11 items-center justify-center rounded-xl px-3 text-xs font-black uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 aria-pressed:ring-2 aria-pressed:ring-offset-2 aria-pressed:ring-offset-background"
               style={`background-color:${partido.data.color};--tw-ring-color:${partido.data.color}`}
             >
-              <img
-                src={partido.data.logo}
-                alt={partido.data.nombre}
-                width="80"
-                height="24"
-                loading="lazy"
-                class="h-5 w-auto max-w-full object-contain brightness-0 invert"
-              />
+              <span class="flex h-7 items-center rounded-md bg-white px-1.5">
+                <img
+                  src={partido.data.logo}
+                  alt={partido.data.nombre}
+                  width="64"
+                  height="24"
+                  loading="lazy"
+                  class="h-4 w-auto max-w-14 object-contain"
+                />
+              </span>
             </button>
           ))}
         </div>
