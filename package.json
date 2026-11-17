@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "verify": "astro check && astro build",
     "export:content": "tsx scripts/export-db.ts",
     "lint": "eslint ."
   },
