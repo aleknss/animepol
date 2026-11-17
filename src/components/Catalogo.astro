@@ -39,21 +39,15 @@ const { animes, generos } = Astro.props
       >
         <NolanChart eco={3} pers={3} class="w-24 h-24 drop-shadow-sm" />
       </a>
-    </div>
-
-    <div class="flex flex-col items-center gap-2">
       <a
         href={DISCORD_INVITE}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 text-sm font-bold text-card-foreground transition-all hover:scale-105 hover:border-primary"
+        class="my-4 inline-block transition-transform hover:scale-110"
+        aria-label="Únete al Discord de Animepol"
       >
-        <DiscordIcon class="size-5 text-[#5865F2]" />
-        Únete al Discord
+        <DiscordIcon class="size-16 text-[#5865F2] drop-shadow-sm" />
       </a>
-      <p class="text-xs text-muted-foreground">
-        Recomienda series, discute las fichas y avisa de erratas.
-      </p>
     </div>
   </main>
 
