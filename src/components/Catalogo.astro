@@ -8,13 +8,7 @@ import DiscordIcon from '@/components/DiscordIcon.astro'
 import NolanChart from '@/components/NolanChart.astro'
 import SearchBar from '@/components/search/SearchBar.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
-import {
-  DISCORD_INVITE,
-  IDEOLOGIAS,
-  IDEO_COLORS,
-  partidosActivos,
-  textoSobreColor,
-} from '@/lib/utils'
+import { DISCORD_INVITE, IDEOLOGIAS, IDEO_COLORS, partidosActivos } from '@/lib/utils'
 
 interface Props {
   animes: CollectionEntry<'animes'>[]
@@ -69,25 +63,25 @@ const partidos = partidosActivos()
   {
     partidos.length > 0 && (
       <div class="max-w-6xl mx-auto mb-4">
-        <div class="flex flex-wrap items-center gap-1.5">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
           {partidos.map((partido) => (
             <button
               type="button"
               data-filter-partido={partido.id}
               aria-pressed="false"
-              class="inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-black uppercase tracking-wide opacity-45 transition-all hover:opacity-75 aria-pressed:opacity-100 aria-pressed:ring-2 aria-pressed:ring-offset-1 aria-pressed:ring-offset-background"
-              style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)};--tw-ring-color:${partido.data.color}`}
+              class="inline-flex h-11 items-center justify-center rounded-xl px-3 text-xs font-black uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 aria-pressed:ring-2 aria-pressed:ring-offset-2 aria-pressed:ring-offset-background"
+              style={`background-color:${partido.data.color};--tw-ring-color:${partido.data.color}`}
             >
               {partido.data.siglas}
             </button>
           ))}
-          <a
-            href="/partidos"
-            class="ml-1 text-[11px] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-          >
-            Ver el reparto completo
-          </a>
         </div>
+        <a
+          href="/partidos"
+          class="mt-2 inline-block text-[11px] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+        >
+          Ver el reparto completo
+        </a>
       </div>
     )
   }
