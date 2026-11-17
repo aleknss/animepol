@@ -25,6 +25,11 @@ export const GET: APIRoute = async ({ site }) => {
       changefreq: 'monthly',
       priority: '0.6',
     },
+    {
+      url: new URL('/partidos/', base).toString(),
+      changefreq: 'weekly',
+      priority: '0.7',
+    },
     ...animes.map((anime) => ({
       url: new URL(`/anime/${anime.data.slug}/`, base).toString(),
       changefreq: 'monthly',

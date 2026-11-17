@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { ListFilter } from '@lucide/astro'
 import AnimeList from '@/components/anime/AnimeList.astro'
@@ -7,7 +8,13 @@ import DiscordIcon from '@/components/DiscordIcon.astro'
 import NolanChart from '@/components/NolanChart.astro'
 import SearchBar from '@/components/search/SearchBar.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
-import { DISCORD_INVITE, IDEOLOGIAS, IDEO_COLORS } from '@/lib/utils'
+import {
+  DISCORD_INVITE,
+  IDEOLOGIAS,
+  IDEO_COLORS,
+  partidosActivos,
+  textoSobreColor,
+} from '@/lib/utils'
 
 interface Props {
   animes: CollectionEntry<'animes'>[]
@@ -15,6 +22,9 @@ interface Props {
 }
 
 const { animes, generos } = Astro.props
+const partidos = partidosActivos()
+  ? (await getCollection('partidos')).sort((a, b) => a.data.orden - b.data.orden)
+  : []
 ---
 
 <div class="min-h-screen bg-background py-6 px-4">
@@ -114,6 +124,35 @@ const { animes, generos } = Astro.props
         }
       </div>
     </div>
+
+    {
+      partidos.length > 0 && (
+        <div class="space-y-2">
+          <p class="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">
+            Partido
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            {partidos.map((partido) => (
+              <button
+                type="button"
+                data-filter-partido={partido.id}
+                aria-pressed="false"
+                class="inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-black uppercase tracking-wide opacity-45 transition-all hover:opacity-75 aria-pressed:opacity-100 aria-pressed:ring-2 aria-pressed:ring-offset-1 aria-pressed:ring-offset-background"
+                style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)};--tw-ring-color:${partido.data.color}`}
+              >
+                {partido.data.siglas}
+              </button>
+            ))}
+          </div>
+          <a
+            href="/partidos"
+            class="inline-block text-[11px] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          >
+            Ver el reparto completo
+          </a>
+        </div>
+      )
+    }
   </div>
 
   <div class="max-w-6xl mx-auto mb-4 flex items-center gap-2">
@@ -148,12 +187,14 @@ const { animes, generos } = Astro.props
   const emptyState = document.querySelector<HTMLElement>('#catalogo-empty')
   const genreButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter-genre]'))
   const ideologyButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter-ideologia]'))
+  const partidoButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter-partido]'))
 
   const selectedGenres = new Set<string>()
   const selectedIdeologies = new Set<string>()
+  const selectedPartidos = new Set<string>()
 
   function updateFilterCount() {
-    const total = selectedGenres.size + selectedIdeologies.size
+    const total = selectedGenres.size + selectedIdeologies.size + selectedPartidos.size
 
     if (filtersCount) {
       filtersCount.textContent = String(total)
@@ -171,8 +212,10 @@ const { animes, generos } = Astro.props
       const matchesGenre = selectedGenres.size === 0 || cardGenres.some((genre) => selectedGenres.has(genre))
       const matchesIdeology =
         selectedIdeologies.size === 0 || selectedIdeologies.has(card.dataset.ideologia ?? '')
+      const matchesPartido =
+        selectedPartidos.size === 0 || selectedPartidos.has(card.dataset.partido ?? '')
 
-      if (matchesSearch && matchesGenre && matchesIdeology) {
+      if (matchesSearch && matchesGenre && matchesIdeology && matchesPartido) {
         visible.add(card)
       }
     }
@@ -186,7 +229,8 @@ const { animes, generos } = Astro.props
       resultsCount.textContent = `${visible.size} resultado${visible.size === 1 ? '' : 's'}`
     }
 
-    const hasFilters = selectedGenres.size > 0 || selectedIdeologies.size > 0
+    const hasFilters =
+      selectedGenres.size > 0 || selectedIdeologies.size > 0 || selectedPartidos.size > 0
     clearFilters?.classList.toggle('hidden', !hasFilters && query.length === 0)
     clearSearch?.classList.toggle('hidden', query.length === 0)
     updateFilterCount()
@@ -273,12 +317,27 @@ const { animes, generos } = Astro.props
     })
   }
 
+  for (const button of partidoButtons) {
+    button.addEventListener('click', () => {
+      const partido = button.dataset.filterPartido
+      if (!partido) return
+
+      if (selectedPartidos.has(partido)) selectedPartidos.delete(partido)
+      else selectedPartidos.add(partido)
+
+      button.setAttribute('aria-pressed', String(selectedPartidos.has(partido)))
+      applyFilters()
+    })
+  }
+
   clearFilters?.addEventListener('click', () => {
     selectedGenres.clear()
     selectedIdeologies.clear()
+    selectedPartidos.clear()
 
     for (const button of genreButtons) button.setAttribute('aria-pressed', 'false')
     for (const button of ideologyButtons) button.setAttribute('aria-pressed', 'false')
+    for (const button of partidoButtons) button.setAttribute('aria-pressed', 'false')
 
     if (searchInput) searchInput.value = ''
     applyFilters()

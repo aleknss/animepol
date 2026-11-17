@@ -1,7 +1,8 @@
 ---
+import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import NolanChart from '@/components/NolanChart.astro'
-import { getIdeologia, normalizeSearch, renderEstrellas } from '@/lib/utils'
+import { getIdeologia, normalizeSearch, partidosActivos, renderEstrellas, textoSobreColor } from '@/lib/utils'
 
 interface Props {
   anime: CollectionEntry<'animes'>
@@ -14,6 +15,8 @@ const ideologia = getIdeologia(data.libertadEconomica, data.libertadPersonal)
 const search = normalizeSearch(
   [data.titulo, ...data.nombresAlternativos, data.anoLanzamiento ?? ''].join(' '),
 )
+const partidos = partidosActivos() ? await getCollection('partidos') : []
+const partido = data.partido ? partidos.find((item) => item.id === data.partido) : undefined
 ---
 
 <a
@@ -24,6 +27,7 @@ const search = normalizeSearch(
   data-search={search}
   data-generos={data.generos.join('|')}
   data-ideologia={ideologia}
+  data-partido={partido?.id ?? ''}
 >
   <article
     class="rounded-2xl shadow-sm border border-border overflow-hidden group-hover:shadow-md transition-all flex flex-col h-full group-hover:-translate-y-1"
@@ -45,6 +49,19 @@ const search = normalizeSearch(
           </div>
         )
       }
+
+      <div class="absolute top-2 left-2">
+        {
+          partido && (
+            <span
+              class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-black uppercase tracking-wide shadow-sm"
+              style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)}`}
+            >
+              {partido.data.siglas}
+            </span>
+          )
+        }
+      </div>
 
       <div class="absolute top-2 right-2">
         <NolanChart eco={data.libertadEconomica} pers={data.libertadPersonal} class="w-16 h-16 drop-shadow-sm" />

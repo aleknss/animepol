@@ -17,6 +17,8 @@ const animes = defineCollection({
     libertadEconomica: z.number().int().min(1).max(5),
     libertadPersonal: z.number().int().min(1).max(5),
     generos: z.array(z.string()).default([]),
+    partido: z.string().optional(),
+    justificacionPartido: z.string().optional(),
   }),
 })
 
@@ -28,4 +30,17 @@ const generos = defineCollection({
   }),
 })
 
-export const collections = { animes, generos }
+const partidos = defineCollection({
+  loader: glob({ base: './src/content/partidos', pattern: '*.json' }),
+  schema: z.object({
+    nombre: z.string(),
+    siglas: z.string(),
+    color: z.string().regex(/^#[0-9A-Fa-f]{6}$/),
+    ideologia: z.string(),
+    descripcion: z.string(),
+    logo: z.string(),
+    orden: z.number().int().default(0),
+  }),
+})
+
+export const collections = { animes, generos, partidos }

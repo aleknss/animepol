@@ -92,6 +92,20 @@ content:
           value: "{primary}"
           label: "{primary}"
 
+      - name: partido
+        label: Partido (29N)
+        type: reference
+        options:
+          collection: partidos
+          multiple: false
+          value: "{fields.slug}"
+          label: "{fields.siglas}"
+
+      - name: justificacionPartido
+        label: Justificación del partido
+        type: text
+        description: "Sátira. Se muestra en la ficha junto al bloque del partido."
+
   - name: generos
     label: Géneros
     type: collection
@@ -119,3 +133,58 @@ content:
         type: string
         required: true
         pattern: "^[a-z0-9-]+$"
+
+  - name: partidos
+    label: Partidos (29N)
+    type: collection
+    path: src/content/partidos
+    format: json
+    filename:
+      template: "{fields.slug}.json"
+      field: create
+    view:
+      fields: [siglas, nombre, orden]
+      primary: siglas
+      sort: [orden]
+      search: [nombre, siglas, ideologia]
+      default:
+        sort: orden
+        order: asc
+    fields:
+      - name: nombre
+        label: Nombre
+        type: string
+        required: true
+
+      - name: siglas
+        label: Siglas
+        type: string
+        required: true
+
+      - name: color
+        label: Color
+        type: string
+        required: true
+        pattern: "^#[0-9A-Fa-f]{6}$"
+
+      - name: ideologia
+        label: Ideología
+        type: string
+        required: true
+
+      - name: descripcion
+        label: Descripción satírica
+        type: text
+        required: true
+
+      - name: logo
+        label: Logo (ruta)
+        type: string
+        required: true
+        description: "Ruta pública, por ejemplo /29n/PP.svg"
+
+      - name: orden
+        label: Orden
+        type: number
+        options:
+          step: 1

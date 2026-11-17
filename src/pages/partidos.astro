@@ -1,0 +1,129 @@
+---
+import { getCollection } from 'astro:content'
+import { ArrowLeft } from '@lucide/astro'
+import Creditos from '@/components/Creditos.astro'
+import ThemeToggle from '@/components/ThemeToggle.astro'
+import Layout from '@/layouts/Layout.astro'
+import { partidosActivos, textoSobreColor } from '@/lib/utils'
+
+const partidos = (await getCollection('partidos')).sort((a, b) => a.data.orden - b.data.orden)
+const animes = await getCollection('animes')
+const activo = partidosActivos()
+
+const porPartido = partidos.map((partido) => ({
+  partido,
+  animes: animes
+    .filter((anime) => anime.data.partido === partido.id)
+    .sort((a, b) => a.data.titulo.localeCompare(b.data.titulo, 'es')),
+}))
+
+const total = porPartido.reduce((sum, item) => sum + item.animes.length, 0)
+---
+
+<Layout
+  title="Partidos del 29N"
+  description="Qué partido político le correspondería a cada anime según el diagrama de Nolan. Reparto satírico con motivo de las elecciones generales del 29 de noviembre."
+>
+  <div class="min-h-screen bg-background py-6 px-4">
+    <header class="top-6 max-w-6xl w-full m-auto flex justify-between items-center">
+      <Creditos />
+      <ThemeToggle />
+    </header>
+
+    <main class="max-w-6xl mx-auto">
+      <a
+        href="/"
+        class="text-muted-foreground hover:text-foreground mb-8 inline-flex items-center gap-1.5 transition-colors font-bold uppercase text-xs tracking-widest"
+      >
+        <ArrowLeft class="size-4" />
+        Catálogo
+      </a>
+
+      <div class="mb-10 text-center">
+        <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">
+          29N · Elecciones generales
+        </p>
+        <h1 class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-3">
+          ¿A quién votaría tu anime?
+        </h1>
+        <p class="text-foreground max-w-2xl mx-auto">
+          {total} fichas repartidas entre seis partidos, con el mismo rigor que el resto del sitio:
+          ninguno. Esto es una asignación satírica, no una encuesta ni una recomendación de voto.
+        </p>
+        {
+          !activo && (
+            <p class="mt-4 inline-block rounded-full border border-border px-3 py-1 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              Evento finalizado
+            </p>
+          )
+        }
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          porPartido.map(({ partido, animes: lista }) => (
+            <section
+              id={partido.id}
+              class="rounded-2xl border bg-card overflow-hidden scroll-mt-6"
+              style={`border-color:${partido.data.color}`}
+            >
+              <div
+                class="flex items-center justify-between gap-3 px-5 py-4"
+                style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)}`}
+              >
+                <div>
+                  <p class="text-2xl font-black tracking-tighter">{partido.data.siglas}</p>
+                  <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">
+                    {partido.data.nombre}
+                  </p>
+                </div>
+                <span class="rounded-full bg-black/10 px-2.5 py-1 text-xs font-black dark:bg-white/20">
+                  {lista.length}
+                </span>
+              </div>
+
+              <div class="p-5">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="flex h-10 w-16 items-center justify-center rounded-lg border border-border bg-white p-1.5">
+                    <img
+                      src={partido.data.logo}
+                      alt={partido.data.nombre}
+                      width="64"
+                      height="40"
+                      loading="lazy"
+                      class="h-full w-full object-contain"
+                    />
+                  </span>
+                  <p class="text-[10px] font-black uppercase tracking-tighter text-muted-foreground">
+                    {partido.data.ideologia}
+                  </p>
+                </div>
+
+                <p class="text-sm leading-relaxed text-foreground/80 mb-4">
+                  {partido.data.descripcion}
+                </p>
+
+                <ul class="space-y-1.5">
+                  {lista.map((anime) => (
+                    <li>
+                      <a
+                        href={`/anime/${anime.data.slug}`}
+                        class="text-sm text-muted-foreground transition-colors hover:text-primary"
+                      >
+                        {anime.data.titulo}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          ))
+        }
+      </div>
+
+      <p class="mt-10 text-center text-xs text-muted-foreground">
+        Asignación satírica con motivo del 29N. Sin relación con los partidos ni con sus candidaturas.
+      </p>
+    </main>
+  </div>
+</Layout>

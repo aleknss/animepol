@@ -1,5 +1,21 @@
 export const DISCORD_INVITE = 'https://discord.gg/mYAxCg87EX'
 
+export const PARTIDOS_CORTE = '2026-12-13T23:59:59+01:00'
+
+export function partidosActivos(): boolean {
+  return Date.now() < Date.parse(PARTIDOS_CORTE)
+}
+
+export function textoSobreColor(hex: string): '#000000' | '#ffffff' {
+  const value = hex.replace('#', '')
+  const r = parseInt(value.slice(0, 2), 16) / 255
+  const g = parseInt(value.slice(2, 4), 16) / 255
+  const b = parseInt(value.slice(4, 6), 16) / 255
+  const linear = (c: number) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4)
+
+  return 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b) > 0.45 ? '#000000' : '#ffffff'
+}
+
 export type Ideologia = 'Libertario' | 'Autoritario' | 'Conservador' | 'Progresista'
 
 export const IDEOLOGIAS: Ideologia[] = [
