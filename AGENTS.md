@@ -1,5 +1,17 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# Astro static project
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+- Output is static. No SSR adapter, no Workers, no API routes unless explicitly requested.
+- Content lives in `src/content/animes` and `src/content/generos`.
+- `src/content.config.ts` and `.pages.yml` must stay in sync.
+- Anime images live in `public/images/animes`. Prefer `.webp` ~700px wide, quality 82.
+- Use `@lucide/astro` for icons.
+- Redirects for renamed slugs live in `public/_redirects` (Cloudflare Pages format).
+- Verify changes with `pnpm check` and `pnpm build`.
+
+## Pendiente
+
+- [ ] Configurar Pages CMS: GitHub App, repo y branch.
+- [ ] Configurar Cloudflare Pages: build `pnpm build`, output `dist`.
+- [ ] Confirmar el `pId` real de AdSense en `src/layouts/Layout.astro`.
+- [ ] Evaluar Cloudflare Web Analytics.
+- [ ] Reemplazar sugerencias por formulario externo si se recupera ese canal.
