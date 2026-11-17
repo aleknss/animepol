@@ -1,0 +1,47 @@
+---
+import { ArrowLeft, SearchX } from '@lucide/astro'
+import Creditos from '@/components/Creditos.astro'
+import ThemeToggle from '@/components/ThemeToggle.astro'
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout
+  title="Página no encontrada"
+  description="La página que buscas no existe. Vuelve al catálogo de anime con análisis político."
+  noindex
+>
+  <div class="min-h-screen bg-background py-6 px-4 flex flex-col">
+    <header class="top-6 max-w-6xl w-full m-auto flex justify-between items-center">
+      <Creditos />
+      <ThemeToggle />
+    </header>
+
+    <main class="grow flex flex-col items-center justify-center text-center py-12">
+      <img src="/kanji.svg" alt="Animepol" width="100" height="100" class="mx-auto mb-6 h-24 w-auto opacity-60" />
+
+      <p class="text-xs font-black uppercase tracking-widest text-muted-foreground mb-2">
+        Error 404
+      </p>
+
+      <h1 class="text-6xl md:text-7xl font-black text-primary tracking-tighter mb-4">
+        404
+      </h1>
+
+      <p class="text-lg text-foreground mb-2 inline-flex items-center gap-2">
+        <SearchX class="size-5 text-muted-foreground" />
+        Este anime no está en el catálogo.
+      </p>
+      <p class="text-sm text-muted-foreground max-w-md mb-8">
+        La página que buscas no existe, cambió de nombre o nunca estuvo alineada en este plano.
+      </p>
+
+      <a
+        href="/"
+        class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
+      >
+        <ArrowLeft class="size-4" />
+        Volver al catálogo
+      </a>
+    </main>
+  </div>
+</Layout>
