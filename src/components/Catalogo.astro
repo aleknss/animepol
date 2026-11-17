@@ -66,6 +66,40 @@ const partidos = partidosActivos()
 
   <SearchBar />
 
+  {
+    partidos.length > 0 && (
+      <div class="max-w-6xl mx-auto mb-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+          {partidos.map((partido) => (
+            <button
+              type="button"
+              data-filter-partido={partido.id}
+              aria-pressed="false"
+              class="relative h-24 overflow-hidden rounded-xl border border-border bg-card text-left transition-transform hover:-translate-y-0.5 aria-pressed:ring-2 aria-pressed:ring-offset-2 aria-pressed:ring-offset-background"
+              style={`background-image:linear-gradient(to bottom, ${partido.data.color} 0%, ${partido.data.color}55 45%, transparent 100%);--tw-ring-color:${partido.data.color}`}
+            >
+              <span
+                class="absolute top-2 left-2.5 right-2.5 text-xs font-black leading-tight tracking-tighter"
+                style={`color:${textoSobreColor(partido.data.color)}`}
+              >
+                {partido.data.nombre}
+              </span>
+              <span class="absolute bottom-2 left-2.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                {partido.data.siglas}
+              </span>
+            </button>
+          ))}
+        </div>
+        <a
+          href="/partidos"
+          class="mt-2 inline-block text-[11px] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+        >
+          Ver el reparto completo
+        </a>
+      </div>
+    )
+  }
+
   <div class="max-w-6xl mx-auto mb-6 flex items-center gap-2">
     <button
       id="toggle-filters"
@@ -124,35 +158,6 @@ const partidos = partidosActivos()
         }
       </div>
     </div>
-
-    {
-      partidos.length > 0 && (
-        <div class="space-y-2">
-          <p class="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">
-            Partido
-          </p>
-          <div class="flex flex-wrap gap-1.5">
-            {partidos.map((partido) => (
-              <button
-                type="button"
-                data-filter-partido={partido.id}
-                aria-pressed="false"
-                class="inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-black uppercase tracking-wide opacity-45 transition-all hover:opacity-75 aria-pressed:opacity-100 aria-pressed:ring-2 aria-pressed:ring-offset-1 aria-pressed:ring-offset-background"
-                style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)};--tw-ring-color:${partido.data.color}`}
-              >
-                {partido.data.siglas}
-              </button>
-            ))}
-          </div>
-          <a
-            href="/partidos"
-            class="inline-block text-[11px] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-          >
-            Ver el reparto completo
-          </a>
-        </div>
-      )
-    }
   </div>
 
   <div class="max-w-6xl mx-auto mb-4 flex items-center gap-2">
