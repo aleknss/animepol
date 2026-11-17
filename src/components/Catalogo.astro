@@ -43,10 +43,13 @@ const { animes, generos } = Astro.props
         href={DISCORD_INVITE}
         target="_blank"
         rel="noopener noreferrer"
-        class="my-4 inline-block transition-transform hover:scale-110"
-        aria-label="Únete al Discord de Animepol"
+        class="my-4 inline-flex flex-col items-center gap-1 transition-transform hover:scale-110"
+        aria-label="Participa en el Discord de Animepol"
       >
         <DiscordIcon class="size-16 text-[#5865F2] drop-shadow-sm" />
+        <span class="text-[10px] font-black uppercase tracking-tighter text-muted-foreground">
+          Participa
+        </span>
       </a>
     </div>
   </main>
