@@ -146,13 +146,12 @@ runtime de Worker. `_redirects` y `_headers` se copian desde `public/`.
 - Quiz con portada, progreso, récord local, compartir, atajos, aciertos y fallos.
 - Botón de volver arriba con animación y microanimaciones de búsqueda y filtros.
 - Slug antiguo de LOTGH corregido con 301 en `_redirects`.
+- `og-image.jpg` a 1200×630, JPG para que WhatsApp y Facebook pinten el preview.
 
 ## Pendiente
 
 - [ ] Retirar el módulo de partidos tras el 13/12/2026 (`PARTIDOS_CORTE`).
 - [ ] Decidir si `/partidos` y `/estadisticas` se quedan como archivo o se retiran con el evento.
-- [ ] Sustituir `og-image.webp` por una versión exacta de 1200×630 y valorar un JPEG para los
-  previews de WhatsApp y Facebook, que con WebP son irregulares.
 - [ ] Sustituir los pósters de 425×600 de los tres últimos animes por originales mayores.
 
 ## Descartado
