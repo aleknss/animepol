@@ -66,6 +66,13 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
           {total} fichas repartidas entre seis partidos, con el mismo rigor que el resto del sitio:
           ninguno. Esto es una asignación satírica, no una encuesta ni una recomendación de voto.
         </p>
+        <a
+          href="/partidos/quiz"
+          class="mt-5 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-black uppercase tracking-widest text-primary-foreground transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+        >
+          Jugar al quiz
+          <span aria-hidden="true">→</span>
+        </a>
         {
           !activo && (
             <p class="mt-4 inline-block rounded-full border border-border px-3 py-1 text-xs font-bold uppercase tracking-widest text-muted-foreground">
@@ -107,54 +114,48 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
         </ul>
       </section>
 
-      <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <a
-          href="/partidos/quiz"
-          class="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-black uppercase tracking-wide text-primary-foreground transition-transform hover:scale-105"
+      <div class="mb-2 flex items-center gap-2">
+        <button
+          type="button"
+          data-party-prev
+          aria-label="Partido anterior"
+          class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-card text-lg text-foreground transition-colors hover:bg-muted"
         >
-          Jugar al quiz
-        </a>
-        <div class="flex items-center gap-1">
-          <button
-            type="button"
-            data-party-prev
-            aria-label="Partido anterior"
-            class="inline-flex size-8 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted"
-          >
-            ←
-          </button>
-          <span
-            data-party-counter
-            class="min-w-12 text-center text-[11px] font-black uppercase tracking-widest text-muted-foreground"
-          >
-            1 / 6
-          </span>
-          <button
-            type="button"
-            data-party-next
-            aria-label="Partido siguiente"
-            class="inline-flex size-8 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted"
-          >
-            →
-          </button>
+          ←
+        </button>
+
+        <div role="tablist" aria-label="Elegir partido" class="flex flex-1 flex-wrap items-center justify-center gap-2">
+          {
+            porPartido.map(({ partido }, i) => (
+              <button
+                type="button"
+                data-party-tab={partido.id}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                class="inline-flex h-9 min-w-16 items-center justify-center rounded-full border-2 px-4 text-xs font-black uppercase tracking-wide transition-all hover:scale-105 aria-pressed:scale-105 aria-pressed:bg-[var(--party-color)] aria-pressed:text-[var(--party-ink)]"
+                style={`border-color:${partido.data.color};color:${partido.data.color};--party-color:${partido.data.color};--party-ink:${textoSobreColor(partido.data.color)}`}
+              >
+                {partido.data.siglas}
+              </button>
+            ))
+          }
         </div>
+
+        <button
+          type="button"
+          data-party-next
+          aria-label="Partido siguiente"
+          class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-card text-lg text-foreground transition-colors hover:bg-muted"
+        >
+          →
+        </button>
       </div>
 
-      <div role="tablist" aria-label="Elegir partido" class="mb-6 flex flex-wrap gap-1.5">
-        {
-          porPartido.map(({ partido }, i) => (
-            <button
-              type="button"
-              data-party-tab={partido.id}
-              aria-pressed={i === 0 ? 'true' : 'false'}
-              class="inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-black uppercase tracking-wide transition-colors aria-pressed:bg-[var(--party-color)] aria-pressed:text-[var(--party-ink)]"
-              style={`border-color:${partido.data.color};color:${partido.data.color};--party-color:${partido.data.color};--party-ink:${textoSobreColor(partido.data.color)}`}
-            >
-              {partido.data.siglas}
-            </button>
-          ))
-        }
-      </div>
+      <p
+        data-party-counter
+        class="mb-6 text-center text-[11px] font-black uppercase tracking-widest text-muted-foreground"
+      >
+        1 / 6
+      </p>
 
       <div data-party-slider class="relative">
         {
