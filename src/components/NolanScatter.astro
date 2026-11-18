@@ -11,10 +11,11 @@ interface Punto {
 
 interface Props {
   puntos: Punto[]
+  activo?: string
   class?: string
 }
 
-const { puntos, class: className = 'w-full max-w-md mx-auto' } = Astro.props
+const { puntos, activo, class: className = 'w-full max-w-md mx-auto' } = Astro.props
 
 const x = (eco: number, pers: number) => (eco - pers + 4) * 12.5
 const y = (eco: number, pers: number) => 100 - (eco + pers - 2) * 12.5
@@ -35,28 +36,31 @@ const y = (eco: number, pers: number) => 100 - (eco + pers - 2) * 12.5
   <line x1="0" y1="50" x2="100" y2="50" stroke="#000000" stroke-width="0.4" opacity="0.25" />
 
   {
-    puntos.map((punto) => (
-      <g>
-        <circle
-          cx={x(punto.eco, punto.pers)}
-          cy={y(punto.eco, punto.pers)}
-          r="3.4"
-          fill={punto.color}
-          stroke="#000000"
-          stroke-width="0.9"
-        >
-          <title>{`${punto.nombre}: económica ${punto.eco.toFixed(1)}, personal ${punto.pers.toFixed(1)} (${punto.total} animes)`}</title>
-        </circle>
-        <text
-          x={x(punto.eco, punto.pers) + 5}
-          y={y(punto.eco, punto.pers) + 1.6}
-          font-size="3.4"
-          font-weight="800"
-          fill="#000000"
-        >
-          {punto.siglas}
-        </text>
-      </g>
-    ))
+    puntos.map((punto) => {
+      const activoEste = !activo || activo === punto.slug
+      return (
+        <g opacity={activoEste ? 1 : 0.3}>
+          <circle
+            cx={x(punto.eco, punto.pers)}
+            cy={y(punto.eco, punto.pers)}
+            r={activo && activo === punto.slug ? 4.6 : 3.4}
+            fill={punto.color}
+            stroke="#000000"
+            stroke-width="0.9"
+          >
+            <title>{`${punto.nombre}: económica ${punto.eco.toFixed(1)}, personal ${punto.pers.toFixed(1)} (${punto.total} animes)`}</title>
+          </circle>
+          <text
+            x={x(punto.eco, punto.pers) + 5}
+            y={y(punto.eco, punto.pers) + 1.6}
+            font-size="3.4"
+            font-weight="800"
+            fill="#000000"
+          >
+            {punto.siglas}
+          </text>
+        </g>
+      )
+    })
   }
 </svg>

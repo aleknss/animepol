@@ -33,6 +33,8 @@ const puntos = porPartido
     pers: Math.round(media(item.animes.map((anime) => anime.data.libertadPersonal)) * 10) / 10,
     total: item.animes.length,
   }))
+
+const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
 ---
 
 <Layout
@@ -105,30 +107,48 @@ const puntos = porPartido
         </ul>
       </section>
 
-      <div class="mb-4 flex flex-wrap items-center gap-1.5" role="tablist" aria-label="Filtrar partidos">
+      <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
         <a
           href="/partidos/quiz"
           class="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-black uppercase tracking-wide text-primary-foreground transition-transform hover:scale-105"
         >
-          Jugar al quiz →
+          Jugar al quiz
         </a>
-        <span class="mx-1 h-4 w-px bg-border" aria-hidden="true"></span>
-        <button
-          type="button"
-          data-party-tab="all"
-          aria-pressed="true"
-          class="inline-flex h-8 items-center rounded-full border border-border bg-muted px-3 text-[11px] font-black uppercase tracking-wide text-foreground transition-colors aria-pressed:bg-foreground aria-pressed:text-background"
-        >
-          Todos
-        </button>
+        <div class="flex items-center gap-1">
+          <button
+            type="button"
+            data-party-prev
+            aria-label="Partido anterior"
+            class="inline-flex size-8 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted"
+          >
+            ←
+          </button>
+          <span
+            data-party-counter
+            class="min-w-12 text-center text-[11px] font-black uppercase tracking-widest text-muted-foreground"
+          >
+            1 / 6
+          </span>
+          <button
+            type="button"
+            data-party-next
+            aria-label="Partido siguiente"
+            class="inline-flex size-8 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted"
+          >
+            →
+          </button>
+        </div>
+      </div>
+
+      <div role="tablist" aria-label="Elegir partido" class="mb-6 flex flex-wrap gap-1.5">
         {
-          porPartido.map(({ partido }) => (
+          porPartido.map(({ partido }, i) => (
             <button
               type="button"
               data-party-tab={partido.id}
-              aria-pressed="false"
-              class="inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-black uppercase tracking-wide transition-colors"
-              style={`border-color:${partido.data.color};color:${partido.data.color}`}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+              class="inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-black uppercase tracking-wide transition-colors aria-pressed:bg-[var(--party-color)] aria-pressed:text-[var(--party-ink)]"
+              style={`border-color:${partido.data.color};color:${partido.data.color};--party-color:${partido.data.color};--party-ink:${textoSobreColor(partido.data.color)}`}
             >
               {partido.data.siglas}
             </button>
@@ -136,120 +156,166 @@ const puntos = porPartido
         }
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div data-party-slider class="relative">
         {
-          porPartido.map(({ partido, animes: lista }) => (
-            <section
-              id={partido.id}
-              data-party-card={partido.id}
-              class="relative rounded-2xl border bg-card overflow-hidden scroll-mt-6"
-              style={`border-color:${partido.data.color}`}
-            >
-              <span
-                class="pointer-events-none absolute -right-3 -top-8 select-none text-[9rem] font-black leading-none opacity-10"
-                style={`color:${partido.data.color}`}
-                aria-hidden="true"
+          porPartido.map(({ partido, animes: lista }, i) => {
+            const punto = stats.get(partido.id)
+            return (
+              <section
+                id={`partido-${partido.id}`}
+                data-party-slide={partido.id}
+                hidden={i !== 0}
+                aria-label={partido.data.nombre}
+                class="rounded-2xl border bg-card overflow-hidden scroll-mt-6"
+                style={`border-color:${partido.data.color}`}
               >
-                {partido.data.siglas}
-              </span>
-
-              <div
-                class="relative flex items-center justify-between gap-3 px-5 py-4"
-                style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)}`}
-              >
-                <div>
-                  <a href={`/partidos/${partido.id}`} class="block hover:underline underline-offset-4">
-                    <p class="text-2xl font-black tracking-tighter">{partido.data.siglas}</p>
-                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">
-                      {partido.data.nombre}
-                    </p>
-                  </a>
-                </div>
-                <span class="rounded-full bg-black/10 px-2.5 py-1 text-xs font-black dark:bg-white/20">
-                  {lista.length}
-                </span>
-              </div>
-
-              <div class="relative p-5">
-                <div class="flex items-center gap-3 mb-4">
-                  <span class="flex h-10 w-16 shrink-0 items-center justify-center rounded-lg border border-border bg-white p-1.5">
-                    <img
-                      src={partido.data.logo}
-                      alt={partido.data.nombre}
-                      width="64"
-                      height="40"
-                      loading="lazy"
-                      class="h-full w-full object-contain"
-                    />
-                  </span>
-                  <p class="text-[10px] font-black uppercase tracking-tighter text-muted-foreground">
-                    {partido.data.ideologia}
-                  </p>
-                </div>
-
-                <dl class="space-y-2 mb-4">
-                  <div>
-                    <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                      Promete
-                    </dt>
-                    <dd class="text-sm text-foreground">{partido.data.promesa}</dd>
-                  </div>
-                  <div>
-                    <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                      Hace
-                    </dt>
-                    <dd class="text-sm text-foreground/80">{partido.data.contradiccion}</dd>
-                  </div>
-                </dl>
-
-                <p class="mb-4 border-l-2 pl-3 text-sm italic text-foreground/70" style={`border-color:${partido.data.color}`}>
-                  «{partido.data.frase}»
-                </p>
-
-                <div class="flex items-end justify-between gap-3">
-                  <div class="flex gap-1">
-                    {lista.slice(0, 4).map((anime) => (
-                      <span class="block h-14 w-10 overflow-hidden rounded-md bg-muted">
-                        {anime.data.imagen && (
-                          <img
-                            src={anime.data.imagen}
-                            alt={anime.data.titulo}
-                            loading="lazy"
-                            decoding="async"
-                            class="h-full w-full object-cover"
-                          />
-                        )}
+                <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                  <div class="border-b border-border p-6 lg:border-b-0 lg:border-r">
+                    <div class="mb-4 flex items-center gap-3">
+                      <span class="flex h-12 w-20 shrink-0 items-center justify-center rounded-lg border border-border bg-white p-2">
+                        <img
+                          src={partido.data.logo}
+                          alt={partido.data.nombre}
+                          width="80"
+                          height="48"
+                          loading="lazy"
+                          class="h-full w-full object-contain"
+                        />
                       </span>
-                    ))}
+                      <div>
+                        <p class="text-2xl font-black tracking-tighter text-foreground">
+                          {partido.data.siglas}
+                        </p>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                          {partido.data.nombre} · {partido.data.ideologia}
+                        </p>
+                      </div>
+                    </div>
+
+                    <dl class="space-y-2 mb-4">
+                      <div>
+                        <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                          Promete
+                        </dt>
+                        <dd class="text-sm text-foreground">{partido.data.promesa}</dd>
+                      </div>
+                      <div>
+                        <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                          Hace
+                        </dt>
+                        <dd class="text-sm text-foreground/80">{partido.data.contradiccion}</dd>
+                      </div>
+                    </dl>
+
+                    <p
+                      class="mb-5 border-l-2 pl-3 text-sm italic text-foreground/70"
+                      style={`border-color:${partido.data.color}`}
+                    >
+                      «{partido.data.frase}»
+                    </p>
+
+                    <div class="mb-5 grid grid-cols-3 gap-2">
+                      <div class="rounded-lg border border-border bg-muted/40 p-2">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                          Animes
+                        </p>
+                        <p class="text-lg font-black text-foreground">{lista.length}</p>
+                      </div>
+                      <div class="rounded-lg border border-border bg-muted/40 p-2">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                          Econ
+                        </p>
+                        <p class="text-lg font-black text-foreground">{punto?.eco.toFixed(1)}</p>
+                      </div>
+                      <div class="rounded-lg border border-border bg-muted/40 p-2">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                          Pers
+                        </p>
+                        <p class="text-lg font-black text-foreground">{punto?.pers.toFixed(1)}</p>
+                      </div>
+                    </div>
+
+                    <NolanScatter puntos={puntos} activo={partido.id} class="w-full max-w-sm mx-auto" />
+
+                    <a
+                      href={`/partidos/${partido.id}`}
+                      class="mt-4 inline-block text-[11px] font-black uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      Ver la ficha del partido →
+                    </a>
                   </div>
-                  <a
-                    href={`/partidos/${partido.id}`}
-                    class="text-[11px] font-black uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    Ver los {lista.length} →
-                  </a>
+
+                  <div class="p-4 sm:p-6">
+                    <p class="mb-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                      Los {lista.length} animes de {partido.data.siglas}
+                    </p>
+                    <div class="grid grid-cols-3 gap-2 sm:gap-3">
+                      {lista.map((anime) => (
+                        <a
+                          href={`/anime/${anime.data.slug}`}
+                          class="group relative block overflow-hidden rounded-xl border border-border transition-transform hover:-translate-y-0.5"
+                        >
+                          <div class="relative aspect-3/4 bg-muted">
+                            {anime.data.imagen && (
+                              <img
+                                src={anime.data.imagen}
+                                alt={anime.data.titulo}
+                                loading="lazy"
+                                decoding="async"
+                                class="absolute inset-0 h-full w-full object-cover"
+                              />
+                            )}
+                            <div
+                              class="pointer-events-none absolute inset-0 opacity-60 mix-blend-multiply"
+                              style={`background-color:${partido.data.color}`}
+                              aria-hidden="true"
+                            />
+                            <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-2">
+                              <p class="text-[10px] font-bold leading-tight text-white line-clamp-2">
+                                {anime.data.titulo}
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </section>
-          ))
+              </section>
+            )
+          })
         }
       </div>
 
       <script>
-        const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-party-tab]'))
-        const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-party-card]'))
+        const tabs = Array.from(document.querySelectorAll('[data-party-tab]'))
+        const slides = Array.from(document.querySelectorAll('[data-party-slide]'))
+        const counter = document.querySelector('[data-party-counter]')
+        const prev = document.querySelector('[data-party-prev]')
+        const next = document.querySelector('[data-party-next]')
+        let current = 0
 
-        for (const tab of tabs) {
-          tab.addEventListener('click', () => {
-            const target = tab.dataset.partyTab ?? 'all'
-
-            for (const card of cards) {
-              card.hidden = target !== 'all' && card.dataset.partyCard !== target
-            }
-
-            for (const item of tabs) item.setAttribute('aria-pressed', String(item === tab))
+        const show = (index) => {
+          if (!slides.length) return
+          current = (index + slides.length) % slides.length
+          slides.forEach((slide, i) => {
+            slide.hidden = i !== current
           })
+          tabs.forEach((tab, i) => tab.setAttribute('aria-pressed', String(i === current)))
+          if (counter) counter.textContent = `${current + 1} / ${slides.length}`
         }
+
+        tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)))
+        prev?.addEventListener('click', () => show(current - 1))
+        next?.addEventListener('click', () => show(current + 1))
+
+        document.addEventListener('keydown', (event) => {
+          if (event.altKey || event.ctrlKey || event.metaKey) return
+          const target = event.target
+          if (target instanceof HTMLElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return
+          if (event.key === 'ArrowLeft') show(current - 1)
+          if (event.key === 'ArrowRight') show(current + 1)
+        })
       </script>
 
       <p class="mt-10 text-center text-xs text-muted-foreground">
