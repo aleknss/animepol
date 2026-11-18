@@ -136,7 +136,12 @@ const partidos = partidosActivos()
     </button>
   </div>
 
-  <div id="filters-panel" hidden class="max-w-6xl mx-auto mb-6 space-y-4">
+  <div
+    id="filters-panel"
+    data-open="false"
+    class="grid max-w-6xl mx-auto grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-300 ease-out data-[open=true]:mb-6 data-[open=true]:grid-rows-[1fr]"
+  >
+    <div class="min-h-0 space-y-4">
     <div class="space-y-2">
       <p class="text-xs font-semibold tracking-wide uppercase text-muted-foreground/70">Géneros</p>
       <div class="flex flex-wrap gap-1.5">
@@ -175,6 +180,7 @@ const partidos = partidosActivos()
         }
       </div>
     </div>
+    </div>
   </div>
 
   <div class="max-w-6xl mx-auto mb-4 flex items-center gap-2">
@@ -189,9 +195,8 @@ const partidos = partidosActivos()
   <button
     type="button"
     id="back-to-top"
-    hidden
     aria-label="Volver arriba"
-    class="fixed bottom-5 right-5 z-40 inline-flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-primary/30 transition-all hover:-translate-y-0.5 hover:shadow-xl lg:hidden"
+    class="pointer-events-none fixed bottom-5 right-5 z-40 inline-flex size-12 translate-y-3 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 shadow-lg ring-1 ring-primary/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl lg:hidden"
   >
     <ArrowUp class="size-5" stroke-width="2.5" />
   </button>
@@ -264,7 +269,9 @@ const partidos = partidosActivos()
     const hasFilters =
       selectedGenres.size > 0 || selectedIdeologies.size > 0 || selectedPartidos.size > 0
     clearFilters?.classList.toggle('hidden', !hasFilters && query.length === 0)
-    clearSearch?.classList.toggle('hidden', query.length === 0)
+    clearSearch?.classList.toggle('invisible', query.length === 0)
+    clearSearch?.classList.toggle('opacity-0', query.length === 0)
+    clearSearch?.classList.toggle('scale-75', query.length === 0)
     updateFilterCount()
   }
 
@@ -317,8 +324,8 @@ const partidos = partidosActivos()
   toggleFilters?.addEventListener('click', () => {
     if (!filtersPanel) return
 
-    const open = filtersPanel.hidden
-    filtersPanel.hidden = !open
+    const open = filtersPanel.dataset.open !== 'true'
+    filtersPanel.dataset.open = String(open)
     toggleFilters.setAttribute('aria-expanded', String(open))
     toggleFilters.classList.toggle('bg-secondary', open)
   })
@@ -403,7 +410,10 @@ const partidos = partidosActivos()
 
   const toggleBackToTop = () => {
     if (!backToTop) return
-    backToTop.hidden = window.scrollY < 420
+    const visible = window.scrollY > 420
+    backToTop.classList.toggle('opacity-0', !visible)
+    backToTop.classList.toggle('pointer-events-none', !visible)
+    backToTop.classList.toggle('translate-y-3', !visible)
   }
 
   window.addEventListener('scroll', toggleBackToTop, { passive: true })
