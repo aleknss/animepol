@@ -168,7 +168,7 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
         <div
           role="tablist"
           aria-label="Elegir partido"
-          class="flex flex-1 flex-wrap items-center justify-center gap-1.5"
+          class="grid flex-1 grid-cols-3 gap-2 sm:grid-cols-6"
         >
           {
             porPartido.map(({ partido }, i) => (
@@ -176,15 +176,20 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
                 type="button"
                 data-party-tab={partido.id}
                 aria-pressed={i === 0 ? 'true' : 'false'}
-                class="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-card px-3 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:bg-muted aria-pressed:border-transparent aria-pressed:bg-[var(--party-color)] aria-pressed:text-[var(--party-ink)]"
-                style={`--party-color:${partido.data.color};--party-ink:${textoSobreColor(partido.data.color)}`}
+                class="inline-flex h-20 items-center justify-center rounded-xl px-3 text-xs font-black uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 aria-pressed:ring-2 aria-pressed:ring-offset-2 aria-pressed:ring-offset-background"
+                style={`background-color:${partido.data.color};--tw-ring-color:${partido.data.color}`}
               >
-                <span
-                  class="size-2 shrink-0 rounded-sm"
-                  style={`background-color:${partido.data.color}`}
-                  aria-hidden="true"
-                ></span>
-                {partido.data.siglas}
+                <img
+                  src={partido.data.logo}
+                  alt={partido.data.nombre}
+                  width="80"
+                  height="24"
+                  loading="lazy"
+                  class:list={[
+                    'h-6 w-auto max-w-full object-contain brightness-0',
+                    textoSobreColor(partido.data.color) === '#ffffff' ? 'invert' : '',
+                  ]}
+                />
               </button>
             ))
           }
