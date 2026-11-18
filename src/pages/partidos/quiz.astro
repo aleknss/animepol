@@ -38,7 +38,7 @@ const activo = partidosActivos()
       <ThemeToggle />
     </header>
 
-    <main class="max-w-3xl mx-auto">
+    <main class="max-w-5xl mx-auto">
       <a
         href="/partidos"
         class="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-1.5 transition-colors font-bold uppercase text-xs tracking-widest"
@@ -105,7 +105,7 @@ const activo = partidosActivos()
 
                 <aside
                   id="quiz-answer"
-                  class="mx-auto mt-6 max-w-sm text-left text-sm leading-relaxed text-muted-foreground md:absolute md:left-full md:top-0 md:ml-8 md:mt-0 md:w-60 md:max-w-none"
+                  class="mx-auto mt-6 max-w-sm text-left text-sm leading-relaxed text-muted-foreground lg:absolute lg:left-full lg:top-0 lg:ml-8 lg:mt-0 lg:w-60 lg:max-w-none"
                 >
                   <p id="quiz-explanation">
                     Elige una opción y aquí aparece la explicación de la asignación.
@@ -434,7 +434,7 @@ const activo = partidosActivos()
     opacity: 1;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     #quiz-stage.is-answered #quiz-main {
       transform: translateX(-2.5rem);
     }
