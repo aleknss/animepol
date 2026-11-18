@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content'
 import { ArrowLeft } from '@lucide/astro'
 import Creditos from '@/components/Creditos.astro'
-import Evento29N from '@/components/Evento29N.astro'
 import NolanScatter from '@/components/NolanScatter.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 import Layout from '@/layouts/Layout.astro'
@@ -56,7 +55,20 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
         Catálogo
       </a>
 
-      <Evento29N subtitulo="Sátira electoral, no una encuesta" />
+      <div class="max-w-6xl mx-auto my-8 border-y-2 border-foreground/80 py-6 text-center">
+        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-muted-foreground">
+          Elecciones generales · 29 de noviembre
+        </p>
+        <p
+          class="mt-1 text-7xl md:text-8xl font-black tracking-tighter leading-none"
+          aria-label="29 de noviembre"
+        >
+          <span class="glow-29n text-[#AA151B]">2</span><span class="glow-29n text-[#F1BF00]">9</span><span class="glow-29n text-[#AA151B]">N</span>
+        </p>
+        <p class="mt-3 text-xs font-black uppercase tracking-widest text-foreground">
+          Sátira electoral, no una encuesta
+        </p>
+      </div>
 
       <div class="mb-10 text-center">
         <h1 class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-3">
