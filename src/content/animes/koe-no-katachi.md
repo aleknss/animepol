@@ -10,7 +10,7 @@ analisisPolitico: "Si esta es tu película favorita, tu alineamiento político e
 anoLanzamiento: 2016
 imagen: "/images/animes/koe-no-katachi.webp"
 partido: "frente-amplio"
-justificacionPartido: "Acosador rehabilitado, bullying estructural y una redención de dos horas. La escuela se arregla con más orientación y menos notas, según el comunicado."
+justificacionPartido: "Acoso estructural y redención de dos horas. La escuela se arregla con más orientación y menos notas, según el comunicado de prensa."
 libertadEconomica: 2
 libertadPersonal: 4
 generos:

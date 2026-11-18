@@ -9,7 +9,7 @@ analisisPolitico: "Si Evangelion es tu anime favorito, tu alineamiento político
 anoLanzamiento: 1995
 imagen: "/images/animes/evangelion.webp"
 partido: "psoe"
-justificacionPartido: "Comités, subcomités y un proyecto que nadie entiende pero todos financian. El mundo se acaba, pero la comisión sigue reunida y con catering."
+justificacionPartido: "El mundo se acaba, la comisión sigue y el EVA lo paga el contribuyente. La culpa siempre es del gobierno anterior."
 libertadEconomica: 1
 libertadPersonal: 1
 generos:

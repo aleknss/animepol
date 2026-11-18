@@ -8,7 +8,7 @@ analisisPolitico: "Si GTO es tu anime favorito, tu alineamiento político es el 
 anoLanzamiento: 1999
 imagen: "/images/animes/great-teacher-onizuka.webp"
 partido: "podemos"
-justificacionPartido: "Entra gritando que el sistema es una basura y acaba con moqueta, agenda y dos asesores. La revolución cabe en un despacho de veinte metros."
+justificacionPartido: "Entra gritando que el sistema es una basura y acaba con moqueta, agenda y dos asesores. La revolución cabe en veinte metros."
 libertadEconomica: 3
 libertadPersonal: 5
 generos:

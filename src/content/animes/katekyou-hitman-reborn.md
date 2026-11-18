@@ -10,7 +10,7 @@ analisisPolitico: "Si Reborn! es tu anime favorito, tu alineamiento político es
 anoLanzamiento: 2006
 imagen: "/images/animes/katekyou-hitman-reborn.webp"
 partido: "pp"
-justificacionPartido: "Un heredero sin méritos y un consejo que se hereda. La sucesión se resuelve por apellido, como los ministerios cuando hay mayoría absoluta."
+justificacionPartido: "El sucesor se elige por apellido y se presenta como renovación. La sangre da derecho al despacho y el congreso sirve para aplaudir."
 libertadEconomica: 5
 libertadPersonal: 2
 generos:

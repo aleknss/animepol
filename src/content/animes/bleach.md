@@ -9,7 +9,7 @@ analisisPolitico: "Si Bleach es tu anime favorito, tu alineamiento político es 
 anoLanzamiento: 2004
 imagen: "/images/animes/bleach.webp"
 partido: "pp"
-justificacionPartido: "Cuatro mil años de escalafón, nobleza con apellido y un puesto que se hereda sin examen. El PP no lo llama casta: lo llama carrera orgánica."
+justificacionPartido: "Cuatro mil años de escalafón, capitanes con apellido y ningún auditor. En el PP eso se llama seguridad jurídica."
 libertadEconomica: 4
 libertadPersonal: 2
 generos:

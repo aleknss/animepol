@@ -9,7 +9,7 @@ analisisPolitico: "Desde un punto de vista de intención, One Piece es un manifi
 anoLanzamiento: 1999
 imagen: "/images/animes/one-piece.webp"
 partido: "frente-amplio"
-justificacionPartido: "Una tripulación que se reparte el botín y no acepta órdenes. Libertad para todos, salvo para el que cobra el alquiler."
+justificacionPartido: "Reparto del botín y cero órdenes. Libertad para todos, salvo para el que cobra el alquiler."
 libertadEconomica: 5
 libertadPersonal: 5
 generos:

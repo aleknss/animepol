@@ -10,7 +10,7 @@ analisisPolitico: "Si JoJo's es tu anime favorito, tu alineamiento político es 
 anoLanzamiento: 2012
 imagen: "/images/animes/jojos-bizarre-adventure.webp"
 partido: "pp"
-justificacionPartido: "Tu cuerpo, tu Stand y tu propiedad privada, con árbol genealógico verificado. La libertad de empresa incluye heredar la técnica y el escaño."
+justificacionPartido: "El Stand se hereda con la propiedad: si tu tatarabuelo tenía uno, tú también, y sin oposición. La libertad de empresa incluye el don familiar."
 libertadEconomica: 4
 libertadPersonal: 5
 generos:

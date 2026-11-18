@@ -10,7 +10,7 @@ analisisPolitico: "Si Los diarios de la boticaria es tu anime favorito, tu aline
 anoLanzamiento: 2023
 imagen: "/images/animes/apothecary.webp"
 partido: "podemos"
-justificacionPartido: "En palacio la única que lee los informes es la becaria, y aun así el mérito se lo queda el apellido. La solución no es más veneno: es más Sanidad y menos banquetes."
+justificacionPartido: "En palacio la única que lee informes es la becaria y el mérito se lo queda el apellido. Más Sanidad, menos banquetes."
 libertadEconomica: 2
 libertadPersonal: 3
 generos:

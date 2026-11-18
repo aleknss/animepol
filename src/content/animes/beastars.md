@@ -8,7 +8,7 @@ analisisPolitico: "Si Beastars es tu anime favorito, tu alineamiento político e
 anoLanzamiento: 2019
 imagen: "/images/animes/beastars.webp"
 partido: "frente-amplio"
-justificacionPartido: "Un colegio que regula el instinto con horarios, comités y pastillas. Prohibir sin educar no elimina el mercado negro de carne: lo organiza con proveedores y precios."
+justificacionPartido: "Prohibir sin educar no elimina el mercado negro de carne: lo organiza con proveedores. Comité ético, sí; carné, también."
 libertadEconomica: 2
 libertadPersonal: 3
 generos:

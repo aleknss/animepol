@@ -8,7 +8,7 @@ analisisPolitico: "Si Monster es tu anime favorito, tu alineamiento político es
 anoLanzamiento: 2004
 imagen: "/images/animes/monster.webp"
 partido: "psoe"
-justificacionPartido: "Un cirujano salva al niño equivocado y descubre que el sistema prefiere al alcalde. Sanidad pública, culpabilidad privada y un asesino con mejor oratoria que el portavoz."
+justificacionPartido: "Salvas al niño equivocado y te abre expediente por no priorizar al alcalde. Sanidad pública, culpa individual."
 libertadEconomica: 2
 libertadPersonal: 4
 generos:

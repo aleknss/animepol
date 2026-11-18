@@ -11,7 +11,7 @@ analisisPolitico: "Si Hajime no Ippo es tu anime favorito, tu alineamiento polí
 anoLanzamiento: 2000
 imagen: "/images/animes/hajime-no-ippo.webp"
 partido: "pp"
-justificacionPartido: "Levantarse a las cinco, respetar al maestro y no discutir el orden del gimnasio. La meritocracia funciona hasta que el hijo del entrenador sube a peso pluma."
+justificacionPartido: "El gimnasio premia el esfuerzo y el hijo del entrenador no hace sparring. La meritocracia, hasta que hay que renovar la plaza."
 libertadEconomica: 4
 libertadPersonal: 2
 generos:

@@ -10,7 +10,7 @@ analisisPolitico: "Si LOTGH es tu anime favorito, tu alineamiento político es e
 anoLanzamiento: 1988
 imagen: "/images/animes/la-leyenda-de-los-heroes-galacticos.webp"
 partido: "pp"
-justificacionPartido: "Prefieres un gestor que baje impuestos antes que una asamblea que discuta. El rubio guapo ya lo tienes; el PIB, todavía no."
+justificacionPartido: "Prefieres un gestor que baje impuestos a una asamblea que los suba. El rubio guapo ya está; el superávit seguimos esperando."
 libertadEconomica: 2
 libertadPersonal: 1
 generos:

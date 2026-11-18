@@ -9,7 +9,7 @@ analisisPolitico: "Si Spy x Family es tu anime favorito, tu alineamiento políti
 anoLanzamiento: 2022
 imagen: "/images/animes/spy-x-family.webp"
 partido: "psoe"
-justificacionPartido: "Familia falsa, guerra fría y una hija que lee la mente. La diversidad como fachada y nadie dice la verdad en la cena de Navidad."
+justificacionPartido: "Familia falsa, guerra congelada y nadie dice la verdad en la cena. Es el modelo de coalición: cada uno con su tapadera."
 libertadEconomica: 2
 libertadPersonal: 4
 generos:

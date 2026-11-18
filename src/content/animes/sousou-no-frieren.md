@@ -9,7 +9,7 @@ analisisPolitico: "Si Frieren es tu anime favorito, tu alineamiento político es
 anoLanzamiento: 2023
 imagen: "/images/animes/sousou-no-frieren.webp"
 partido: "frente-amplio"
-justificacionPartido: "Una elfa vuelve a la aldea cien años después y todo ha cambiado. Nostalgia rural, memoria y una reclamación que se hereda entre generaciones."
+justificacionPartido: "Cien años fuera y la aldea ha cambiado. Nostalgia rural, memoria y una reclamación que se hereda, como la finca familiar."
 libertadEconomica: 4
 libertadPersonal: 5
 generos:
