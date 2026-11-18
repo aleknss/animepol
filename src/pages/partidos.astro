@@ -188,30 +188,40 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
                 data-party-slide={partido.id}
                 hidden={i !== 0}
                 aria-label={partido.data.nombre}
-                class="rounded-2xl border bg-card overflow-hidden scroll-mt-6"
+                class="relative overflow-hidden rounded-2xl border bg-card scroll-mt-6"
                 style={`border-color:${partido.data.color}`}
               >
-                <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                <p
+                  class="pointer-events-none absolute -bottom-6 -right-2 z-0 select-none text-7xl font-black leading-none tracking-tighter sm:text-8xl"
+                  style={`color:${partido.data.color};opacity:0.1`}
+                  aria-hidden="true"
+                >
+                  {partido.data.nombre}
+                </p>
+
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
                   <div class="border-b border-border p-6 lg:border-b-0 lg:border-r">
-                    <div class="mb-4 flex items-center gap-3">
-                      <span class="flex h-12 w-20 shrink-0 items-center justify-center rounded-lg border border-border bg-white p-2">
-                        <img
-                          src={partido.data.logo}
-                          alt={partido.data.nombre}
-                          width="80"
-                          height="48"
-                          loading="lazy"
-                          class="h-full w-full object-contain"
-                        />
-                      </span>
-                      <div>
-                        <p class="text-2xl font-black tracking-tighter text-foreground">
-                          {partido.data.siglas}
-                        </p>
-                        <p class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                          {partido.data.nombre} · {partido.data.ideologia}
-                        </p>
-                      </div>
+                    <div class="mb-5">
+                      <img
+                        src={partido.data.logo}
+                        alt={partido.data.nombre}
+                        width="240"
+                        height="96"
+                        loading="lazy"
+                        class:list={[
+                          'h-16 w-auto max-w-full object-contain sm:h-20',
+                          partido.id === 'd21' ? 'dark:invert' : '',
+                        ]}
+                      />
+                    </div>
+
+                    <div class="mb-4">
+                      <p class="text-2xl font-black tracking-tighter text-foreground">
+                        {partido.data.siglas}
+                      </p>
+                      <p class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                        {partido.data.nombre} · {partido.data.ideologia}
+                      </p>
                     </div>
 
                     <dl class="space-y-2 mb-4">
