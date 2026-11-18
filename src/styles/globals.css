@@ -142,28 +142,3 @@
     scroll-behavior: auto;
   }
 }
-
-@keyframes glow-29n {
-  from {
-    text-shadow:
-      0 0 6px color-mix(in srgb, currentColor 15%, transparent),
-      0 0 10px transparent;
-  }
-  to {
-    text-shadow:
-      0 0 26px color-mix(in srgb, currentColor 75%, transparent),
-      0 0 64px color-mix(in srgb, currentColor 35%, transparent);
-  }
-}
-
-.glow-29n {
-  animation: glow-29n 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
-  will-change: text-shadow;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .glow-29n {
-    animation: none;
-    text-shadow: 0 0 18px color-mix(in srgb, currentColor 55%, transparent);
-  }
-}
