@@ -81,7 +81,8 @@ es humor seco en segunda persona, con un bloque `(Spoiler)[...]` al final.
 - Los cálculos del evento (teaser, listas de `/estadisticas`) se hacen en el frontmatter de cada
   página, nunca en cliente.
 - La posición de cada partido en el diagrama es fija (`POSICION_PARTIDO` en `src/lib/utils.ts`), no
-  la media de sus animes: el reparto se hizo por tono y la media daría cuadrantes absurdos.
+  la media de sus animes. Sale de la Chapel Hill Expert Survey 2024, reescalada a 1-5:
+  `eco = 3 + chesEconomico / 5`, `pers = 3 - chesSocial / 5`. Frente Amplio se aproxima con Sumar.
   `/estadisticas` sigue mostrando la media real de los animes como dato aparte.
 - La interactividad vive en islas de `<script>` sin framework: filtros del catálogo, slider de
   partidos, quiz, y el botón de volver arriba.
@@ -150,7 +151,8 @@ runtime de Worker. `_redirects` y `_headers` se copian desde `public/`.
 
 - [ ] Retirar el módulo de partidos tras el 13/12/2026 (`PARTIDOS_CORTE`).
 - [ ] Decidir si `/partidos` y `/estadisticas` se quedan como archivo o se retiran con el evento.
-- [ ] Eliminar el script de AdSense de `Layout.astro`, que sigue con un `pId` de ejemplo.
+- [ ] Sustituir `og-image.webp` por una versión exacta de 1200×630 y valorar un JPEG para los
+  previews de WhatsApp y Facebook, que con WebP son irregulares.
 - [ ] Sustituir los pósters de 425×600 de los tres últimos animes por originales mayores.
 
 ## Descartado

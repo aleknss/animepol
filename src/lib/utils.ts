@@ -8,17 +8,17 @@ export function partidosActivos(): boolean {
 
 export type PosicionNolan = { eco: number; pers: number }
 
-// Posición fija de cada partido en el diagrama. No es la media de sus animes:
-// el reparto se hizo por "vibe" y la media daría cuadrantes absurdos.
-// La altura la marca eco + pers: sumas altas suben hacia libertario, sumas
-// bajas bajan hacia autoritario; el eje horizontal es económica - personal.
+// Posición de cada partido según la Chapel Hill Expert Survey 2024 (Rovny et al., 2025),
+// reescalada a 1-5: eco = 3 + chesEconomico / 5, pers = 3 - chesSocial / 5.
+// Se usa la valoración de la dirección del partido, no su programa electoral.
+// Frente Amplio se aproxima con Sumar, que es la marca que codifica CHES.
 export const POSICION_PARTIDO: Record<string, PosicionNolan> = {
-  vox: { eco: 3, pers: 1 },
-  salf: { eco: 4, pers: 1 },
-  pp: { eco: 3.5, pers: 2 },
-  psoe: { eco: 3, pers: 4 },
-  podemos: { eco: 2, pers: 4 },
-  'frente-amplio': { eco: 1.5, pers: 5 },
+  vox: { eco: 4.6, pers: 1.2 },
+  salf: { eco: 4.4, pers: 1.6 },
+  pp: { eco: 3.9, pers: 2.2 },
+  psoe: { eco: 2.6, pers: 3.8 },
+  'frente-amplio': { eco: 1.9, pers: 4.5 },
+  podemos: { eco: 1.6, pers: 4.6 },
 }
 
 export function textoSobreColor(hex: string): '#000000' | '#ffffff' {

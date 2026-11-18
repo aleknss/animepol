@@ -1,6 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { ArrowLeft } from '@lucide/astro'
+import { ArrowLeft, TriangleAlert } from '@lucide/astro'
 import Layout from '@/layouts/Layout.astro'
 import DiscordIcon from '@/components/DiscordIcon.astro'
 import NolanChart from '@/components/NolanChart.astro'
@@ -71,7 +71,6 @@ const jsonLd = {
 <Layout
   title={data.titulo}
   description={description}
-  image={image}
   type="article"
   jsonLd={jsonLd}
 >
@@ -149,6 +148,12 @@ const jsonLd = {
                       {partido.data.ideologia}
                     </p>
                   </div>
+                  <p
+                    class="mb-2 inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/40 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground"
+                  >
+                    <TriangleAlert class="size-3" />
+                    Contiene spoilers
+                  </p>
                   <p class="text-sm leading-relaxed text-foreground/80">
                     {data.justificacionPartido}
                   </p>
