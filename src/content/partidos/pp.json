@@ -5,5 +5,8 @@
   "ideologia": "Conservadurismo liberal",
   "descripcion": "La casa de la tradición, el orden y la gestión. Si algo funciona desde hace mil años, no se toca; si algo no funciona, se le pone una comisión.",
   "logo": "/29n/PP.svg",
-  "orden": 1
+  "orden": 1,
+  "promesa": "Gestión, orden y bajar impuestos.",
+  "contradiccion": "Bajar impuestos y subir gasto a la vez, pero con corbata.",
+  "frase": "Si funciona desde hace mil años, no lo toques."
 }

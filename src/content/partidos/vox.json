@@ -5,5 +5,8 @@
   "ideologia": "Derecha nacional-conservadora",
   "descripcion": "Orden, muro y enemigo exterior renovado cada temporada. La complejidad es una excusa de los que dudan.",
   "logo": "/29n/VOX.svg",
-  "orden": 3
+  "orden": 3,
+  "promesa": "Orden, fronteras y sentido común.",
+  "contradiccion": "El sentido común resulta ser un decreto.",
+  "frase": "Cuanto más simple el enemigo, mejor el mitin."
 }

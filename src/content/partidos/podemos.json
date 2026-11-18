@@ -5,5 +5,8 @@
   "ideologia": "Izquierda transformadora",
   "descripcion": "Todo es político, también el paraguas. El individuo se disuelve en el grupo, salvo el líder, que se disuelve menos.",
   "logo": "/29n/Podemos.svg",
-  "orden": 5
+  "orden": 5,
+  "promesa": "Que pague el que más tiene.",
+  "contradiccion": "Todo es político, menos el sueldo de la dirección.",
+  "frase": "El poder también es tuyo, pero menos."
 }

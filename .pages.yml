@@ -177,6 +177,18 @@ content:
         type: text
         required: true
 
+      - name: promesa
+        label: Promesa
+        type: string
+
+      - name: contradiccion
+        label: Contradicción
+        type: string
+
+      - name: frase
+        label: Frase de mitin
+        type: string
+
       - name: logo
         label: Logo (ruta)
         type: string

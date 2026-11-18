@@ -5,5 +5,8 @@
   "ideologia": "Socialdemocracia",
   "descripcion": "El Estado como solución, el comité como método. Prometen auditorías, planes de choque y una reunión más para lo del otro día.",
   "logo": "/29n/PSOE.svg",
-  "orden": 2
+  "orden": 2,
+  "promesa": "El Estado te protege, del nacimiento a la nómina.",
+  "contradiccion": "Más derechos y más comités, con la misma rueda de prensa.",
+  "frase": "Un plan de choque para cada plan de choque."
 }

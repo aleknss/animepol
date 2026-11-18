@@ -106,16 +106,49 @@ const puntos = porPartido
         </ul>
       </section>
 
+      <div class="mb-4 flex flex-wrap gap-1.5" role="tablist" aria-label="Filtrar partidos">
+        <button
+          type="button"
+          data-party-tab="all"
+          aria-pressed="true"
+          class="inline-flex h-8 items-center rounded-full border border-border bg-muted px-3 text-[11px] font-black uppercase tracking-wide text-foreground transition-colors aria-pressed:bg-foreground aria-pressed:text-background"
+        >
+          Todos
+        </button>
+        {
+          porPartido.map(({ partido }) => (
+            <button
+              type="button"
+              data-party-tab={partido.id}
+              aria-pressed="false"
+              class="inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-black uppercase tracking-wide transition-colors"
+              style={`border-color:${partido.data.color};color:${partido.data.color}`}
+            >
+              {partido.data.siglas}
+            </button>
+          ))
+        }
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {
           porPartido.map(({ partido, animes: lista }) => (
             <section
               id={partido.id}
-              class="rounded-2xl border bg-card overflow-hidden scroll-mt-6"
+              data-party-card={partido.id}
+              class="relative rounded-2xl border bg-card overflow-hidden scroll-mt-6"
               style={`border-color:${partido.data.color}`}
             >
+              <span
+                class="pointer-events-none absolute -right-3 -top-8 select-none text-[9rem] font-black leading-none opacity-10"
+                style={`color:${partido.data.color}`}
+                aria-hidden="true"
+              >
+                {partido.data.siglas}
+              </span>
+
               <div
-                class="flex items-center justify-between gap-3 px-5 py-4"
+                class="relative flex items-center justify-between gap-3 px-5 py-4"
                 style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)}`}
               >
                 <div>
@@ -131,9 +164,9 @@ const puntos = porPartido
                 </span>
               </div>
 
-              <div class="p-5">
-                <div class="flex items-center gap-3 mb-3">
-                  <span class="flex h-10 w-16 items-center justify-center rounded-lg border border-border bg-white p-1.5">
+              <div class="relative p-5">
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="flex h-10 w-16 shrink-0 items-center justify-center rounded-lg border border-border bg-white p-1.5">
                     <img
                       src={partido.data.logo}
                       alt={partido.data.nombre}
@@ -148,27 +181,70 @@ const puntos = porPartido
                   </p>
                 </div>
 
-                <p class="text-sm leading-relaxed text-foreground/80 mb-4">
-                  {partido.data.descripcion}
+                <dl class="space-y-2 mb-4">
+                  <div>
+                    <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                      Promete
+                    </dt>
+                    <dd class="text-sm text-foreground">{partido.data.promesa}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                      Hace
+                    </dt>
+                    <dd class="text-sm text-foreground/80">{partido.data.contradiccion}</dd>
+                  </div>
+                </dl>
+
+                <p class="mb-4 border-l-2 pl-3 text-sm italic text-foreground/70" style={`border-color:${partido.data.color}`}>
+                  «{partido.data.frase}»
                 </p>
 
-                <ul class="space-y-1.5">
-                  {lista.map((anime) => (
-                    <li>
-                      <a
-                        href={`/anime/${anime.data.slug}`}
-                        class="text-sm text-muted-foreground transition-colors hover:text-primary"
-                      >
-                        {anime.data.titulo}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <div class="flex items-end justify-between gap-3">
+                  <div class="flex gap-1">
+                    {lista.slice(0, 4).map((anime) => (
+                      <span class="block h-14 w-10 overflow-hidden rounded-md bg-muted">
+                        {anime.data.imagen && (
+                          <img
+                            src={anime.data.imagen}
+                            alt={anime.data.titulo}
+                            loading="lazy"
+                            decoding="async"
+                            class="h-full w-full object-cover"
+                          />
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={`/partidos/${partido.id}`}
+                    class="text-[11px] font-black uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    Ver los {lista.length} →
+                  </a>
+                </div>
               </div>
             </section>
           ))
         }
       </div>
+
+      <script>
+        const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-party-tab]'))
+        const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-party-card]'))
+
+        for (const tab of tabs) {
+          tab.addEventListener('click', () => {
+            const target = tab.dataset.partyTab ?? 'all'
+
+            for (const card of cards) {
+              card.hidden = target !== 'all' && card.dataset.partyCard !== target
+            }
+
+            for (const item of tabs) item.setAttribute('aria-pressed', String(item === tab))
+          })
+        }
+      </script>
 
       <p class="mt-10 text-center text-xs text-muted-foreground">
         Asignación satírica con motivo del 29N. Sin relación con los partidos ni con sus candidaturas.
