@@ -69,7 +69,7 @@ const partidos = partidosActivos()
               type="button"
               data-filter-partido={partido.id}
               aria-pressed="false"
-              class="inline-flex h-11 items-center justify-center rounded-xl px-3 text-xs font-black uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 aria-pressed:ring-2 aria-pressed:ring-offset-2 aria-pressed:ring-offset-background"
+              class="inline-flex h-20 items-center justify-center rounded-xl px-3 text-xs font-black uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 aria-pressed:ring-2 aria-pressed:ring-offset-2 aria-pressed:ring-offset-background"
               style={`background-color:${partido.data.color};--tw-ring-color:${partido.data.color}`}
             >
               <img
@@ -79,7 +79,7 @@ const partidos = partidosActivos()
                 height="24"
                 loading="lazy"
                 class:list={[
-                  'h-5 w-auto max-w-full object-contain brightness-0',
+                  'h-6 w-auto max-w-full object-contain brightness-0',
                   textoSobreColor(partido.data.color) === '#ffffff' ? 'invert' : '',
                 ]}
               />
@@ -108,7 +108,7 @@ const partidos = partidosActivos()
       Filtros
       <span
         id="filters-count"
-        class="hidden ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[11px] leading-none text-primary-foreground"
+        class="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[11px] leading-none text-primary-foreground"
       >
         0
       </span>

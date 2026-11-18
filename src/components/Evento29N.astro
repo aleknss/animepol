@@ -1,0 +1,30 @@
+---
+interface Props {
+  href?: string
+  subtitulo: string
+}
+
+const { href, subtitulo } = Astro.props
+---
+
+<div class="max-w-6xl mx-auto my-8 border-y-2 border-foreground/80 py-6 text-center">
+  <p class="text-[10px] font-black uppercase tracking-[0.35em] text-muted-foreground">
+    Elecciones generales · 29 de noviembre
+  </p>
+  <p class="mt-1 text-7xl md:text-8xl font-black tracking-tighter text-primary leading-none">
+    29N
+  </p>
+  {
+    href ? (
+      <a
+        href={href}
+        class="mt-3 inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-foreground transition-colors hover:text-primary"
+      >
+        {subtitulo}
+        <span aria-hidden="true">→</span>
+      </a>
+    ) : (
+      <p class="mt-3 text-xs font-black uppercase tracking-widest text-foreground">{subtitulo}</p>
+    )
+  }
+</div>

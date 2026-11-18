@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import { ArrowLeft } from '@lucide/astro'
 import Creditos from '@/components/Creditos.astro'
+import Evento29N from '@/components/Evento29N.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { partidosActivos, textoSobreColor } from '@/lib/utils'
@@ -39,10 +40,9 @@ const total = porPartido.reduce((sum, item) => sum + item.animes.length, 0)
         Catálogo
       </a>
 
+      <Evento29N subtitulo="Sátira electoral, no una encuesta" />
+
       <div class="mb-10 text-center">
-        <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">
-          29N · Elecciones generales
-        </p>
         <h1 class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-3">
           ¿A quién votaría tu anime?
         </h1>
