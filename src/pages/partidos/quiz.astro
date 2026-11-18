@@ -39,7 +39,7 @@ const activo = partidosActivos()
       <ThemeToggle />
     </header>
 
-    <main class="max-w-2xl mx-auto">
+    <main class="max-w-3xl mx-auto">
       <a
         href="/partidos"
         class="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-1.5 transition-colors font-bold uppercase text-xs tracking-widest"
@@ -56,49 +56,50 @@ const activo = partidosActivos()
             El quiz solo está disponible durante el evento.
           </p>
         ) : (
-          <div id="quiz" class="rounded-2xl border border-border bg-card p-5">
-            <div id="quiz-start" class="text-center">
-              <h1 class="text-2xl font-black tracking-tighter text-foreground mb-2">
+          <div id="quiz" class="text-center">
+            <div id="quiz-start">
+              <h1 class="text-3xl font-black tracking-tighter text-foreground mb-2">
                 ¿De qué partido es?
               </h1>
-              <p class="text-sm text-muted-foreground mb-5">
+              <p class="text-sm text-muted-foreground mb-6">
                 Diez animes al azar. Acierta a qué partido los asignó esta web.
               </p>
               <button
                 type="button"
                 id="quiz-go"
-                class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-black uppercase tracking-widest text-primary-foreground transition-transform hover:scale-105"
+                class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-black uppercase tracking-widest text-primary-foreground transition-transform hover:scale-105"
               >
                 Empezar
               </button>
             </div>
 
             <div id="quiz-game" hidden>
-              <div class="mb-3 flex items-center justify-between text-[11px] font-black uppercase tracking-widest text-muted-foreground">
+              <div class="mx-auto mb-6 flex max-w-md items-center justify-between text-[11px] font-black uppercase tracking-widest text-muted-foreground">
                 <span id="quiz-progress">1 / 10</span>
                 <span id="quiz-score">0 aciertos</span>
               </div>
 
-              <div class="grid grid-cols-1 gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-                <div>
-                  <div class="relative mx-auto mb-4 h-64 w-44 overflow-hidden rounded-xl border border-border bg-muted">
-                    <img id="quiz-image" src="" alt="" class="absolute inset-0 h-full w-full object-cover" />
-                  </div>
-
-                  <p id="quiz-title" class="mb-4 text-center text-lg font-black tracking-tighter text-foreground"></p>
-                  <p class="mb-3 text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <div id="quiz-stage" class="relative mx-auto max-w-md">
+                <div id="quiz-main">
+                  <img
+                    id="quiz-image"
+                    src=""
+                    alt=""
+                    class="mx-auto mb-4 h-56 w-auto rounded-lg object-cover"
+                  />
+                  <p id="quiz-title" class="mb-1 text-lg font-black tracking-tighter text-foreground"></p>
+                  <p class="mb-5 text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     ¿A qué partido está asignado?
                   </p>
 
-                  <div id="quiz-options" class="grid grid-cols-1 gap-2"></div>
+                  <div id="quiz-options" class="mx-auto max-w-sm"></div>
 
-                  <p id="quiz-feedback" class="mt-4 text-center text-sm text-muted-foreground"></p>
+                  <p id="quiz-feedback" class="mt-4 text-sm text-muted-foreground"></p>
                 </div>
 
                 <aside
                   id="quiz-explanation"
-                  class="rounded-xl border border-border bg-muted/40 p-4 text-sm leading-relaxed text-muted-foreground"
-                  aria-live="polite"
+                  class="mx-auto mt-6 max-w-sm text-left text-sm leading-relaxed text-muted-foreground md:absolute md:left-full md:top-0 md:ml-8 md:mt-0 md:w-64 md:max-w-none"
                 >
                   Elige una opción y aquí aparece la explicación de la asignación.
                 </aside>
@@ -108,29 +109,29 @@ const activo = partidosActivos()
                 type="button"
                 id="quiz-next"
                 hidden
-                class="mt-4 w-full rounded-xl bg-foreground px-4 py-2 text-sm font-black uppercase tracking-widest text-background"
+                class="mt-8 text-sm font-black uppercase tracking-widest text-primary underline-offset-4 hover:underline"
               >
-                Siguiente
+                Siguiente →
               </button>
             </div>
 
-            <div id="quiz-end" hidden class="text-center">
+            <div id="quiz-end" hidden>
               <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
                 Resultado
               </p>
-              <p id="quiz-final" class="text-4xl font-black tracking-tighter text-primary mb-2"></p>
-              <p id="quiz-verdict" class="text-sm text-foreground mb-5"></p>
-              <div class="flex flex-wrap justify-center gap-2">
+              <p id="quiz-final" class="text-5xl font-black tracking-tighter text-primary mb-2"></p>
+              <p id="quiz-verdict" class="mx-auto max-w-sm text-sm text-foreground mb-6"></p>
+              <div class="flex flex-wrap justify-center gap-4">
                 <button
                   type="button"
                   id="quiz-restart"
-                  class="rounded-xl border border-border px-4 py-2 text-sm font-black uppercase tracking-widest text-foreground transition-colors hover:bg-muted"
+                  class="text-sm font-black uppercase tracking-widest text-foreground underline-offset-4 hover:underline"
                 >
                   Otra ronda
                 </button>
                 <a
                   href="/partidos"
-                  class="rounded-xl bg-primary px-4 py-2 text-sm font-black uppercase tracking-widest text-primary-foreground"
+                  class="text-sm font-black uppercase tracking-widest text-primary underline-offset-4 hover:underline"
                 >
                   Ver el reparto
                 </a>
@@ -174,6 +175,7 @@ const activo = partidosActivos()
     const scoreEl = document.getElementById('quiz-score')
     const feedback = document.getElementById('quiz-feedback')
     const explanation = document.getElementById('quiz-explanation')
+    const stage = document.getElementById('quiz-stage')
     const next = document.getElementById('quiz-next')
     const final = document.getElementById('quiz-final')
     const verdict = document.getElementById('quiz-verdict')
@@ -202,6 +204,7 @@ const activo = partidosActivos()
       answered = false
       next.hidden = true
       feedback.textContent = ''
+      stage?.classList.remove('is-answered')
       if (explanation) {
         explanation.textContent = 'Elige una opción y aquí aparece la explicación de la asignación.'
       }
@@ -226,7 +229,7 @@ const activo = partidosActivos()
         button.type = 'button'
         button.textContent = partido.nombre
         button.className =
-          'flex items-center gap-2 rounded-xl border-2 px-3 py-2 text-sm font-black uppercase tracking-wide text-foreground transition-transform hover:scale-[1.01] disabled:hover:scale-100'
+          'flex w-full items-center gap-2 border-b border-border px-1 py-2.5 text-left text-sm font-bold uppercase tracking-wide text-foreground transition-colors hover:text-primary disabled:hover:text-foreground'
         button.style.borderColor = partido.color
 
         const dot = document.createElement('span')
@@ -270,6 +273,8 @@ const activo = partidosActivos()
             texto.textContent = anime.explicacion || 'Sin justificación guardada para esta ficha.'
             explanation.append(cabecera, texto)
           }
+
+          stage?.classList.add('is-answered')
           next.hidden = false
           scoreEl.textContent = `${score} acierto${score === 1 ? '' : 's'}`
         })
@@ -320,3 +325,35 @@ const activo = partidosActivos()
     })
   }
 </script>
+
+<style>
+  #quiz-explanation {
+    opacity: 0;
+    transition: opacity 0.45s ease 0.1s;
+  }
+
+  #quiz-main {
+    transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  #quiz-stage.is-answered #quiz-explanation {
+    opacity: 1;
+  }
+
+  @media (min-width: 768px) {
+    #quiz-stage.is-answered #quiz-main {
+      transform: translateX(-2.5rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #quiz-main,
+    #quiz-explanation {
+      transition: none;
+    }
+
+    #quiz-stage.is-answered #quiz-main {
+      transform: none;
+    }
+  }
+</style>
