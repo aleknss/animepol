@@ -75,6 +75,11 @@ generos[], partido?, justificacionPartido?
 Regla: `src/content.config.ts` y `.pages.yml` se mantienen en sync. El tono de `analisisPolitico`
 es humor seco en segunda persona, con un bloque `(Spoiler)[...]` al final.
 
+Las `justificacionPartido` siguen una regla propia: una broma por ficha, un ángulo distinto en cada
+una (primarias, inmunidad, retribución, fisco, aforo, contratos, repetición electoral, etc.),
+controversia concreta de la política española y remate. Sin repetir coletillas entre fichas ni
+recurrir al insulto genérico.
+
 ## Flujo de datos
 
 - Todo el contenido se resuelve en build con `getCollection`.
