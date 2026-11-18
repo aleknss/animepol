@@ -1,0 +1,281 @@
+---
+import { getCollection } from 'astro:content'
+import { ArrowLeft } from '@lucide/astro'
+import Creditos from '@/components/Creditos.astro'
+import Evento29N from '@/components/Evento29N.astro'
+import ThemeToggle from '@/components/ThemeToggle.astro'
+import Layout from '@/layouts/Layout.astro'
+import { partidosActivos, textoSobreColor } from '@/lib/utils'
+
+const partidos = (await getCollection('partidos')).sort((a, b) => a.data.orden - b.data.orden)
+const animes = (await getCollection('animes')).filter((anime) => anime.data.partido)
+
+const partidosData = partidos.map((partido) => ({
+  id: partido.id,
+  siglas: partido.data.siglas,
+  nombre: partido.data.nombre,
+  color: partido.data.color,
+  ink: textoSobreColor(partido.data.color),
+}))
+
+const animesData = animes.map((anime) => ({
+  titulo: anime.data.titulo,
+  imagen: anime.data.imagen ?? '',
+  partido: anime.data.partido,
+}))
+
+const activo = partidosActivos()
+---
+
+<Layout
+  title="¿De qué partido es? · 29N"
+  description="Diez animes al azar: adivina a qué partido está asignado cada uno dentro del especial satírico del 29N."
+>
+  <div class="min-h-screen bg-background py-6 px-4">
+    <header class="top-6 max-w-6xl w-full m-auto flex justify-between items-center">
+      <Creditos />
+      <ThemeToggle />
+    </header>
+
+    <main class="max-w-2xl mx-auto">
+      <a
+        href="/partidos"
+        class="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-1.5 transition-colors font-bold uppercase text-xs tracking-widest"
+      >
+        <ArrowLeft class="size-4" />
+        Partidos 29N
+      </a>
+
+      <Evento29N subtitulo="Diez animes, tres opciones, cero rigor" />
+
+      {
+        !activo ? (
+          <p class="text-center text-sm text-muted-foreground">
+            El quiz solo está disponible durante el evento.
+          </p>
+        ) : (
+          <div id="quiz" class="rounded-2xl border border-border bg-card p-5">
+            <div id="quiz-start" class="text-center">
+              <h1 class="text-2xl font-black tracking-tighter text-foreground mb-2">
+                ¿De qué partido es?
+              </h1>
+              <p class="text-sm text-muted-foreground mb-5">
+                Diez animes al azar. Acierta a qué partido los asignó esta web.
+              </p>
+              <button
+                type="button"
+                id="quiz-go"
+                class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-black uppercase tracking-widest text-primary-foreground transition-transform hover:scale-105"
+              >
+                Empezar
+              </button>
+            </div>
+
+            <div id="quiz-game" hidden>
+              <div class="mb-3 flex items-center justify-between text-[11px] font-black uppercase tracking-widest text-muted-foreground">
+                <span id="quiz-progress">1 / 10</span>
+                <span id="quiz-score">0 aciertos</span>
+              </div>
+
+              <div class="relative mx-auto mb-4 h-64 w-44 overflow-hidden rounded-xl border border-border bg-muted">
+                <img id="quiz-image" src="" alt="" class="absolute inset-0 h-full w-full object-cover" />
+              </div>
+
+              <p id="quiz-title" class="mb-4 text-center text-lg font-black tracking-tighter text-foreground"></p>
+              <p class="mb-3 text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                ¿A qué partido está asignado?
+              </p>
+
+              <div id="quiz-options" class="grid grid-cols-1 gap-2"></div>
+
+              <p id="quiz-feedback" class="mt-4 text-center text-sm text-muted-foreground"></p>
+
+              <button
+                type="button"
+                id="quiz-next"
+                hidden
+                class="mt-4 w-full rounded-xl bg-foreground px-4 py-2 text-sm font-black uppercase tracking-widest text-background"
+              >
+                Siguiente
+              </button>
+            </div>
+
+            <div id="quiz-end" hidden class="text-center">
+              <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
+                Resultado
+              </p>
+              <p id="quiz-final" class="text-4xl font-black tracking-tighter text-primary mb-2"></p>
+              <p id="quiz-verdict" class="text-sm text-foreground mb-5"></p>
+              <div class="flex flex-wrap justify-center gap-2">
+                <button
+                  type="button"
+                  id="quiz-restart"
+                  class="rounded-xl border border-border px-4 py-2 text-sm font-black uppercase tracking-widest text-foreground transition-colors hover:bg-muted"
+                >
+                  Otra ronda
+                </button>
+                <a
+                  href="/partidos"
+                  class="rounded-xl bg-primary px-4 py-2 text-sm font-black uppercase tracking-widest text-primary-foreground"
+                >
+                  Ver el reparto
+                </a>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      <script is:inline type="application/json" id="quiz-data" set:html={JSON.stringify({ partidos: partidosData, animes: animesData })} />
+
+      <p class="mt-10 text-center text-xs text-muted-foreground">
+        Asignación satírica con motivo del 29N. Sin relación con los partidos ni con sus candidaturas.
+      </p>
+    </main>
+  </div>
+</Layout>
+
+<script lang="ts">
+  const parse = <T,>(id: string): T | null => {
+    const el = document.getElementById(id)
+    if (!el?.textContent) return null
+    try {
+      return JSON.parse(el.textContent) as T
+    } catch {
+      return null
+    }
+  }
+
+  type Partido = { id: string; siglas: string; nombre: string; color: string; ink: string }
+  type Anime = { titulo: string; imagen: string; partido: string }
+  type Data = { partidos: Partido[]; animes: Anime[] }
+
+  const data = parse<Data>('quiz-data')
+  const start = document.getElementById('quiz-start')
+  const game = document.getElementById('quiz-game')
+  const end = document.getElementById('quiz-end')
+
+  if (data && start && game && end) {
+    const TOTAL = 10
+    const options = document.getElementById('quiz-options')
+    const image = document.getElementById('quiz-image') as HTMLImageElement | null
+    const title = document.getElementById('quiz-title')
+    const progress = document.getElementById('quiz-progress')
+    const scoreEl = document.getElementById('quiz-score')
+    const feedback = document.getElementById('quiz-feedback')
+    const next = document.getElementById('quiz-next') as HTMLButtonElement | null
+    const final = document.getElementById('quiz-final')
+    const verdict = document.getElementById('quiz-verdict')
+
+    let queue: Anime[] = []
+    let index = 0
+    let score = 0
+    let answered = false
+
+    const shuffle = <T,>(items: T[]): T[] => {
+      const copy = [...items]
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[copy[i], copy[j]] = [copy[j], copy[i]]
+      }
+      return copy
+    }
+
+    const siglas = new Map(data.partidos.map((partido) => [partido.id, partido]))
+
+    function render() {
+      const anime = queue[index]
+      const correct = siglas.get(anime.partido)
+      if (!correct || !options || !image || !title || !progress || !scoreEl || !feedback || !next) return
+
+      answered = false
+      next.hidden = true
+      feedback.textContent = ''
+      progress.textContent = `${index + 1} / ${TOTAL}`
+      scoreEl.textContent = `${score} acierto${score === 1 ? '' : 's'}`
+      title.textContent = anime.titulo
+
+      if (anime.imagen) {
+        image.src = anime.imagen
+        image.alt = anime.titulo
+        image.hidden = false
+      } else {
+        image.hidden = true
+      }
+
+      const wrong = shuffle(data.partidos.filter((partido) => partido.id !== anime.partido)).slice(0, 2)
+      const opts = shuffle([correct, ...wrong])
+
+      options.innerHTML = ''
+      for (const partido of opts) {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.textContent = partido.nombre
+        button.className = 'rounded-xl border-2 px-3 py-2 text-sm font-black uppercase tracking-wide transition-transform hover:scale-[1.01]'
+        button.style.borderColor = partido.color
+        button.style.color = partido.color
+        button.addEventListener('click', () => {
+          if (answered) return
+          answered = true
+
+          const right = partido.id === anime.partido
+          if (right) score++
+
+          for (const other of options.querySelectorAll('button')) {
+            other.disabled = true
+            other.style.opacity = other === button ? '1' : '0.4'
+          }
+
+          feedback.textContent = right
+            ? `Correcto. ${correct.nombre}.`
+            : `No. Era ${correct.nombre}.`
+          next.hidden = false
+          scoreEl.textContent = `${score} acierto${score === 1 ? '' : 's'}`
+        })
+        options.appendChild(button)
+      }
+    }
+
+    function finish() {
+      if (!start || !game || !end || !final || !verdict) return
+      start.hidden = true
+      game.hidden = true
+      end.hidden = false
+
+      final.textContent = `${score} / ${TOTAL}`
+      const mensaje =
+        score >= 9
+          ? 'Trabajas en la web o tienes demasiado tiempo libre.'
+          : score >= 6
+            ? 'Has interiorizado el reparto. Preocupante, pero útil.'
+            : score >= 3
+              ? 'Nivel medio: sabes que el PP no es Podemos y poco más.'
+              : 'Suspenso electoral. Vuelve al catálogo.'
+      verdict.textContent = mensaje
+    }
+
+    document.getElementById('quiz-go')?.addEventListener('click', () => {
+      queue = shuffle(data.animes).slice(0, TOTAL)
+      index = 0
+      score = 0
+      if (!start || !game || !end) return
+      start.hidden = true
+      game.hidden = false
+      end.hidden = true
+      render()
+    })
+
+    next?.addEventListener('click', () => {
+      index++
+      if (index >= TOTAL) finish()
+      else render()
+    })
+
+    document.getElementById('quiz-restart')?.addEventListener('click', () => {
+      if (!start || !game || !end) return
+      start.hidden = false
+      game.hidden = true
+      end.hidden = true
+    })
+  }
+</script>

@@ -35,6 +35,11 @@ export const GET: APIRoute = async ({ site }) => {
       changefreq: 'weekly',
       priority: '0.6',
     },
+    {
+      url: new URL('/partidos/quiz/', base).toString(),
+      changefreq: 'weekly',
+      priority: '0.6',
+    },
     ...(await getCollection('partidos')).map((partido) => ({
       url: new URL(`/partidos/${partido.id}/`, base).toString(),
       changefreq: 'weekly',

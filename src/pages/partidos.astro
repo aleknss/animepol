@@ -106,7 +106,14 @@ const puntos = porPartido
         </ul>
       </section>
 
-      <div class="mb-4 flex flex-wrap gap-1.5" role="tablist" aria-label="Filtrar partidos">
+      <div class="mb-4 flex flex-wrap items-center gap-1.5" role="tablist" aria-label="Filtrar partidos">
+        <a
+          href="/partidos/quiz"
+          class="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-black uppercase tracking-wide text-primary-foreground transition-transform hover:scale-105"
+        >
+          Jugar al quiz →
+        </a>
+        <span class="mx-1 h-4 w-px bg-border" aria-hidden="true"></span>
         <button
           type="button"
           data-party-tab="all"
