@@ -16,11 +16,4 @@
 
 `ARCHITECTURE.md` is the source of truth for structure, content model, routes, event lifecycle and
 backlog. After finishing any meaningful change, review it and update the affected sections before
-closing the task.
-
-## Pendiente
-
-- [ ] Retirar el módulo de partidos tras el 13/12/2026 (`PARTIDOS_CORTE` en `src/lib/utils.ts`).
-- [ ] Decidir si `/partidos` y `/estadisticas` se archivan o se retiran con el evento.
-- [ ] Reequilibrar el reparto 8/7/7/7/7/7 si se quiere exacto.
-- [ ] Eliminar o completar el script de AdSense de `src/layouts/Layout.astro` (sigue con un `pId` de ejemplo).
+closing the task. Pending work lives there, not here.

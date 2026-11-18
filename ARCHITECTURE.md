@@ -143,15 +143,15 @@ runtime de Worker. `_redirects` y `_headers` se copian desde `public/`.
 
 ## Pendiente
 
-- Retirar el módulo de partidos tras el 13/12/2026 (`PARTIDOS_CORTE`).
-- Decidir si `/partidos` y `/estadisticas` se quedan como archivo o se retiran con el evento.
-- Reequilibrar el reparto 8/7/7/7/7/7 si se quiere exacto.
-- Sustituir el script de AdSense de `Layout.astro`, que sigue con un `pId` de ejemplo, o eliminarlo.
-- Sustituir los pósters de 425×600 de los tres últimos animes por originales mayores.
+- [ ] Retirar el módulo de partidos tras el 13/12/2026 (`PARTIDOS_CORTE`).
+- [ ] Decidir si `/partidos` y `/estadisticas` se quedan como archivo o se retiran con el evento.
+- [ ] Reequilibrar el reparto 8/7/7/7/7/7 si se quiere exacto.
+- [ ] Eliminar el script de AdSense de `Layout.astro`, que sigue con un `pId` de ejemplo.
+- [ ] Sustituir los pósters de 425×600 de los tres últimos animes por originales mayores.
 
 ## Descartado
 
-- AdSense en producción: no se va a integrar por ahora.
+- AdSense en producción: no se va a integrar.
 - Pages CMS: edición manual de Markdown y JSON.
 - Analytics: sin eventos personalizados en Cloudflare Web Analytics.
 - Foro propio: la conversación vive en Discord.
