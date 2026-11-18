@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
-import { ArrowLeft, RotateCcw, Share2 } from '@lucide/astro'
+import { ArrowLeft, Check, RotateCcw, Share2, X } from '@lucide/astro'
 import Creditos from '@/components/Creditos.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 import Layout from '@/layouts/Layout.astro'
@@ -104,7 +104,14 @@ const activo = partidosActivos()
                     <kbd class="pointer-events-none inline-flex h-5 select-none items-center rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">Enter</kbd>
                   </div>
 
-                  <p id="quiz-feedback" class="mt-4 text-sm text-muted-foreground"></p>
+                  <p
+                    id="quiz-feedback"
+                    class="mt-4 flex items-center justify-center gap-1.5 text-sm text-muted-foreground"
+                  >
+                    <Check id="quiz-icon-ok" class="hidden size-4 text-green-600" aria-hidden="true" />
+                    <X id="quiz-icon-x" class="hidden size-4 text-red-500" aria-hidden="true" />
+                    <span id="quiz-feedback-text"></span>
+                  </p>
                 </div>
 
                 <aside
@@ -197,6 +204,9 @@ const activo = partidosActivos()
     const progress = document.getElementById('quiz-progress')
     const scoreEl = document.getElementById('quiz-score')
     const feedback = document.getElementById('quiz-feedback')
+    const feedbackText = document.getElementById('quiz-feedback-text')
+    const iconOk = document.getElementById('quiz-icon-ok')
+    const iconX = document.getElementById('quiz-icon-x')
     const explanation = document.getElementById('quiz-explanation')
     const stage = document.getElementById('quiz-stage')
     const next = document.getElementById('quiz-next')
@@ -247,7 +257,9 @@ const activo = partidosActivos()
 
       answered = false
       next.hidden = true
-      feedback.textContent = ''
+      if (feedbackText) feedbackText.textContent = ''
+      iconOk?.classList.add('hidden')
+      iconX?.classList.add('hidden')
       stage?.classList.remove('is-answered')
       if (explanation) {
         explanation.textContent = 'Elige una opción y aquí aparece la explicación de la asignación.'
@@ -303,9 +315,13 @@ const activo = partidosActivos()
 
           if (!right) button.style.opacity = '0.45'
 
-          feedback.textContent = right
-            ? `Correcto. ${correct.nombre}.`
-            : `No. Era ${correct.nombre}.`
+          if (feedbackText) {
+            feedbackText.textContent = right
+              ? `Correcto. ${correct.nombre}.`
+              : `No. Era ${correct.nombre}.`
+          }
+          iconOk?.classList.toggle('hidden', !right)
+          iconX?.classList.toggle('hidden', right)
 
           if (explanation) {
             explanation.innerHTML = ''
