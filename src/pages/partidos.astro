@@ -34,6 +34,17 @@ const puntos = porPartido
   }))
 
 const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
+
+const conPartido = animes.filter((anime) => anime.data.partido)
+const hoy = new Date()
+const semilla = hoy.getDate() + hoy.getMonth() * 31
+const teaser = conPartido[semilla % conPartido.length]
+const teaserPartido = partidos.find((partido) => partido.id === teaser.data.partido)
+const rivales = partidos
+  .filter((partido) => partido.id !== teaser.data.partido)
+  .slice(semilla % 3, (semilla % 3) + 2)
+const opcionesTeaser = [...rivales]
+opcionesTeaser.splice((semilla % 3) % 3, 0, teaserPartido)
 ---
 
 <Layout
@@ -78,13 +89,55 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
           {total} fichas repartidas entre seis partidos, con el mismo rigor que el resto del sitio:
           ninguno. Esto es una asignación satírica, no una encuesta ni una recomendación de voto.
         </p>
-        <a
-          href="/partidos/quiz"
-          class="mt-5 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-black uppercase tracking-widest text-primary-foreground transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
-        >
-          Jugar al quiz
-          <span aria-hidden="true">→</span>
-        </a>
+        <div class="mt-6 flex flex-col items-center gap-2">
+          <div class="w-full max-w-sm rounded-2xl border border-border bg-card p-3 text-left shadow-sm">
+            <p class="mb-2 text-[9px] font-black uppercase tracking-[0.25em] text-muted-foreground">
+              Pregunta de muestra
+            </p>
+            <div class="flex gap-3">
+              <div class="h-24 w-16 shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
+                {teaser.data.imagen && (
+                  <img
+                    src={teaser.data.imagen}
+                    alt={teaser.data.titulo}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                )}
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-black leading-tight text-card-foreground line-clamp-1">
+                  {teaser.data.titulo}
+                </p>
+                <p class="mb-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  ¿De qué partido es?
+                </p>
+                <div class="grid gap-1">
+                  {opcionesTeaser.map((opcion) => (
+                    <a
+                      href={`/partidos/quiz?start=${teaser.data.slug}`}
+                      class="flex items-center gap-1.5 rounded-md px-1.5 py-1 text-[11px] font-bold uppercase tracking-wide text-foreground transition-colors hover:bg-muted hover:text-primary"
+                    >
+                      <span
+                        class="size-1.5 shrink-0 rounded-full"
+                        style={`background-color:${opcion.data.color}`}
+                        aria-hidden="true"
+                      />
+                      {opcion.data.siglas}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="/partidos/quiz"
+            class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          >
+            10 preguntas · 1 minuto · hasta el 13 de diciembre
+          </a>
+        </div>
         {
           !activo && (
             <p class="mt-4 inline-block rounded-full border border-border px-3 py-1 text-xs font-bold uppercase tracking-widest text-muted-foreground">

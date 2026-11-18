@@ -370,8 +370,15 @@ const activo = partidosActivos()
       verdict.textContent = mensaje + record
     }
 
-    document.getElementById('quiz-go')?.addEventListener('click', () => {
-      queue = shuffle(data.animes).slice(0, TOTAL)
+    const startParam = new URLSearchParams(location.search).get('start')
+
+    const begin = () => {
+      queue = shuffle(data.animes)
+      if (startParam) {
+        const first = queue.findIndex((anime) => anime.slug === startParam)
+        if (first > 0) queue.unshift(queue.splice(first, 1)[0])
+      }
+      queue = queue.slice(0, TOTAL)
       index = 0
       score = 0
       if (!start || !game || !end) return
@@ -379,7 +386,11 @@ const activo = partidosActivos()
       game.hidden = false
       end.hidden = true
       render()
-    })
+    }
+
+    document.getElementById('quiz-go')?.addEventListener('click', begin)
+
+    if (startParam) begin()
 
     next?.addEventListener('click', () => {
       index++
