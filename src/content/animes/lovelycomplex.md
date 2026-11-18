@@ -8,7 +8,7 @@ analisisPolitico: "Si Lovely Complex es tu anime favorito, tu alineamiento polí
 anoLanzamiento: 2007
 imagen: "/images/animes/lovelycomplex.webp"
 partido: "podemos"
-justificacionPartido: "Una chica alta, un chico bajo y 24 episodios contra los roles de género. La diversidad corporal como programa y el amor como reivindicación."
+justificacionPartido: "Una chica alta, un chico bajo y veinticuatro episodios contra los roles de género. La talla no se discute; el canon, sí."
 libertadEconomica: 2
 libertadPersonal: 5
 generos:

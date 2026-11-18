@@ -8,7 +8,7 @@ analisisPolitico: "Si Naruto es tu anime favorito, tu alineamiento político es 
 anoLanzamiento: 2002
 imagen: "/images/animes/naruto.webp"
 partido: "vox"
-justificacionPartido: "Nepotismo de linaje, aldea fuerte y un Hokage que se hereda como un apellido. La nación primero, el clan después y el becario del equipo siete al final."
+justificacionPartido: "Nepotismo de aldea, nación fuerte y un Hokage que se hereda. La nación primero, el clan después y el becario del equipo siete al final."
 libertadEconomica: 4
 libertadPersonal: 2
 generos:

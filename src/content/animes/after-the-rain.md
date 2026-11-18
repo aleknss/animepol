@@ -10,7 +10,7 @@ analisisPolitico: "Si esta es tu serie favorita, tu alineamiento político es el
 anoLanzamiento: 2018
 imagen: "/images/animes/after-the-rain.webp"
 partido: "podemos"
-justificacionPartido: "Amor, lluvia y una diferencia de edad que se justifica con un taller de educación afectiva. Todo es político, incluido el paraguas."
+justificacionPartido: "Todo es político, incluido el paraguas. La diferencia de edad se resuelve con un taller de educación afectiva y una comisión de seguimiento."
 libertadEconomica: 2
 libertadPersonal: 5
 generos:

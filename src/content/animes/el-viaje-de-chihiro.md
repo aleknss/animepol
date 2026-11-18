@@ -10,7 +10,7 @@ analisisPolitico: "Si esta es tu película favorita de Ghibli, tu alineamiento p
 anoLanzamiento: 2001
 imagen: "/images/animes/el-viaje-de-chihiro.webp"
 partido: "psoe"
-justificacionPartido: "Empiezas en un contrato basura, te cambian el nombre y acabas salvando la empresa. Con una inspección de trabajo, Yubaba reparte beneficios."
+justificacionPartido: "Contrato basura, nombre cambiado y una inspección de trabajo que arregla el capitalismo. Yubaba sigue siendo CEO, pero ahora con plan de igualdad."
 libertadEconomica: 2
 libertadPersonal: 4
 generos:

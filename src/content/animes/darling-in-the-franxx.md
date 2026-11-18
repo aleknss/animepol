@@ -9,7 +9,7 @@ analisisPolitico: "Darling in the Franxx es el \"vibe\" definitivo del Progresis
 anoLanzamiento: 2018
 imagen: "/images/animes/darling-in-the-franxx.webp"
 partido: "podemos"
-justificacionPartido: "Revolución hormonal con comité de igualdad y guion de educación afectiva. El amor es político y alguien tiene que decirlo en el Congreso."
+justificacionPartido: "Revolución hormonal con comité de igualdad. El amor es político, y el deseo también pasa por asamblea."
 libertadEconomica: 1
 libertadPersonal: 4
 generos:

@@ -10,7 +10,7 @@ analisisPolitico: "Si JoJo's es tu anime favorito, tu alineamiento político es 
 anoLanzamiento: 2012
 imagen: "/images/animes/jojos-bizarre-adventure.webp"
 partido: "pp"
-justificacionPartido: "Tu cuerpo, tu Stand, tu propiedad privada. El PP si el PP tuviera poses y un árbol genealógico verificado."
+justificacionPartido: "Tu cuerpo, tu Stand y tu propiedad privada, con árbol genealógico verificado. La libertad de empresa incluye heredar la técnica y el escaño."
 libertadEconomica: 4
 libertadPersonal: 5
 generos:

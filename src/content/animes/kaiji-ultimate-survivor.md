@@ -11,7 +11,7 @@ analisisPolitico: "Si Kaiji es tu anime favorito, tu alineamiento político es e
 anoLanzamiento: 2007
 imagen: "/images/animes/kaiji-ultimate-survivor.webp"
 partido: "podemos"
-justificacionPartido: "Deudas, casas de apuestas y un sistema diseñado para que pierdas. La meritocracia es un timo y el único que gana es el que reparte las cartas."
+justificacionPartido: "La meritocracia es un timo y el único que gana es el que reparte. Se critica el casino, no la silla del crupier."
 libertadEconomica: 1
 libertadPersonal: 4
 generos:

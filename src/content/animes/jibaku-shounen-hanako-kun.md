@@ -10,7 +10,7 @@ analisisPolitico: "Si Hanako-kun es tu anime favorito, tu alineamiento político
 anoLanzamiento: 2020
 imagen: "/images/animes/jibaku-shounen-hanako-kun.webp"
 partido: "pp"
-justificacionPartido: "Fronteras claras entre vivos y muertos y un colegio que funciona desde hace siglos. Si algo lleva mil años así, ¿para qué reformarlo?"
+justificacionPartido: "Un colegio que funciona desde hace siglos y un uniforme que nadie revisa. Si el fantasma paga la matrícula, no se toca el reglamento."
 libertadEconomica: 4
 libertadPersonal: 2
 generos:

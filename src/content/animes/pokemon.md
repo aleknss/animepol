@@ -9,7 +9,7 @@ analisisPolitico: "Si el anime de Pokémon es tu favorito, tu alineamiento polí
 anoLanzamiento: 1997
 imagen: "/images/animes/pokemon.webp"
 partido: "frente-amplio"
-justificacionPartido: "Capturar especies protegidas y meterlas en una bola ya no es una aventura, es un delito. Comité ético para las esferas."
+justificacionPartido: "Capturar especies protegidas y meterlas en una bola ya no es una aventura: es un delito. Comité ético para las esferas."
 libertadEconomica: 4
 libertadPersonal: 5
 generos:

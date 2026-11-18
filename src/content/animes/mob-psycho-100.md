@@ -9,7 +9,7 @@ analisisPolitico: "Para empezar, Mob Psycho tiene unas \"vibes\" de deconstrucci
 anoLanzamiento: 2016
 imagen: "/images/animes/mob-psycho-100.webp"
 partido: "podemos"
-justificacionPartido: "Un charlatán con gabardina explota a un niño con poderes y lo llama formación. El culto al líder carismático con excusa de pedagogía."
+justificacionPartido: "Un charlatán con gabardina explota a un niño con poderes y lo llama formación. El culto al líder, con excusa pedagógica."
 libertadEconomica: 2
 libertadPersonal: 5
 generos:

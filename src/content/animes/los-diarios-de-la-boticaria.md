@@ -10,7 +10,7 @@ analisisPolitico: "Si Los diarios de la boticaria es tu anime favorito, tu aline
 anoLanzamiento: 2023
 imagen: "/images/animes/apothecary.webp"
 partido: "podemos"
-justificacionPartido: "La corte es una élite que envenena al que pregunta y llama tradición al enchufe. La boticaria de clase trabajadora debería ser ministra de Sanidad, y el palacio, una auditoría."
+justificacionPartido: "En palacio la única que lee los informes es la becaria, y aun así el mérito se lo queda el apellido. La solución no es más veneno: es más Sanidad y menos banquetes."
 libertadEconomica: 2
 libertadPersonal: 3
 generos:

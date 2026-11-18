@@ -9,7 +9,7 @@ analisisPolitico: "Gundam 00 es, en realidad, el parque de atracciones del Total
 anoLanzamiento: 2007
 imagen: "/images/animes/gundam-00.webp"
 partido: "psoe"
-justificacionPartido: "Paz mundial garantizada por una fuerza armada superior y un consejo que decide por ti. Intervenimos, pero con mandato de la ONU."
+justificacionPartido: "Paz mundial garantizada por una fuerza armada superior y un mandato de la ONU. Intervenimos, pero con acta notarial y foto de familia."
 libertadEconomica: 2
 libertadPersonal: 1
 generos:

@@ -7,7 +7,7 @@ analisisPolitico: "Vinland Saga es el \"vibe\" definitivo del Progresismo Pacifi
 anoLanzamiento: 2019
 imagen: "/images/animes/vinland-saga.webp"
 partido: "frente-amplio"
-justificacionPartido: "Dejas las hachas y te vas a construir una aldea sin esclavitud ni reyes. Pacifismo, utopía y una tierra prometida que no sale en el mapa."
+justificacionPartido: "Dejas las hachas y fundas una aldea sin esclavitud ni reyes. Pacifismo, utopía y una tierra prometida que no sale en el mapa, pero con subvención."
 libertadEconomica: 2
 libertadPersonal: 5
 generos:

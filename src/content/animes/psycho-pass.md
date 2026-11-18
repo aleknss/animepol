@@ -10,7 +10,7 @@ analisisPolitico: "La obra representa la culminación del utilitarismo tecnocrá
 anoLanzamiento: 2012
 imagen: "/images/animes/psycho-pass.webp"
 partido: "psoe"
-justificacionPartido: "Una inteligencia artificial decide quién es delincuente y todos lo aceptan por seguridad. El Estado te lee el aura y luego te manda a un curso."
+justificacionPartido: "Una inteligencia artificial decide quién delinque y todos lo aceptan por seguridad. El Estado te lee el aura, te pone una multa y te manda a un curso."
 libertadEconomica: 1
 libertadPersonal: 1
 generos:

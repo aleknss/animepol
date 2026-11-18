@@ -9,7 +9,7 @@ analisisPolitico: "Si Saint Seiya es tu anime favorito, tu alineamiento polític
 anoLanzamiento: 1986
 imagen: "/images/animes/saint-seiya.webp"
 partido: "vox"
-justificacionPartido: "Jóvenes con armaduras juran lealtad a una diosa y mueren por el orden establecido. Cruzada, sacrificio y un enemigo exterior nuevo cada temporada."
+justificacionPartido: "Jóvenes con armadura juran lealtad a una diosa y mueren por el orden establecido. Cruzada, sacrificio y un enemigo exterior nuevo cada temporada."
 libertadEconomica: 4
 libertadPersonal: 2
 generos:

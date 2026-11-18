@@ -7,7 +7,7 @@ analisisPolitico: "Si Gachiakuta es tu obra favorita y nos movemos en esas coord
 anoLanzamiento: 2025
 imagen: "/images/animes/gachiakuta.webp"
 partido: "frente-amplio"
-justificacionPartido: "Te tiran al abismo y montas una comuna con lo que la ciudad descarta. Eso que llamas sobrevivir, el partido lo llama economía circular."
+justificacionPartido: "Te tiran al abismo y montas una comuna con lo que la ciudad descarta. Eso que llamas sobrevivir, la concejalía lo llama economía circular."
 libertadEconomica: 3
 libertadPersonal: 5
 generos:

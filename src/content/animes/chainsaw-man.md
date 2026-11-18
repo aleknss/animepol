@@ -8,7 +8,7 @@ analisisPolitico: "Si juzgamos a un fan de Chainsaw Man solo por las \"vibes\" d
 anoLanzamiento: 2022
 imagen: "/images/animes/chainsaw-man.webp"
 partido: "vox"
-justificacionPartido: "Pides a gritos que alguien tome todas las decisiones por ti, y rápido. Demonios, motosierras y una cadena de mando que no admite sugerencias."
+justificacionPartido: "Pides a gritos que alguien tome las decisiones por ti, y rápido. Demonios, motosierras y una cadena de mando que no admite sugerencias."
 libertadEconomica: 2
 libertadPersonal: 2
 generos:

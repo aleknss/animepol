@@ -9,7 +9,7 @@ analisisPolitico: "Si FMAB es tu anime favorito, tu alineamiento político es el
 anoLanzamiento: 2009
 imagen: "/images/animes/fmab.webp"
 partido: "psoe"
-justificacionPartido: "Auditar al ejército, reconstruir el país y asumir la culpa colectiva. Todo se arregla con un plan de choque y responsabilidad fiscal."
+justificacionPartido: "Auditar al ejército suena revolucionario hasta que recuerdas que la auditoría la firma otro ministerio. Responsabilidad colectiva, factura individual."
 libertadEconomica: 2
 libertadPersonal: 4
 generos:

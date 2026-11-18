@@ -9,7 +9,7 @@ analisisPolitico: "Si Kaguya-sama es tu anime favorito, tu alineamiento polític
 anoLanzamiento: 2019
 imagen: "/images/animes/kaguya-sama.webp"
 partido: "pp"
-justificacionPartido: "Protocolo, apariencias y una guerra fría por ver quién cede primero. Nadie confiesa, todos negocian."
+justificacionPartido: "Protocolo, apariencias y una guerra fría por ver quién cede primero. En la dirección nacional nadie confiesa, y el que lo hace pierde la portavocía."
 libertadEconomica: 5
 libertadPersonal: 2
 generos:

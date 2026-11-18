@@ -8,7 +8,7 @@ analisisPolitico: "Si Serial Experiments Lain es tu anime favorito, tu alineamie
 anoLanzamiento: 1998
 imagen: "/images/animes/serial-experiments-lain.webp"
 partido: "podemos"
-justificacionPartido: "Tu cuerpo es un estorbo y la red es la verdadera comunidad. El individuo se disuelve en el grupo y nadie sabe quién tiene la contraseña."
+justificacionPartido: "El individuo se disuelve en la red y nadie sabe quién modera el grupo. El colectivo mola; el admin del colectivo, menos."
 libertadEconomica: 1
 libertadPersonal: 1
 generos:
