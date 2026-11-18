@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
-import { ListFilter } from '@lucide/astro'
+import { ListFilter, MoveUp } from '@lucide/astro'
 import AnimeList from '@/components/anime/AnimeList.astro'
 import Creditos from '@/components/Creditos.astro'
 import DiscordIcon from '@/components/DiscordIcon.astro'
@@ -185,6 +185,16 @@ const partidos = partidosActivos()
   </div>
 
   <AnimeList animes={animes} />
+
+  <button
+    type="button"
+    id="back-to-search"
+    hidden
+    aria-label="Volver al buscador"
+    class="fixed bottom-5 right-5 z-40 inline-flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105 lg:hidden"
+  >
+    <MoveUp class="size-5" />
+  </button>
 
   <div id="catalogo-empty" hidden class="text-center py-10 text-muted-foreground">
     No hay resultados.
@@ -388,4 +398,21 @@ const partidos = partidosActivos()
 
   applyShuffle()
   applyFilters()
+
+  const backToSearch = document.querySelector<HTMLButtonElement>('#back-to-search')
+  const searchField = document.querySelector<HTMLElement>('#catalogo-search')
+
+  const toggleBackToSearch = () => {
+    if (!backToSearch) return
+    backToSearch.hidden = window.scrollY < 420
+  }
+
+  window.addEventListener('scroll', toggleBackToSearch, { passive: true })
+  toggleBackToSearch()
+
+  backToSearch?.addEventListener('click', () => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    searchField?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
+    window.setTimeout(() => (searchField as HTMLInputElement | null)?.focus({ preventScroll: true }), reduce ? 0 : 350)
+  })
 </script>

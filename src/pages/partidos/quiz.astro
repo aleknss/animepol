@@ -26,6 +26,16 @@ const animesData = animes.map((anime) => ({
 }))
 
 const activo = partidosActivos()
+const TOTAL = 10
+
+const conImagen = animes.filter((anime) => anime.data.imagen)
+const abanico = []
+for (const anime of conImagen) {
+  if (abanico.length >= 3) break
+  if (!abanico.some((item) => item.data.partido === anime.data.partido)) abanico.push(anime)
+}
+
+const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.data.color ?? '#000000'
 ---
 
 <Layout
@@ -54,41 +64,106 @@ const activo = partidosActivos()
           </p>
         ) : (
           <div id="quiz" class="text-center">
-            <div id="quiz-start">
-              <h1 class="text-3xl font-black tracking-tighter text-foreground mb-2">
-                ¿De qué partido es?
-              </h1>
-              <p class="text-sm text-muted-foreground mb-6">
-                Diez animes al azar. Acierta a qué partido los asignó esta web.
-              </p>
-              <button
-                type="button"
-                id="quiz-go"
-                class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-black uppercase tracking-widest text-primary-foreground transition-transform hover:scale-105"
+            <div id="quiz-start" class="relative flex min-h-[70vh] items-center">
+              <p
+                class="pointer-events-none absolute inset-0 flex select-none items-center justify-center text-[14rem] font-black leading-none tracking-tighter text-primary opacity-[0.06] sm:text-[20rem]"
+                aria-hidden="true"
               >
-                Empezar
-              </button>
-              <p id="quiz-best" class="mt-4 text-[11px] font-bold uppercase tracking-widest text-muted-foreground"></p>
+                29N
+              </p>
+
+              <div class="relative grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+                <div class="text-center lg:text-left">
+                  <p class="text-[10px] font-black uppercase tracking-[0.35em] text-muted-foreground">
+                    Especial 29N
+                  </p>
+                  <h1 class="mt-2 text-7xl font-black tracking-tighter text-primary sm:text-8xl md:text-9xl">
+                    Quiz
+                  </h1>
+                  <p class="mx-auto mt-3 max-w-md text-sm text-muted-foreground lg:mx-0">
+                    Diez animes al azar y tres opciones por pregunta. Acierta a qué partido los
+                    asignó esta web.
+                  </p>
+
+                  <dl class="mx-auto mt-6 grid max-w-md grid-cols-3 gap-4 lg:mx-0">
+                    <div>
+                      <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                        Animes
+                      </dt>
+                      <dd class="text-2xl font-black text-foreground">{animes.length}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                        Partidos
+                      </dt>
+                      <dd class="text-2xl font-black text-foreground">{partidos.length}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                        Preguntas
+                      </dt>
+                      <dd class="text-2xl font-black text-foreground">{TOTAL}</dd>
+                    </div>
+                  </dl>
+                </div>
+
+                <div class="flex flex-col items-center">
+                  <div class="flex items-end justify-center gap-3">
+                    {
+                      abanico.map((anime, i) => (
+                        <div
+                          class="overflow-hidden rounded-lg bg-muted shadow-md transition-transform"
+                          style={`transform: rotate(${(i - 1) * 6}deg) translateY(${Math.abs(i - 1) * 10}px)`}
+                        >
+                          <div class="h-48 w-32 sm:h-64 sm:w-44">
+                            <img
+                              src={anime.data.imagen}
+                              alt={anime.data.titulo}
+                              loading="lazy"
+                              class="h-full w-full object-cover"
+                            />
+                          </div>
+                          <div
+                            class="h-1.5 w-full"
+                            style={`background-color:${colorDe(anime.data.partido ?? '')}`}
+                            aria-hidden="true"
+                          ></div>
+                        </div>
+                      ))
+                    }
+                  </div>
+
+                  <button
+                    type="button"
+                    id="quiz-go"
+                    class="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-black uppercase tracking-widest text-primary-foreground transition-transform hover:scale-105"
+                  >
+                    Empezar
+                  </button>
+                  <p id="quiz-best" class="mt-3 text-[11px] font-bold uppercase tracking-widest text-muted-foreground"></p>
+                </div>
+              </div>
             </div>
 
             <div id="quiz-game" hidden>
-              <div class="mx-auto mb-6 flex max-w-md items-center justify-between text-[11px] font-black uppercase tracking-widest text-muted-foreground">
+              <div class="mx-auto mb-2 flex max-w-md items-center justify-between text-[11px] font-black uppercase tracking-widest text-muted-foreground">
                 <span id="quiz-progress">1 / 10</span>
                 <span id="quiz-score">0 aciertos</span>
               </div>
+              <div id="quiz-progress-bar" class="mx-auto mb-6 grid max-w-md grid-cols-10 gap-1"></div>
 
               <div
                 id="quiz-stage"
-                class="mx-auto grid max-w-md gap-8 lg:max-w-3xl lg:grid-cols-[minmax(0,1fr)_16rem]"
+                class="mx-auto grid max-w-md gap-8 lg:max-w-4xl lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:gap-10"
               >
                 <div id="quiz-main">
                   <img
                     id="quiz-image"
                     src=""
                     alt=""
-                    class="mx-auto mb-4 h-56 w-auto rounded-lg object-cover"
+                    class="mx-auto mb-5 h-72 w-auto rounded-lg object-cover sm:h-80"
                   />
-                  <p id="quiz-title" class="mb-1 text-lg font-black tracking-tighter text-foreground"></p>
+                  <p id="quiz-title" class="mb-1 text-2xl font-black tracking-tighter text-foreground"></p>
                   <p class="mb-5 text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     ¿A qué partido está asignado?
                   </p>
@@ -116,7 +191,7 @@ const activo = partidosActivos()
 
                 <aside
                   id="quiz-answer"
-                  class="mx-auto mt-6 max-w-sm text-left text-sm leading-relaxed text-muted-foreground lg:mx-0 lg:mt-0 lg:max-w-none"
+                  class="mx-auto mt-6 max-w-sm text-left text-sm leading-relaxed text-muted-foreground lg:mx-0 lg:mt-0 lg:max-w-none lg:border-l lg:border-border lg:pl-10"
                 >
                   <p id="quiz-explanation">
                     Elige una opción y aquí aparece la explicación de la asignación.
@@ -134,14 +209,36 @@ const activo = partidosActivos()
               </div>
             </div>
 
-            <div id="quiz-end" hidden>
-              <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
+            <div id="quiz-end" hidden class="relative py-8">
+              <p
+                class="pointer-events-none absolute inset-0 flex select-none items-center justify-center text-[12rem] font-black leading-none tracking-tighter text-primary opacity-[0.05] sm:text-[18rem]"
+                aria-hidden="true"
+              >
+                29N
+              </p>
+
+              <p class="relative text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
                 Resultado
               </p>
-              <p id="quiz-final" class="text-5xl font-black tracking-tighter text-primary mb-2"></p>
-              <p id="quiz-verdict" class="mx-auto max-w-sm text-sm text-foreground mb-2"></p>
-              <p id="quiz-best-end" class="mb-6 text-[11px] font-bold uppercase tracking-widest text-muted-foreground"></p>
-              <div class="flex flex-wrap items-center justify-center gap-2">
+              <p id="quiz-final" class="relative text-7xl font-black tracking-tighter text-primary mb-2 sm:text-8xl"></p>
+              <p id="quiz-verdict" class="relative mx-auto max-w-sm text-sm text-foreground mb-2"></p>
+              <p id="quiz-best-end" class="relative text-[11px] font-bold uppercase tracking-widest text-muted-foreground"></p>
+
+              <div id="quiz-results" class="relative mx-auto mt-8 grid max-w-2xl gap-6 text-left sm:grid-cols-2">
+                <div>
+                  <h3 class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    Acertados
+                  </h3>
+                  <ul id="quiz-ok-list" class="mt-2 space-y-1.5"></ul>
+                </div>
+                <div>
+                  <h3 class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    Fallados
+                  </h3>
+                  <ul id="quiz-ko-list" class="mt-2 space-y-1.5"></ul>
+                </div>
+              </div>
+              <div class="relative mt-8 flex flex-wrap items-center justify-center gap-2">
                 <button
                   type="button"
                   id="quiz-restart"
@@ -238,6 +335,36 @@ const activo = partidosActivos()
     let index = 0
     let score = 0
     let answered = false
+    let resultados = []
+
+    const bar = document.getElementById('quiz-progress-bar')
+
+    const pintarProgreso = () => {
+      if (!bar) return
+
+      if (bar.children.length !== TOTAL) {
+        bar.innerHTML = ''
+        for (let i = 0; i < TOTAL; i++) {
+          const segmento = document.createElement('span')
+          segmento.className = 'h-2 rounded-full bg-muted'
+          bar.appendChild(segmento)
+        }
+      }
+
+      for (let i = 0; i < TOTAL; i++) {
+        const segmento = bar.children[i]
+        if (!(segmento instanceof HTMLElement)) continue
+
+        const resultado = resultados[i]
+        segmento.style.backgroundColor = resultado ? resultado.color : ''
+        segmento.style.opacity = resultado && !resultado.ok ? '0.35' : '1'
+        segmento.title = resultado
+          ? resultado.ok
+            ? 'Acierto'
+            : 'Fallo'
+          : `Pregunta ${i + 1}`
+      }
+    }
 
     const shuffle = (items) => {
       const copy = [...items]
@@ -285,7 +412,7 @@ const activo = partidosActivos()
         button.type = 'button'
         button.textContent = partido.nombre
         button.className =
-          'flex w-full items-center gap-2 border-b border-border px-1 py-2.5 text-left text-sm font-bold uppercase tracking-wide text-foreground transition-colors hover:text-primary disabled:hover:text-foreground'
+          'flex w-full items-center gap-2 border-b border-border px-2 py-3 text-left text-sm font-bold uppercase tracking-wide text-foreground transition-colors hover:bg-muted hover:text-primary disabled:hover:bg-transparent disabled:hover:text-foreground'
         button.style.borderColor = partido.color
 
         const dot = document.createElement('span')
@@ -322,6 +449,14 @@ const activo = partidosActivos()
           }
           iconOk?.classList.toggle('hidden', !right)
           iconX?.classList.toggle('hidden', right)
+
+          resultados[index] = {
+            ok: right,
+            color: correct.color,
+            titulo: anime.titulo,
+            partido: correct.siglas,
+          }
+          pintarProgreso()
 
           if (explanation) {
             explanation.innerHTML = ''
@@ -368,6 +503,35 @@ const activo = partidosActivos()
               ? 'Nivel medio: sabes que el PP no es Podemos y poco más.'
               : 'Suspenso electoral. Vuelve al catálogo.'
       verdict.textContent = mensaje + record
+
+      const okList = document.getElementById('quiz-ok-list')
+      const koList = document.getElementById('quiz-ko-list')
+
+      const pintarLista = (lista, items) => {
+        if (!lista) return
+        lista.innerHTML = ''
+        if (items.length === 0) {
+          const vacio = document.createElement('li')
+          vacio.className = 'text-xs text-muted-foreground'
+          vacio.textContent = 'Ninguno.'
+          lista.appendChild(vacio)
+          return
+        }
+        for (const item of items) {
+          const fila = document.createElement('li')
+          fila.className = 'flex items-center gap-2 text-xs text-foreground'
+          const punto = document.createElement('span')
+          punto.className = 'size-2 shrink-0 rounded-full'
+          punto.style.backgroundColor = item.color
+          const texto = document.createElement('span')
+          texto.textContent = `${item.titulo} · ${item.partido}`
+          fila.append(punto, texto)
+          lista.appendChild(fila)
+        }
+      }
+
+      pintarLista(okList, resultados.filter((item) => item?.ok))
+      pintarLista(koList, resultados.filter((item) => item && !item.ok))
     }
 
     const startParam = new URLSearchParams(location.search).get('start')
@@ -381,6 +545,8 @@ const activo = partidosActivos()
       queue = queue.slice(0, TOTAL)
       index = 0
       score = 0
+      resultados = []
+      pintarProgreso()
       if (!start || !game || !end) return
       start.hidden = true
       game.hidden = false
@@ -450,6 +616,7 @@ const activo = partidosActivos()
     })
 
     renderBest()
+    pintarProgreso()
   }
 </script>
 
@@ -474,7 +641,7 @@ const activo = partidosActivos()
 
   @media (min-width: 1024px) {
     #quiz-main {
-      transform: translateX(9rem);
+      transform: translateX(11rem);
     }
 
     #quiz-answer {
