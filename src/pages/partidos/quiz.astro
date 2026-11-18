@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content'
 import { ArrowLeft } from '@lucide/astro'
 import Creditos from '@/components/Creditos.astro'
-import Evento29N from '@/components/Evento29N.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { partidosActivos, textoSobreColor } from '@/lib/utils'
@@ -48,7 +47,9 @@ const activo = partidosActivos()
         Partidos 29N
       </a>
 
-      <Evento29N subtitulo="Diez animes, tres opciones, cero rigor" />
+      <p class="mb-8 text-[10px] font-black uppercase tracking-[0.35em] text-muted-foreground">
+        Especial 29N · Diez animes, tres opciones, cero rigor
+      </p>
 
       {
         !activo ? (
