@@ -10,13 +10,15 @@ export type PosicionNolan = { eco: number; pers: number }
 
 // Posición fija de cada partido en el diagrama. No es la media de sus animes:
 // el reparto se hizo por "vibe" y la media daría cuadrantes absurdos.
+// La altura la marca eco + pers: sumas altas suben hacia libertario, sumas
+// bajas bajan hacia autoritario; el eje horizontal es económica - personal.
 export const POSICION_PARTIDO: Record<string, PosicionNolan> = {
-  vox: { eco: 5, pers: 1 },
-  salf: { eco: 4, pers: 1.5 },
-  pp: { eco: 4, pers: 2 },
-  psoe: { eco: 2, pers: 3 },
+  vox: { eco: 3, pers: 1 },
+  salf: { eco: 4, pers: 1 },
+  pp: { eco: 3.5, pers: 2 },
+  psoe: { eco: 3, pers: 4 },
   podemos: { eco: 2, pers: 4 },
-  'frente-amplio': { eco: 1, pers: 5 },
+  'frente-amplio': { eco: 1.5, pers: 5 },
 }
 
 export function textoSobreColor(hex: string): '#000000' | '#ffffff' {
