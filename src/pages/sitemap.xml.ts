@@ -30,6 +30,16 @@ export const GET: APIRoute = async ({ site }) => {
       changefreq: 'weekly',
       priority: '0.7',
     },
+    {
+      url: new URL('/estadisticas/', base).toString(),
+      changefreq: 'weekly',
+      priority: '0.6',
+    },
+    ...(await getCollection('partidos')).map((partido) => ({
+      url: new URL(`/partidos/${partido.id}/`, base).toString(),
+      changefreq: 'weekly',
+      priority: '0.6',
+    })),
     ...animes.map((anime) => ({
       url: new URL(`/anime/${anime.data.slug}/`, base).toString(),
       changefreq: 'monthly',

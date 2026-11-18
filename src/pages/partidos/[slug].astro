@@ -1,0 +1,122 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content'
+import { ArrowLeft } from '@lucide/astro'
+import AnimeList from '@/components/anime/AnimeList.astro'
+import Creditos from '@/components/Creditos.astro'
+import ThemeToggle from '@/components/ThemeToggle.astro'
+import Layout from '@/layouts/Layout.astro'
+import { partidosActivos, textoSobreColor } from '@/lib/utils'
+
+export async function getStaticPaths() {
+  const partidos = await getCollection('partidos')
+
+  return partidos.map((partido) => ({
+    params: { slug: partido.id },
+    props: { partido },
+  }))
+}
+
+interface Props {
+  partido: CollectionEntry<'partidos'>
+}
+
+const { partido } = Astro.props
+const animes = (await getCollection('animes'))
+  .filter((anime) => anime.data.partido === partido.id)
+  .sort((a, b) => a.data.titulo.localeCompare(b.data.titulo, 'es'))
+const activo = partidosActivos()
+
+const media = (values: number[]) =>
+  values.length === 0 ? 0 : Math.round((values.reduce((sum, v) => sum + v, 0) / values.length) * 10) / 10
+const eco = media(animes.map((anime) => anime.data.libertadEconomica))
+const pers = media(animes.map((anime) => anime.data.libertadPersonal))
+const ink = textoSobreColor(partido.data.color)
+---
+
+<Layout
+  title={`${partido.data.siglas} · 29N`}
+  description={`Animes asignados a ${partido.data.nombre} dentro del especial satírico del 29N. ${partido.data.descripcion}`}
+>
+  <div class="min-h-screen bg-background py-6 px-4">
+    <header class="top-6 max-w-6xl w-full m-auto flex justify-between items-center">
+      <Creditos />
+      <ThemeToggle />
+    </header>
+
+    <main class="max-w-6xl mx-auto">
+      <a
+        href="/partidos"
+        class="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-1.5 transition-colors font-bold uppercase text-xs tracking-widest"
+      >
+        <ArrowLeft class="size-4" />
+        Partidos 29N
+      </a>
+
+      <section
+        class="rounded-2xl overflow-hidden border mb-8"
+        style={`border-color:${partido.data.color}`}
+      >
+        <div
+          class="px-6 py-6"
+          style={`background-color:${partido.data.color};color:${ink}`}
+        >
+          <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-80">
+            {partido.data.ideologia}
+          </p>
+          <h1 class="text-4xl md:text-5xl font-black tracking-tighter">{partido.data.nombre}</h1>
+        </div>
+
+        <div class="p-6">
+          <div class="flex flex-wrap items-center gap-4 mb-4">
+            <span class="flex h-12 w-20 items-center justify-center rounded-lg border border-border bg-white p-2">
+              <img
+                src={partido.data.logo}
+                alt={partido.data.nombre}
+                width="80"
+                height="48"
+                class="h-full w-full object-contain"
+              />
+            </span>
+            <p class="text-sm text-foreground/80 max-w-xl">{partido.data.descripcion}</p>
+          </div>
+
+          <dl class="grid grid-cols-3 gap-3 max-w-md">
+            <div class="rounded-xl border border-border bg-muted/40 p-3">
+              <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                Animes
+              </dt>
+              <dd class="text-xl font-black text-foreground">{animes.length}</dd>
+            </div>
+            <div class="rounded-xl border border-border bg-muted/40 p-3">
+              <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                Econ media
+              </dt>
+              <dd class="text-xl font-black text-foreground">{eco.toFixed(1)}</dd>
+            </div>
+            <div class="rounded-xl border border-border bg-muted/40 p-3">
+              <dt class="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                Pers media
+              </dt>
+              <dd class="text-xl font-black text-foreground">{pers.toFixed(1)}</dd>
+            </div>
+          </dl>
+
+          {
+            !activo && (
+              <p class="mt-4 inline-block rounded-full border border-border px-3 py-1 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                Evento finalizado
+              </p>
+            )
+          }
+        </div>
+      </section>
+
+      <AnimeList animes={animes} />
+
+      <p class="mt-10 text-center text-xs text-muted-foreground">
+        Asignación satírica con motivo del 29N. Sin relación con {partido.data.nombre} ni con sus
+        candidaturas.
+      </p>
+    </main>
+  </div>
+</Layout>

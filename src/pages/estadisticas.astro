@@ -1,0 +1,212 @@
+---
+import { getCollection } from 'astro:content'
+import { ArrowLeft } from '@lucide/astro'
+import Creditos from '@/components/Creditos.astro'
+import Evento29N from '@/components/Evento29N.astro'
+import ThemeToggle from '@/components/ThemeToggle.astro'
+import Layout from '@/layouts/Layout.astro'
+import { partidosActivos } from '@/lib/utils'
+
+const animes = await getCollection('animes')
+const partidos = (await getCollection('partidos')).sort((a, b) => a.data.orden - b.data.orden)
+const activo = partidosActivos()
+
+const conPartido = animes.filter((anime) => anime.data.partido)
+
+const ordenar = (
+  lista: typeof animes,
+  comparar: (a: (typeof animes)[number], b: (typeof animes)[number]) => number,
+) => [...lista].sort(comparar)
+
+const masEconomica = ordenar(
+  conPartido,
+  (a, b) => b.data.libertadEconomica - a.data.libertadEconomica,
+)[0]
+const masPersonal = ordenar(
+  conPartido,
+  (a, b) => b.data.libertadPersonal - a.data.libertadPersonal,
+)[0]
+const masLibertario = ordenar(
+  conPartido,
+  (a, b) =>
+    b.data.libertadEconomica + b.data.libertadPersonal -
+    (a.data.libertadEconomica + a.data.libertadPersonal),
+)[0]
+const masAutoritario = ordenar(
+  conPartido,
+  (a, b) =>
+    a.data.libertadEconomica + a.data.libertadPersonal -
+    (b.data.libertadEconomica + b.data.libertadPersonal),
+)[0]
+
+const contarGeneros = () => {  const counts = new Map<string, number>()
+  for (const anime of conPartido) {
+    for (const item of anime.data.generos) counts.set(item, (counts.get(item) ?? 0) + 1)
+  }
+  return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6)
+}
+
+const generosTop = contarGeneros()
+
+const promedios = partidos
+  .map((partido) => {
+    const lista = conPartido.filter((anime) => anime.data.partido === partido.id)
+    const avg = (values: number[]) =>
+      values.length === 0
+        ? 0
+        : Math.round((values.reduce((sum, v) => sum + v, 0) / values.length) * 10) / 10
+
+    return {
+      partido,
+      total: lista.length,
+      eco: avg(lista.map((anime) => anime.data.libertadEconomica)),
+      pers: avg(lista.map((anime) => anime.data.libertadPersonal)),
+    }
+  })
+  .filter((item) => item.total > 0)
+  .sort((a, b) => b.eco + b.pers - (a.eco + a.pers))
+
+const destacados = [
+  { etiqueta: 'Más economía libre', anime: masEconomica },
+  { etiqueta: 'Más libertad personal', anime: masPersonal },
+  { etiqueta: 'Más libertario', anime: masLibertario },
+  { etiqueta: 'Más autoritario', anime: masAutoritario },
+].filter((item) => item.anime)
+---
+
+<Layout
+  title="Estadísticas del 29N"
+  description="Los números detrás del reparto satírico de partidos: animes más libertarios, más autoritarios, medias por partido y géneros dominantes."
+>
+  <div class="min-h-screen bg-background py-6 px-4">
+    <header class="top-6 max-w-6xl w-full m-auto flex justify-between items-center">
+      <Creditos />
+      <ThemeToggle />
+    </header>
+
+    <main class="max-w-6xl mx-auto">
+      <a
+        href="/partidos"
+        class="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-1.5 transition-colors font-bold uppercase text-xs tracking-widest"
+      >
+        <ArrowLeft class="size-4" />
+        Partidos 29N
+      </a>
+
+      <Evento29N subtitulo="Los números del reparto" />
+
+      <div class="mb-10 text-center">
+        <h1 class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-3">
+          Estadísticas
+        </h1>
+        <p class="text-foreground max-w-2xl mx-auto">
+          Lo que sale de cruzar {conPartido.length} fichas con sus partidos. Sin encuestas, sin
+          muestras, sin margen de error.
+        </p>
+        {
+          !activo && (
+            <p class="mt-4 inline-block rounded-full border border-border px-3 py-1 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              Evento finalizado
+            </p>
+          )
+        }
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        {
+          destacados.map(({ etiqueta, anime }) => (
+            <a
+              href={`/anime/${anime.data.slug}`}
+              class="group rounded-2xl border border-border bg-card overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-md"
+            >
+              {anime.data.imagen && (
+                <div class="relative w-full aspect-16/9 bg-muted overflow-hidden">
+                  <img
+                    src={anime.data.imagen}
+                    alt={anime.data.titulo}
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute inset-0 h-full w-full object-cover"
+                  />
+                </div>
+              )}
+              <div class="p-4">
+                <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">
+                  {etiqueta}
+                </p>
+                <p class="text-sm font-bold text-card-foreground group-hover:text-primary transition-colors">
+                  {anime.data.titulo}
+                </p>
+                <p class="text-[11px] text-muted-foreground mt-1">
+                  Econ {anime.data.libertadEconomica}/5 · Pers {anime.data.libertadPersonal}/5
+                </p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <section class="rounded-2xl border border-border bg-card p-6 mb-10">
+        <h2 class="text-xl font-black text-foreground tracking-tighter mb-4">
+          Media por partido
+        </h2>
+        <ul class="space-y-3">
+          {
+            promedios.map(({ partido, total, eco, pers }) => (
+              <li class="flex items-center gap-3">
+                <span
+                  class="size-3 shrink-0 rounded-full"
+                  style={`background-color:${partido.data.color}`}
+                  aria-hidden="true"
+                />
+                <a
+                  href={`/partidos/${partido.id}`}
+                  class="w-16 shrink-0 text-xs font-black uppercase tracking-wide text-foreground hover:text-primary"
+                >
+                  {partido.data.siglas}
+                </a>
+                <div class="flex-1">
+                  <div class="h-2 rounded-full bg-muted overflow-hidden">
+                    <div
+                      class="h-full rounded-full"
+                      style={`width:${((eco + pers) / 10) * 100}%;background-color:${partido.data.color}`}
+                    />
+                  </div>
+                </div>
+                <span class="w-24 shrink-0 text-right text-[11px] text-muted-foreground">
+                  {eco.toFixed(1)} / {pers.toFixed(1)} · {total}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-4 text-[11px] text-muted-foreground">
+          Ordenado por suma de ambos ejes. La barra es la media combinada sobre 10.
+        </p>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-card p-6">
+        <h2 class="text-xl font-black text-foreground tracking-tighter mb-4">
+          Géneros más repetidos
+        </h2>
+        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {
+            generosTop.map(([nombre, total]) => (
+              <li class="flex items-center justify-between rounded-lg border border-border bg-muted/40 px-3 py-1.5">
+                <span class="text-xs text-foreground">{nombre}</span>
+                <span class="text-xs font-black text-muted-foreground">{total}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-4 text-[11px] text-muted-foreground">
+          Primer género listado en cada ficha. No es ciencia, es aritmética.
+        </p>
+      </section>
+
+      <p class="mt-10 text-center text-xs text-muted-foreground">
+        Datos calculados en build sobre el contenido del sitio. Nada de esto mide intención de voto.
+      </p>
+    </main>
+  </div>
+</Layout>

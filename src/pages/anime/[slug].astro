@@ -33,6 +33,18 @@ const site = Astro.site ?? new URL('https://www.animepol.xyz')
 const pageUrl = new URL(`/anime/${data.slug}`, site).toString()
 const partidos = partidosActivos() ? await getCollection('partidos') : []
 const partido = data.partido ? partidos.find((item) => item.id === data.partido) : undefined
+const relacionados = data.partido
+  ? (await getCollection('animes'))
+      .filter((item) => item.data.partido === data.partido && item.id !== anime.id)
+      .sort(
+        (a, b) =>
+          Math.abs(a.data.libertadEconomica - data.libertadEconomica) +
+          Math.abs(a.data.libertadPersonal - data.libertadPersonal) -
+          (Math.abs(b.data.libertadEconomica - data.libertadEconomica) +
+            Math.abs(b.data.libertadPersonal - data.libertadPersonal)),
+      )
+      .slice(0, 3)
+  : []
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -219,6 +231,39 @@ const jsonLd = {
                 </a>
               </div>
             </section>
+
+            {
+              partido && relacionados.length > 0 && (
+                <section class="mt-10 border-t border-border pt-6">
+                  <h2 class="text-xl font-black text-foreground mb-4">
+                    Más de {partido.data.siglas}
+                  </h2>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {relacionados.map((item) => (
+                      <a
+                        href={`/anime/${item.data.slug}`}
+                        class="group rounded-xl border border-border bg-card overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-md"
+                      >
+                        <div class="relative w-full aspect-3/4 bg-muted overflow-hidden">
+                          {item.data.imagen && (
+                            <img
+                              src={item.data.imagen}
+                              alt={item.data.titulo}
+                              loading="lazy"
+                              decoding="async"
+                              class="absolute inset-0 h-full w-full object-cover"
+                            />
+                          )}
+                        </div>
+                        <p class="px-3 py-2 text-xs font-bold text-card-foreground transition-colors group-hover:text-primary line-clamp-2">
+                          {item.data.titulo}
+                        </p>
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              )
+            }
           </div>
         </div>
       </div>

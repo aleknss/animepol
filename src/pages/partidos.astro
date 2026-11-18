@@ -119,10 +119,12 @@ const puntos = porPartido
                 style={`background-color:${partido.data.color};color:${textoSobreColor(partido.data.color)}`}
               >
                 <div>
-                  <p class="text-2xl font-black tracking-tighter">{partido.data.siglas}</p>
-                  <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">
-                    {partido.data.nombre}
-                  </p>
+                  <a href={`/partidos/${partido.id}`} class="block hover:underline underline-offset-4">
+                    <p class="text-2xl font-black tracking-tighter">{partido.data.siglas}</p>
+                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">
+                      {partido.data.nombre}
+                    </p>
+                  </a>
                 </div>
                 <span class="rounded-full bg-black/10 px-2.5 py-1 text-xs font-black dark:bg-white/20">
                   {lista.length}
