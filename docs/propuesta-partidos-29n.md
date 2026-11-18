@@ -13,7 +13,7 @@ SVG en `public/29n/`. Reparto equilibrado: 7 animes por partido salvo el Frente 
 | `psoe` | PSOE | `#E30613` | `PSOE.svg` |
 | `vox` | VOX | `#5AC035` | `VOX.svg` |
 | `frente-amplio` | Frente Amplio | `#EE3500` | `Frente_AMPLIO.svg` |
-| `d21` | Democracia 21 | `#FFFD38` | `D21.svg` |
+| `d21` | Se Acabó La Fiesta (sustituye a D21) | `#FFFD38` | `D21.svg` |
 | `podemos` | Podemos | `#7C2D8C` | `Podemos.svg` |
 
 D21 tiene el amarillo como color de marca en su web (`--color-d21-amarillo: #fffd38`), con negro

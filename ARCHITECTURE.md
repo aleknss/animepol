@@ -99,8 +99,8 @@ es humor seco en segunda persona, con un bloque `(Spoiler)[...]` al final.
 
 ## Evento 29N
 
-- 44 animes repartidos entre seis partidos (PP, PSOE, VOX, D21, Podemos, Frente Amplio).
-- Reparto actual 8/7/7/7/7/7; no hay equilibrio exacto por los últimos animes añadidos.
+- 44 animes repartidos entre seis partidos (PP, PSOE, VOX, SALF, Podemos, Frente Amplio).
+- Reparto actual 8/7/7/8/7/7; no hay equilibrio exacto por los últimos animes añadidos.
 - Descripciones de partido en tres capas: `promesa`, `contradiccion` y `frase`.
 - Toda la superficie lleva nota de sátira; sin logos oficiales alterados ni afirmaciones de hecho.
 - Al pasar la fecha de corte desaparecen del build el bloque de ficha, la pegatina de tarjeta, el
