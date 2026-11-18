@@ -23,6 +23,7 @@ const animesData = animes.map((anime) => ({
   titulo: anime.data.titulo,
   imagen: anime.data.imagen ?? '',
   partido: anime.data.partido,
+  explicacion: anime.data.justificacionPartido ?? '',
 }))
 
 const activo = partidosActivos()
@@ -78,18 +79,30 @@ const activo = partidosActivos()
                 <span id="quiz-score">0 aciertos</span>
               </div>
 
-              <div class="relative mx-auto mb-4 h-64 w-44 overflow-hidden rounded-xl border border-border bg-muted">
-                <img id="quiz-image" src="" alt="" class="absolute inset-0 h-full w-full object-cover" />
+              <div class="grid grid-cols-1 gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+                <div>
+                  <div class="relative mx-auto mb-4 h-64 w-44 overflow-hidden rounded-xl border border-border bg-muted">
+                    <img id="quiz-image" src="" alt="" class="absolute inset-0 h-full w-full object-cover" />
+                  </div>
+
+                  <p id="quiz-title" class="mb-4 text-center text-lg font-black tracking-tighter text-foreground"></p>
+                  <p class="mb-3 text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                    ¿A qué partido está asignado?
+                  </p>
+
+                  <div id="quiz-options" class="grid grid-cols-1 gap-2"></div>
+
+                  <p id="quiz-feedback" class="mt-4 text-center text-sm text-muted-foreground"></p>
+                </div>
+
+                <aside
+                  id="quiz-explanation"
+                  class="rounded-xl border border-border bg-muted/40 p-4 text-sm leading-relaxed text-muted-foreground"
+                  aria-live="polite"
+                >
+                  Elige una opción y aquí aparece la explicación de la asignación.
+                </aside>
               </div>
-
-              <p id="quiz-title" class="mb-4 text-center text-lg font-black tracking-tighter text-foreground"></p>
-              <p class="mb-3 text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                ¿A qué partido está asignado?
-              </p>
-
-              <div id="quiz-options" class="grid grid-cols-1 gap-2"></div>
-
-              <p id="quiz-feedback" class="mt-4 text-center text-sm text-muted-foreground"></p>
 
               <button
                 type="button"
@@ -160,6 +173,7 @@ const activo = partidosActivos()
     const progress = document.getElementById('quiz-progress')
     const scoreEl = document.getElementById('quiz-score')
     const feedback = document.getElementById('quiz-feedback')
+    const explanation = document.getElementById('quiz-explanation')
     const next = document.getElementById('quiz-next')
     const final = document.getElementById('quiz-final')
     const verdict = document.getElementById('quiz-verdict')
@@ -188,6 +202,9 @@ const activo = partidosActivos()
       answered = false
       next.hidden = true
       feedback.textContent = ''
+      if (explanation) {
+        explanation.textContent = 'Elige una opción y aquí aparece la explicación de la asignación.'
+      }
       progress.textContent = `${index + 1} / ${TOTAL}`
       scoreEl.textContent = `${score} acierto${score === 1 ? '' : 's'}`
       title.textContent = anime.titulo
@@ -239,9 +256,20 @@ const activo = partidosActivos()
 
           if (!right) button.style.opacity = '0.45'
 
-          feedback.innerHTML = right
-            ? `Correcto. <strong>${correct.nombre}</strong>. <a class="underline underline-offset-4 hover:text-foreground" href="/anime/${anime.slug}">Ver ficha</a>`
-            : `No. Era <strong>${correct.nombre}</strong>. <a class="underline underline-offset-4 hover:text-foreground" href="/anime/${anime.slug}">Ver ficha</a>`
+          feedback.textContent = right
+            ? `Correcto. ${correct.nombre}.`
+            : `No. Era ${correct.nombre}.`
+
+          if (explanation) {
+            explanation.innerHTML = ''
+            const cabecera = document.createElement('p')
+            cabecera.className = 'mb-2 text-[10px] font-black uppercase tracking-widest'
+            cabecera.style.color = correct.color
+            cabecera.textContent = `${correct.nombre} · ${anime.titulo}`
+            const texto = document.createElement('p')
+            texto.textContent = anime.explicacion || 'Sin justificación guardada para esta ficha.'
+            explanation.append(cabecera, texto)
+          }
           next.hidden = false
           scoreEl.textContent = `${score} acierto${score === 1 ? '' : 's'}`
         })
