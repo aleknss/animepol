@@ -10,8 +10,4 @@
 
 ## Pendiente
 
-- [ ] Configurar Pages CMS: GitHub App, repo y branch.
-- [ ] Configurar Cloudflare Pages: build `pnpm build`, output `dist`.
-- [ ] Confirmar el `pId` real de AdSense en `src/layouts/Layout.astro`.
-- [ ] Evaluar Cloudflare Web Analytics.
 - [ ] Retirar el módulo de partidos tras el 13/12/2026 (`PARTIDOS_CORTE` en `src/lib/utils.ts`).
