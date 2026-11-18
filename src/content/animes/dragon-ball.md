@@ -10,7 +10,7 @@ analisisPolitico: "Si Dragon Ball es tu anime favorito, tu alineamiento polític
 anoLanzamiento: 1986
 imagen: "/images/animes/dragon-ball.webp"
 partido: "salf"
-justificacionPartido: "Reúnes siete bolas, pides un deseo y el deseo resulta ser que te devuelvan el IRPF. El problema no es encontrar las bolas: es que Hacienda ya las tiene y te las cobra como gestión."
+justificacionPartido: "Desconexión total de la realidad institucional, debates resueltos a gritos subiendo el nivel de ki en redes y un fandom que vota por pura inercia meme: siete esferas, un deseo y ninguna auditoría. Mr. Satan cobra el mérito, niega el combate y vende camisetas. El dinero aparece en un cajero, en sobres y sin nombre: el deseo ya está pedido. Goku revive a todos menos al que pidió explicaciones."
 libertadEconomica: 5
 libertadPersonal: 5
 generos:

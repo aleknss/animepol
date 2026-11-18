@@ -72,14 +72,5 @@ const imageUrl = new URL(image, site)
   <body class="min-h-full flex flex-col">
     <slot />
 
-    <script is:inline>
-      setTimeout(() => {
-        const script = document.createElement('script')
-        script.async = true
-        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9012345678901234'
-        script.crossOrigin = 'anonymous'
-        document.head.appendChild(script)
-      }, 3000)
-    </script>
   </body>
 </html>

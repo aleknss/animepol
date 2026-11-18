@@ -9,7 +9,7 @@ analisisPolitico: "Si Saint Seiya es tu anime favorito, tu alineamiento polític
 anoLanzamiento: 1986
 imagen: "/images/animes/saint-seiya.webp"
 partido: "vox"
-justificacionPartido: "Jóvenes que mueren por una diosa que no paga horas extra. En el mitin lo llaman sacrificio por la patria y suena mejor."
+justificacionPartido: "Épica testosterónica de morir por la diosa y la patria, con discursos grandilocuentes sobre la gloria pasada y armaduras heredadas: cada temporada sube el enemigo y el tono. La paz se firma en el palacio de Atenea, los caídos son de los mismos barrios y la caja se llena en cajeros, en efectivo y sin nombre. El parte de bajas lo redacta el asesor jurídico y el himno tapa la factura. Seiya grita; nadie cotiza."
 libertadEconomica: 4
 libertadPersonal: 2
 generos:

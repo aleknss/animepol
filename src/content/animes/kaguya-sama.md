@@ -9,7 +9,7 @@ analisisPolitico: "Si Kaguya-sama es tu anime favorito, tu alineamiento polític
 anoLanzamiento: 2019
 imagen: "/images/animes/kaguya-sama.webp"
 partido: "pp"
-justificacionPartido: "Nadie confiesa en la dirección nacional porque el que cede primero pierde la portavocía. El romance es la única negociación que se hace a puerta cerrada."
+justificacionPartido: "Dos herederos de la élite pija libran una guerra psicológica por ver quién manda en Génova sin despeinarse el flequillo: cada cena es una negociación, cada rumor una filtración al periódico amigo y cada cesión un pacto que nadie firmó. El que confiesa primero pierde la portavocía. La relación sobrevive a base de plot armor y de culpar al líder anterior por el ático de 6,3 millones, que según ellos era un local."
 libertadEconomica: 5
 libertadPersonal: 2
 generos:

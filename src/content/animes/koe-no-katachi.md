@@ -10,7 +10,7 @@ analisisPolitico: "Si esta es tu película favorita, tu alineamiento político e
 anoLanzamiento: 2016
 imagen: "/images/animes/koe-no-katachi.webp"
 partido: "frente-amplio"
-justificacionPartido: "Acoso estructural y redención de dos horas. La escuela se arregla con más orientación y menos notas, según el comunicado de prensa."
+justificacionPartido: "Culpa colectiva, pedagogía emocional, pedir perdón por existir y convertir cada conflicto político en un taller de terapia grupal: la escuela se arregla con orientación, menos notas y un comunicado. Se crea la mesa de seguimiento, se aplaza el plan y el pleno debate si el villano es víctima del sistema. Todos piden perdón menos el que firmó la reforma. Cuando el acoso es de casa, otra mesa y una nota."
 libertadEconomica: 2
 libertadPersonal: 4
 generos:

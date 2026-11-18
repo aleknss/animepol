@@ -5,14 +5,14 @@ asignación a partidos políticos con motivo de las elecciones generales del 29N
 
 ## Stack
 
-| Capa | Tecnología |
-|---|---|
-| Framework | Astro 7, salida 100 % estática |
-| Contenido | Astro Content Collections (Markdown + JSON) |
-| Estilos | Tailwind CSS v4 vía `@tailwindcss/vite` |
-| Iconos | `@lucide/astro` + SVG propios |
-| Hosting | Cloudflare Workers, static assets (`wrangler.jsonc`) |
-| CI | Cloudflare Workers Builds sobre `main` |
+| Capa      | Tecnología                                           |
+| --------- | ---------------------------------------------------- |
+| Framework | Astro 7, salida 100 % estática                       |
+| Contenido | Astro Content Collections (Markdown + JSON)          |
+| Estilos   | Tailwind CSS v4 vía `@tailwindcss/vite`              |
+| Iconos    | `@lucide/astro` + SVG propios                        |
+| Hosting   | Cloudflare Workers, static assets (`wrangler.jsonc`) |
+| CI        | Cloudflare Workers Builds sobre `main`               |
 
 Sin SSR, sin adapter, sin API routes, sin base de datos en producción.
 
@@ -75,11 +75,6 @@ generos[], partido?, justificacionPartido?
 Regla: `src/content.config.ts` y `.pages.yml` se mantienen en sync. El tono de `analisisPolitico`
 es humor seco en segunda persona, con un bloque `(Spoiler)[...]` al final.
 
-Las `justificacionPartido` siguen una regla propia: una broma por ficha, un ángulo distinto en cada
-una (primarias, inmunidad, retribución, fisco, aforo, contratos, repetición electoral, etc.),
-controversia concreta de la política española y remate. Sin repetir coletillas entre fichas ni
-recurrir al insulto genérico.
-
 ## Flujo de datos
 
 - Todo el contenido se resuelve en build con `getCollection`.
@@ -92,20 +87,22 @@ recurrir al insulto genérico.
 
 ## Rutas y estado actual
 
-| Ruta | Contenido |
-|---|---|
-| `/` | Hero con Nolan + 29N + Discord, buscador, filtros de partido, grid |
-| `/anime/<slug>` | Ficha, Nolan, bloque de partido, related del mismo partido |
-| `/partidos` | 29N, scatter de medias, CTA del quiz, selector tipo home y slider de un partido |
-| `/partidos/<slug>` | Ficha de partido con medias y sus animes |
-| `/partidos/quiz` | Portada a pantalla completa, juego a dos columnas, resultado con aciertos y fallos |
-| `/estadisticas` | Récords por eje, media por partido, géneros |
-| `/diagrama-nolan` | Explicación del modelo |
+| Ruta               | Contenido                                                                          |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| `/`                | Hero con Nolan + 29N + Discord, buscador, filtros de partido, grid                 |
+| `/anime/<slug>`    | Ficha, Nolan, bloque de partido, related del mismo partido                         |
+| `/partidos`        | 29N, scatter de medias, CTA del quiz, selector tipo home y slider de un partido    |
+| `/partidos/<slug>` | Ficha de partido con medias y sus animes                                           |
+| `/partidos/quiz`   | Portada a pantalla completa, juego a dos columnas, resultado con aciertos y fallos |
+| `/estadisticas`    | Récords por eje, media por partido, géneros                                        |
+| `/diagrama-nolan`  | Explicación del modelo                                                             |
 
 ## Evento 29N
 
 - 44 animes repartidos entre seis partidos (PP, PSOE, VOX, SALF, Podemos, Frente Amplio).
-- Reparto actual 8/7/7/8/7/7; no hay equilibrio exacto por los últimos animes añadidos.
+- Reparto 7/7/7/7/7/9 (PSOE 7, PP 7, VOX 7, Podemos 7, Frente Amplio 7, SALF 9).
+- Cada `justificacionPartido` ata la trama a dos referencias reales de la actualidad del partido
+  (condenas, causas, crisis internas). Sin nombre propio el chiste se queda genérico.
 - Descripciones de partido en tres capas: `promesa`, `contradiccion` y `frase`.
 - Toda la superficie lleva nota de sátira; sin logos oficiales alterados ni afirmaciones de hecho.
 - Al pasar la fecha de corte desaparecen del build el bloque de ficha, la pegatina de tarjeta, el
@@ -150,7 +147,6 @@ runtime de Worker. `_redirects` y `_headers` se copian desde `public/`.
 
 - [ ] Retirar el módulo de partidos tras el 13/12/2026 (`PARTIDOS_CORTE`).
 - [ ] Decidir si `/partidos` y `/estadisticas` se quedan como archivo o se retiran con el evento.
-- [ ] Reequilibrar el reparto 8/7/7/7/7/7 si se quiere exacto.
 - [ ] Eliminar el script de AdSense de `Layout.astro`, que sigue con un `pId` de ejemplo.
 - [ ] Sustituir los pósters de 425×600 de los tres últimos animes por originales mayores.
 

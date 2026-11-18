@@ -8,7 +8,7 @@ analisisPolitico: "Si Cowboy Bebop es tu anime favorito, tu alineamiento políti
 anoLanzamiento: 1998
 imagen: "/images/animes/cowboy-bebop.webp"
 partido: "salf"
-justificacionPartido: "Cazarrecompensas que cobran por objetivo cumplido, con devolución si fallan. Un modelo imposible aquí, donde se cobra por escaño y no por resultados."
+justificacionPartido: "Nihilismo cool de cazador de recompensas sin banderas ni partido, viviendo al día entre deudas, teorías raras y huyendo de la justicia: la tripulación cobra por encargo, no por programa. Cada episodio es una biografía con abandono y una cena que se enfría. Spike entra convencido de que morir es más digno que pactar, y desde el Supremo llegan cinco causas y una condena de 20.000 euros."
 libertadEconomica: 4
 libertadPersonal: 5
 generos:

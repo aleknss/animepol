@@ -8,7 +8,7 @@ analisisPolitico: "Si Beastars es tu anime favorito, tu alineamiento político e
 anoLanzamiento: 2019
 imagen: "/images/animes/beastars.webp"
 partido: "frente-amplio"
-justificacionPartido: "Prohibir sin educar no elimina el mercado negro de carne: lo organiza con proveedores. Comité ético, sí; carné, también."
+justificacionPartido: "Convivencia multicultural tensa donde herbívoros y carnívoros hacen asambleas eternas para deconstruir sus instintos y firmar manifiestos inclusivos: comité, carné por especie y una nevera que nadie audita. El depredador con apellido acaba en la junta y el incidente se archiva como caso aislado. Cuando alguien muerde, la respuesta es otra mesa redonda. Orden, ratios y doble moral hasta el último herbívoro del censo: la convivencia se firma, no se practica."
 libertadEconomica: 2
 libertadPersonal: 3
 generos:

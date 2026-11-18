@@ -355,13 +355,13 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
 
       <script>
         const tabs = Array.from(document.querySelectorAll('[data-party-tab]'))
-        const slides = Array.from(document.querySelectorAll('[data-party-slide]'))
+        const slides = Array.from(document.querySelectorAll<HTMLElement>('[data-party-slide]'))
         const counter = document.querySelector('[data-party-counter]')
         const prev = document.querySelector('[data-party-prev]')
         const next = document.querySelector('[data-party-next]')
         let current = 0
 
-        const show = (index) => {
+        const show = (index: number) => {
           if (!slides.length) return
           current = (index + slides.length) % slides.length
           slides.forEach((slide, i) => {

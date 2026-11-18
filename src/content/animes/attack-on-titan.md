@@ -10,7 +10,7 @@ analisisPolitico: "Si AOT es tu anime favorito, tu alineamiento político es el 
 anoLanzamiento: 2013
 imagen: "/images/animes/attack-on-titan.webp"
 partido: "vox"
-justificacionPartido: "Toda la serie defendiendo el muro y, cuando descubres que fuera también hay gente, sigues defendiendo el muro. Eso no es ideología: es constancia."
+justificacionPartido: "Muros gigantescos contra los de fuera, nacionalismo de Paradis y la fantasía de pisar la Agenda 2030, aunque luego pidan subvenciones para las granjas de la isla. Eren hereda un poder que no pidió y mata a dos tercios de la humanidad por el bienestar de los suyos. La campaña se paga con 300.000 euros que aparecen en cajeros, sin nombre y con justificante de otro año. Si alguien pregunta, el Retumbar. Administrativo, pero Retumbar."
 libertadEconomica: 1
 libertadPersonal: 1
 generos:

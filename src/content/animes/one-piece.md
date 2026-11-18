@@ -9,7 +9,7 @@ analisisPolitico: "Desde un punto de vista de intención, One Piece es un manifi
 anoLanzamiento: 1999
 imagen: "/images/animes/one-piece.webp"
 partido: "frente-amplio"
-justificacionPartido: "Reparto del botín y cero órdenes. Libertad para todos, salvo para el que cobra el alquiler."
+justificacionPartido: "Una tripulación caótica de once facciones navegando el mismo barco contra el Gobierno Mundial mientras discuten quién lleva el timón: Sumar, IU, Comuns y Más Madrid con rumbo distinto. Compromís se baja en el siguiente puerto, IU pierde su escaño europeo y la marca se da por muerta antes de la isla. Luffy no quiere gobernar y aun así manda más que la ejecutiva. Cuando caiga el Gobierno Mundial, ya veremos la bandera."
 libertadEconomica: 5
 libertadPersonal: 5
 generos:

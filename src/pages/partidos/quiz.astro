@@ -29,7 +29,7 @@ const activo = partidosActivos()
 const TOTAL = 10
 
 const conImagen = animes.filter((anime) => anime.data.imagen)
-const abanico = []
+const abanico: typeof conImagen = []
 for (const anime of conImagen) {
   if (abanico.length >= 3) break
   if (!abanico.some((item) => item.data.partido === anime.data.partido)) abanico.push(anime)
@@ -278,7 +278,35 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
 </Layout>
 
 <script>
-  const parse = (id) => {
+  type Partido = {
+    id: string
+    siglas: string
+    nombre: string
+    color: string
+    ink: string
+  }
+
+  type Anime = {
+    slug: string
+    titulo: string
+    imagen: string
+    partido: string
+    explicacion: string
+  }
+
+  type QuizData = {
+    partidos: Partido[]
+    animes: Anime[]
+  }
+
+  type Resultado = {
+    ok: boolean
+    color: string
+    titulo: string
+    partido: string
+  }
+
+  const parse = <T,>(id: string): T | null => {
     const el = document.getElementById(id)
     if (!el?.textContent) return null
     try {
@@ -288,7 +316,7 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
     }
   }
 
-  const data = parse('quiz-data')
+  const data = parse<QuizData>('quiz-data')
   const start = document.getElementById('quiz-start')
   const game = document.getElementById('quiz-game')
   const end = document.getElementById('quiz-end')
@@ -296,7 +324,7 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
   if (data && start && game && end) {
     const TOTAL = 10
     const options = document.getElementById('quiz-options')
-    const image = document.getElementById('quiz-image')
+    const image = document.getElementById('quiz-image') as HTMLImageElement | null
     const title = document.getElementById('quiz-title')
     const progress = document.getElementById('quiz-progress')
     const scoreEl = document.getElementById('quiz-score')
@@ -331,11 +359,11 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
       if (bestEnd) bestEnd.textContent = text
     }
 
-    let queue = []
+    let queue: Anime[] = []
     let index = 0
     let score = 0
     let answered = false
-    let resultados = []
+    let resultados: Array<Resultado | undefined> = []
 
     const bar = document.getElementById('quiz-progress-bar')
 
@@ -366,7 +394,7 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
       }
     }
 
-    const shuffle = (items) => {
+    const shuffle = <T,>(items: T[]): T[] => {
       const copy = [...items]
       for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
@@ -375,7 +403,10 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
       return copy
     }
 
-    const siglas = new Map(data.partidos.map((partido) => [partido.id, partido]))
+    const listaPartidos = data.partidos
+    const siglas = new Map<string, Partido>(
+      listaPartidos.map((partido): [string, Partido] => [partido.id, partido]),
+    )
 
     function render() {
       const anime = queue[index]
@@ -403,7 +434,7 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
         image.hidden = true
       }
 
-      const wrong = shuffle(data.partidos.filter((partido) => partido.id !== anime.partido)).slice(0, 2)
+      const wrong = shuffle(listaPartidos.filter((partido) => partido.id !== anime.partido)).slice(0, 2)
       const opts = shuffle([correct, ...wrong])
 
       options.innerHTML = ''
@@ -507,7 +538,7 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
       const okList = document.getElementById('quiz-ok-list')
       const koList = document.getElementById('quiz-ko-list')
 
-      const pintarLista = (lista, items) => {
+      const pintarLista = (lista: HTMLElement | null, items: Resultado[]) => {
         if (!lista) return
         lista.innerHTML = ''
         if (items.length === 0) {
@@ -530,8 +561,14 @@ const colorDe = (id: string) => partidos.find((partido) => partido.id === id)?.d
         }
       }
 
-      pintarLista(okList, resultados.filter((item) => item?.ok))
-      pintarLista(koList, resultados.filter((item) => item && !item.ok))
+      pintarLista(
+        okList,
+        resultados.filter((item): item is Resultado => Boolean(item?.ok)),
+      )
+      pintarLista(
+        koList,
+        resultados.filter((item): item is Resultado => Boolean(item && !item.ok)),
+      )
     }
 
     const startParam = new URLSearchParams(location.search).get('start')
