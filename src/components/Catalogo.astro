@@ -100,8 +100,11 @@ const partidos = partidosActivos()
                 height="24"
                 loading="lazy"
                 class:list={[
-                  'h-6 w-auto max-w-full object-contain brightness-0',
-                  textoSobreColor(partido.data.color) === '#ffffff' ? 'invert' : '',
+                  partido.id === 'salf' ? 'h-10 w-auto max-w-full object-contain' : 'h-6 w-auto max-w-full object-contain',
+                  partido.id === 'salf' ? '' : 'brightness-0',
+                  partido.id !== 'salf' && textoSobreColor(partido.data.color) === '#ffffff'
+                    ? 'invert'
+                    : '',
                 ]}
               />
             </button>

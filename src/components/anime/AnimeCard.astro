@@ -64,10 +64,12 @@ const partido = data.partido ? partidos.find((item) => item.id === data.partido)
               height="30"
               loading="lazy"
               class:list={[
-                'h-10 w-auto max-w-12 object-contain',
-                textoSobreColor(partido.data.color) === '#ffffff'
-                  ? 'brightness-0 invert'
-                  : 'brightness-0',
+                partido.id === 'salf' ? 'h-11 w-auto max-w-11 object-contain' : 'h-10 w-auto max-w-12 object-contain',
+                partido.id === 'salf'
+                  ? ''
+                  : textoSobreColor(partido.data.color) === '#ffffff'
+                    ? 'brightness-0 invert'
+                    : 'brightness-0',
               ]}
             />
           </div>
