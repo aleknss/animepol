@@ -72,6 +72,7 @@ const activo = partidosActivos()
               >
                 Empezar
               </button>
+              <p id="quiz-best" class="mt-4 text-[11px] font-bold uppercase tracking-widest text-muted-foreground"></p>
             </div>
 
             <div id="quiz-game" hidden>
@@ -95,25 +96,31 @@ const activo = partidosActivos()
 
                   <div id="quiz-options" class="mx-auto max-w-sm"></div>
 
+                  <p class="mt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+                    Atajos: 1 · 2 · 3 para responder, Enter para seguir
+                  </p>
+
                   <p id="quiz-feedback" class="mt-4 text-sm text-muted-foreground"></p>
                 </div>
 
                 <aside
-                  id="quiz-explanation"
-                  class="mx-auto mt-6 max-w-sm text-left text-sm leading-relaxed text-muted-foreground md:absolute md:left-full md:top-0 md:ml-8 md:mt-0 md:w-64 md:max-w-none"
+                  id="quiz-answer"
+                  class="mx-auto mt-6 max-w-sm text-left text-sm leading-relaxed text-muted-foreground md:absolute md:left-full md:top-0 md:ml-8 md:mt-0 md:w-60 md:max-w-none"
                 >
-                  Elige una opción y aquí aparece la explicación de la asignación.
+                  <p id="quiz-explanation">
+                    Elige una opción y aquí aparece la explicación de la asignación.
+                  </p>
+
+                  <button
+                    type="button"
+                    id="quiz-next"
+                    hidden
+                    class="mt-6 text-sm font-black uppercase tracking-widest text-primary underline-offset-4 hover:underline"
+                  >
+                    Siguiente →
+                  </button>
                 </aside>
               </div>
-
-              <button
-                type="button"
-                id="quiz-next"
-                hidden
-                class="mt-8 text-sm font-black uppercase tracking-widest text-primary underline-offset-4 hover:underline"
-              >
-                Siguiente →
-              </button>
             </div>
 
             <div id="quiz-end" hidden>
@@ -121,7 +128,8 @@ const activo = partidosActivos()
                 Resultado
               </p>
               <p id="quiz-final" class="text-5xl font-black tracking-tighter text-primary mb-2"></p>
-              <p id="quiz-verdict" class="mx-auto max-w-sm text-sm text-foreground mb-6"></p>
+              <p id="quiz-verdict" class="mx-auto max-w-sm text-sm text-foreground mb-2"></p>
+              <p id="quiz-best-end" class="mb-6 text-[11px] font-bold uppercase tracking-widest text-muted-foreground"></p>
               <div class="flex flex-wrap justify-center gap-4">
                 <button
                   type="button"
@@ -130,6 +138,13 @@ const activo = partidosActivos()
                 >
                   Otra ronda
                 </button>
+                <button
+                  type="button"
+                  id="quiz-share"
+                  class="text-sm font-black uppercase tracking-widest text-foreground underline-offset-4 hover:underline"
+                >
+                  Compartir
+                </button>
                 <a
                   href="/partidos"
                   class="text-sm font-black uppercase tracking-widest text-primary underline-offset-4 hover:underline"
@@ -137,6 +152,7 @@ const activo = partidosActivos()
                   Ver el reparto
                 </a>
               </div>
+              <p id="quiz-share-status" class="mt-3 text-[11px] text-muted-foreground"></p>
             </div>
           </div>
         )
@@ -180,6 +196,27 @@ const activo = partidosActivos()
     const next = document.getElementById('quiz-next')
     const final = document.getElementById('quiz-final')
     const verdict = document.getElementById('quiz-verdict')
+    const bestEl = document.getElementById('quiz-best')
+    const bestEnd = document.getElementById('quiz-best-end')
+    const share = document.getElementById('quiz-share')
+    const shareStatus = document.getElementById('quiz-share-status')
+    const BEST_KEY = 'animepol-quiz-best'
+
+    const readBest = () => {
+      try {
+        const value = Number(localStorage.getItem(BEST_KEY))
+        return Number.isFinite(value) ? value : 0
+      } catch {
+        return 0
+      }
+    }
+
+    const renderBest = () => {
+      const best = readBest()
+      const text = best > 0 ? `Récord: ${best} / ${TOTAL}` : 'Sin récord todavía'
+      if (bestEl) bestEl.textContent = text
+      if (bestEnd) bestEnd.textContent = text
+    }
 
     let queue = []
     let index = 0
@@ -289,7 +326,17 @@ const activo = partidosActivos()
       game.hidden = true
       end.hidden = false
 
+      const previous = readBest()
+      if (score > previous) {
+        try {
+          localStorage.setItem(BEST_KEY, String(score))
+        } catch {}
+      }
+      renderBest()
+      if (shareStatus) shareStatus.textContent = ''
+
       final.textContent = `${score} / ${TOTAL}`
+      const record = score > previous ? ' Nuevo récord.' : ''
       const mensaje =
         score >= 9
           ? 'Trabajas en la web o tienes demasiado tiempo libre.'
@@ -298,7 +345,7 @@ const activo = partidosActivos()
             : score >= 3
               ? 'Nivel medio: sabes que el PP no es Podemos y poco más.'
               : 'Suspenso electoral. Vuelve al catálogo.'
-      verdict.textContent = mensaje
+      verdict.textContent = mensaje + record
     }
 
     document.getElementById('quiz-go')?.addEventListener('click', () => {
@@ -323,12 +370,58 @@ const activo = partidosActivos()
       start.hidden = false
       game.hidden = true
       end.hidden = true
+      renderBest()
     })
+
+    share?.addEventListener('click', async () => {
+      const text = `He sacado ${score}/${TOTAL} en el quiz de partidos de Animepol. ¿Y tú?`
+      const url = `${location.origin}/partidos/quiz`
+
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: 'Quiz Animepol 29N', text, url })
+          return
+        }
+
+        await navigator.clipboard.writeText(`${text} ${url}`)
+        if (shareStatus) shareStatus.textContent = 'Resultado copiado al portapapeles.'
+      } catch {
+        if (shareStatus) shareStatus.textContent = 'No se pudo compartir.'
+      }
+    })
+
+    document.addEventListener('keydown', (event) => {
+      if (!game || game.hidden) return
+
+      const target = event.target
+      if (
+        target instanceof HTMLElement &&
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)
+      ) {
+        return
+      }
+
+      if (event.key === 'Enter' && next && !next.hidden) {
+        event.preventDefault()
+        next.click()
+        return
+      }
+
+      if (!answered && options && ['1', '2', '3'].includes(event.key)) {
+        const button = options.children[Number(event.key) - 1]
+        if (button instanceof HTMLElement) {
+          event.preventDefault()
+          button.click()
+        }
+      }
+    })
+
+    renderBest()
   }
 </script>
 
 <style>
-  #quiz-explanation {
+  #quiz-answer {
     opacity: 0;
     transition: opacity 0.45s ease 0.1s;
   }
@@ -337,7 +430,7 @@ const activo = partidosActivos()
     transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
-  #quiz-stage.is-answered #quiz-explanation {
+  #quiz-stage.is-answered #quiz-answer {
     opacity: 1;
   }
 
@@ -349,7 +442,7 @@ const activo = partidosActivos()
 
   @media (prefers-reduced-motion: reduce) {
     #quiz-main,
-    #quiz-explanation {
+    #quiz-answer {
       transition: none;
     }
 
