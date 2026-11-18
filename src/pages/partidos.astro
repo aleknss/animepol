@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
-import { ArrowLeft } from '@lucide/astro'
+import { ArrowLeft, ChevronLeft, ChevronRight } from '@lucide/astro'
 import Creditos from '@/components/Creditos.astro'
 import NolanScatter from '@/components/NolanScatter.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
@@ -160,9 +160,9 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
           type="button"
           data-party-prev
           aria-label="Partido anterior"
-          class="inline-flex h-20 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-card text-lg text-foreground transition-colors hover:bg-muted"
+          class="inline-flex h-20 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-card text-foreground transition-colors hover:bg-muted hover:text-primary"
         >
-          ←
+          <ChevronLeft class="size-5" stroke-width="2.5" />
         </button>
 
         <div
@@ -199,9 +199,9 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
           type="button"
           data-party-next
           aria-label="Partido siguiente"
-          class="inline-flex h-20 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-card text-lg text-foreground transition-colors hover:bg-muted"
+          class="inline-flex h-20 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-card text-foreground transition-colors hover:bg-muted hover:text-primary"
         >
-          →
+          <ChevronRight class="size-5" stroke-width="2.5" />
         </button>
       </div>
 
