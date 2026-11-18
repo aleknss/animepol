@@ -34,7 +34,7 @@ src/
     animes/<slug>.md            una ficha por anime
     generos/<slug>.json         géneros canónicos
     partidos/<slug>.json        partidos del evento 29N
-  layouts/Layout.astro          head, SEO, tema, script de AdSense (placeholder)
+  layouts/Layout.astro          head, SEO, tema, OG
   lib/
     utils.ts                    ideologías, colores, DISCORD_INVITE, PARTIDOS_CORTE
     spoilers.ts                 parseo de (Spoiler)[...]
