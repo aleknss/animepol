@@ -7,7 +7,7 @@ analisisPolitico: "Si Blue Lock es tu anime favorito, tu alineamiento político 
 anoLanzamiento: 2022
 imagen: "/images/animes/blue-lock.webp"
 partido: "salf"
-justificacionPartido: "300 candidatos encerrados para que sobreviva el más egoísta, con el mérito como única religión. La casta tiembla: aquí el puesto se gana o no se come."
+justificacionPartido: "300 candidatos encerrados y solo sobrevive el más egoísta: la única diferencia con unas primarias es que aquí no hay que fingir que se juega en equipo. La promesa estrella sería sortear escaño y sueldo entre los que sepan chutar."
 libertadEconomica: 4
 libertadPersonal: 4
 generos:

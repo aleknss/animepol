@@ -12,7 +12,7 @@ analisisPolitico: "Si Re:Zero es tu anime favorito, tu alineamiento político es
 anoLanzamiento: 2016
 imagen: "/images/animes/re-zero.webp"
 partido: "salf"
-justificacionPartido: "Mueres, reapareces y aun así la culpa es del político de turno. El problema nunca eres tú: es la casta que te cobra el IBI."
+justificacionPartido: "Mueres y vuelves al mismo punto con la memoria intacta. Subaru al menos recuerda lo que hizo mal; en una repetición electoral el país también, y aun así repite."
 libertadEconomica: 3
 libertadPersonal: 5
 generos:

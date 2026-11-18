@@ -9,7 +9,7 @@ analisisPolitico: "Si Jujutsu Kaisen es tu anime favorito, tu alineamiento polí
 anoLanzamiento: 2020
 imagen: "/images/animes/jujutsu.webp"
 partido: "salf"
-justificacionPartido: "Una institución milenaria que se muere de burocracia y un reformista con gafas de sol que promete arreglarla desde dentro. SALF no la arregla: la graba, la sube a Telegram y que se aclare en los comentarios."
+justificacionPartido: "Hechiceros que cobran por misión: cuanto peor la maldición, mejor el contrato. Es el sueño de cualquier consultora: el problema no se resuelve, se prorroga."
 libertadEconomica: 3
 libertadPersonal: 2
 generos:

@@ -10,7 +10,7 @@ analisisPolitico: "Si esta versión de Lupin es tu favorita, tu alineamiento pol
 anoLanzamiento: 2012
 imagen: "/images/animes/lupin-iii.webp"
 partido: "salf"
-justificacionPartido: "Lujo, americana y desprecio absoluto por lo público, siempre que lo público no sea tu cuenta. El sistema es una fiesta y alguien tiene que colarse."
+justificacionPartido: "Lupin roba el botín y lo devuelve cuando le pillan; aquí se devuelve con recargo, sin renunciar al cargo y con una nota de prensa sobre la ejemplaridad."
 libertadEconomica: 5
 libertadPersonal: 5
 generos:

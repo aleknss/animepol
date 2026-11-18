@@ -8,7 +8,7 @@ analisisPolitico: "Si Cowboy Bebop es tu anime favorito, tu alineamiento políti
 anoLanzamiento: 1998
 imagen: "/images/animes/cowboy-bebop.webp"
 partido: "salf"
-justificacionPartido: "Autónomo sin nómina, dos curros y una deuda que no baja. La casta cobra mientras tú pagas el combustible: se vota para que se acabe la fiesta."
+justificacionPartido: "Cazarrecompensas que cobran por objetivo cumplido, con devolución si fallan. Un modelo imposible aquí, donde se cobra por escaño y no por resultados."
 libertadEconomica: 4
 libertadPersonal: 5
 generos:

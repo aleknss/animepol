@@ -9,7 +9,7 @@ analisisPolitico: "Si Code Geass es tu anime favorito, tu alineamiento político
 anoLanzamiento: 2006
 imagen: "/images/animes/code-geass.webp"
 partido: "salf"
-justificacionPartido: "Un tipo con máscara promete cargarse el sistema desde fuera con un plan que solo entiende él. La diferencia con SALF es que Alvise no necesita máscara, le basta el canal de Telegram."
+justificacionPartido: "Lelouch necesita una máscara para que no le reconozcan; en Bruselas basta un acta para que no le juzguen. La rebelión más rentable no es la del Geass, es la que se firma con inmunidad."
 libertadEconomica: 2
 libertadPersonal: 1
 generos:

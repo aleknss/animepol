@@ -10,7 +10,7 @@ analisisPolitico: "Si Dragon Ball es tu anime favorito, tu alineamiento polític
 anoLanzamiento: 1986
 imagen: "/images/animes/dragon-ball.webp"
 partido: "salf"
-justificacionPartido: "Vives en una montaña, no declaras y arreglas todo a puñetazos. Menos Estado, menos impuestos y que el más fuerte se busque la vida."
+justificacionPartido: "Reúnes siete bolas, pides un deseo y el deseo resulta ser que te devuelvan el IRPF. El problema no es encontrar las bolas: es que Hacienda ya las tiene y te las cobra como gestión."
 libertadEconomica: 5
 libertadPersonal: 5
 generos:

@@ -8,7 +8,7 @@ analisisPolitico: "Si Hunter x Hunter es tu anime favorito, tu alineamiento pol�
 anoLanzamiento: 2011
 imagen: "/images/animes/hunter-x-hunter.webp"
 partido: "salf"
-justificacionPartido: "Un examen que solo aprueban los listos y una licencia que te da inmunidad. Se critica el carné hasta que el carné es el tuyo."
+justificacionPartido: "La licencia de Hunter te deja actuar sin que nadie de tu gremio te revise. En España eso se llama aforamiento y no hay que aprobar ningún examen."
 libertadEconomica: 5
 libertadPersonal: 5
 generos:
