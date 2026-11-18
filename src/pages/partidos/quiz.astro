@@ -19,6 +19,7 @@ const partidosData = partidos.map((partido) => ({
 }))
 
 const animesData = animes.map((anime) => ({
+  slug: anime.data.slug,
   titulo: anime.data.titulo,
   imagen: anime.data.imagen ?? '',
   partido: anime.data.partido,
@@ -135,22 +136,18 @@ const activo = partidosActivos()
   </div>
 </Layout>
 
-<script lang="ts">
-  const parse = <T,>(id: string): T | null => {
+<script>
+  const parse = (id) => {
     const el = document.getElementById(id)
     if (!el?.textContent) return null
     try {
-      return JSON.parse(el.textContent) as T
+      return JSON.parse(el.textContent)
     } catch {
       return null
     }
   }
 
-  type Partido = { id: string; siglas: string; nombre: string; color: string; ink: string }
-  type Anime = { titulo: string; imagen: string; partido: string }
-  type Data = { partidos: Partido[]; animes: Anime[] }
-
-  const data = parse<Data>('quiz-data')
+  const data = parse('quiz-data')
   const start = document.getElementById('quiz-start')
   const game = document.getElementById('quiz-game')
   const end = document.getElementById('quiz-end')
@@ -158,21 +155,21 @@ const activo = partidosActivos()
   if (data && start && game && end) {
     const TOTAL = 10
     const options = document.getElementById('quiz-options')
-    const image = document.getElementById('quiz-image') as HTMLImageElement | null
+    const image = document.getElementById('quiz-image')
     const title = document.getElementById('quiz-title')
     const progress = document.getElementById('quiz-progress')
     const scoreEl = document.getElementById('quiz-score')
     const feedback = document.getElementById('quiz-feedback')
-    const next = document.getElementById('quiz-next') as HTMLButtonElement | null
+    const next = document.getElementById('quiz-next')
     const final = document.getElementById('quiz-final')
     const verdict = document.getElementById('quiz-verdict')
 
-    let queue: Anime[] = []
+    let queue = []
     let index = 0
     let score = 0
     let answered = false
 
-    const shuffle = <T,>(items: T[]): T[] => {
+    const shuffle = (items) => {
       const copy = [...items]
       for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
@@ -211,9 +208,16 @@ const activo = partidosActivos()
         const button = document.createElement('button')
         button.type = 'button'
         button.textContent = partido.nombre
-        button.className = 'rounded-xl border-2 px-3 py-2 text-sm font-black uppercase tracking-wide transition-transform hover:scale-[1.01]'
+        button.className =
+          'flex items-center gap-2 rounded-xl border-2 px-3 py-2 text-sm font-black uppercase tracking-wide text-foreground transition-transform hover:scale-[1.01] disabled:hover:scale-100'
         button.style.borderColor = partido.color
-        button.style.color = partido.color
+
+        const dot = document.createElement('span')
+        dot.className = 'size-2.5 shrink-0 rounded-full'
+        dot.style.backgroundColor = partido.color
+        dot.setAttribute('aria-hidden', 'true')
+        button.prepend(dot)
+
         button.addEventListener('click', () => {
           if (answered) return
           answered = true
@@ -223,12 +227,21 @@ const activo = partidosActivos()
 
           for (const other of options.querySelectorAll('button')) {
             other.disabled = true
-            other.style.opacity = other === button ? '1' : '0.4'
+            if (other === button) continue
+            if (other.textContent?.trim() === correct.nombre) {
+              other.style.backgroundColor = correct.color
+              other.style.color = correct.ink
+              other.style.borderColor = correct.color
+            } else {
+              other.style.opacity = '0.45'
+            }
           }
 
-          feedback.textContent = right
-            ? `Correcto. ${correct.nombre}.`
-            : `No. Era ${correct.nombre}.`
+          if (!right) button.style.opacity = '0.45'
+
+          feedback.innerHTML = right
+            ? `Correcto. <strong>${correct.nombre}</strong>. <a class="underline underline-offset-4 hover:text-foreground" href="/anime/${anime.slug}">Ver ficha</a>`
+            : `No. Era <strong>${correct.nombre}</strong>. <a class="underline underline-offset-4 hover:text-foreground" href="/anime/${anime.slug}">Ver ficha</a>`
           next.hidden = false
           scoreEl.textContent = `${score} acierto${score === 1 ? '' : 's'}`
         })
