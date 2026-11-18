@@ -142,3 +142,26 @@
     scroll-behavior: auto;
   }
 }
+
+@keyframes glow-29n {
+  0%,
+  100% {
+    text-shadow: 0 0 10px color-mix(in srgb, currentColor 30%, transparent);
+  }
+  50% {
+    text-shadow:
+      0 0 24px color-mix(in srgb, currentColor 80%, transparent),
+      0 0 64px color-mix(in srgb, currentColor 40%, transparent);
+  }
+}
+
+.glow-29n {
+  animation: glow-29n 3.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-29n {
+    animation: none;
+    text-shadow: 0 0 18px color-mix(in srgb, currentColor 55%, transparent);
+  }
+}

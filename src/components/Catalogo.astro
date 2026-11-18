@@ -35,13 +35,20 @@ const partidos = partidosActivos()
       <span class="text-muted-foreground ml-1">#humor</span>
     </p>
 
-    <div class="flex justify-center gap-8 items-center">
+    <div class="flex flex-wrap justify-center gap-6 md:gap-8 items-center">
       <a
         href="/diagrama-nolan"
         class="my-4 inline-block transition-transform hover:scale-110"
         aria-label="Diagrama de Nolan"
       >
         <NolanChart eco={3} pers={3} class="w-24 h-24 drop-shadow-sm" />
+      </a>
+      <a
+        href="/partidos"
+        class="my-4 text-6xl md:text-7xl font-black tracking-tighter leading-none transition-transform hover:scale-105"
+        aria-label="Especial 29N: a qué partido votaría cada anime"
+      >
+        <span class="glow-29n text-[#AA151B]">2</span><span class="glow-29n text-[#F1BF00]">9</span><span class="glow-29n text-[#AA151B]">N</span>
       </a>
       <a
         href={DISCORD_INVITE}
