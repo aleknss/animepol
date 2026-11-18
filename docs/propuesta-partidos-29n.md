@@ -143,3 +143,13 @@ D21 tiene el amarillo como color de marca en su web (`--color-d21-amarillo: #fff
 - Retirada automática: el módulo y el filtro se ocultan si la fecha de build es posterior al
   13/12/2026 (dos semanas después del 29N). La página `/partidos` se queda con un aviso de evento
   finalizado o se retira con el mismo flag, a decidir.
+
+## Backlog de /partidos (no descartado)
+
+- Tarjetas tipo cartel de campaña: siglas gigantes de marca de agua, media Nolan y fila de pósters.
+- Selector por pestañas: mostrar un partido a la vez en lugar del stack completo.
+- Quiz "¿de qué partido es?" con 10 animes al azar y resultado compartible.
+- Comparador de dos partidos en columnas.
+- Descripción en tres campos: `promesa`, `contradiccion`, `frase`, dejando `descripcion` para el
+  párrafo largo.
+

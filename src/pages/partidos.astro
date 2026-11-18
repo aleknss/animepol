@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import { ArrowLeft } from '@lucide/astro'
 import Creditos from '@/components/Creditos.astro'
 import Evento29N from '@/components/Evento29N.astro'
+import NolanScatter from '@/components/NolanScatter.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { partidosActivos, textoSobreColor } from '@/lib/utils'
@@ -19,6 +20,20 @@ const porPartido = partidos.map((partido) => ({
 }))
 
 const total = porPartido.reduce((sum, item) => sum + item.animes.length, 0)
+
+const media = (values: number[]) => values.reduce((sum, value) => sum + value, 0) / values.length
+
+const puntos = porPartido
+  .filter((item) => item.animes.length > 0)
+  .map((item) => ({
+    slug: item.partido.id,
+    siglas: item.partido.data.siglas,
+    nombre: item.partido.data.nombre,
+    color: item.partido.data.color,
+    eco: Math.round(media(item.animes.map((anime) => anime.data.libertadEconomica)) * 10) / 10,
+    pers: Math.round(media(item.animes.map((anime) => anime.data.libertadPersonal)) * 10) / 10,
+    total: item.animes.length,
+  }))
 ---
 
 <Layout
@@ -58,6 +73,38 @@ const total = porPartido.reduce((sum, item) => sum + item.animes.length, 0)
           )
         }
       </div>
+
+      <section class="mb-8 rounded-2xl border border-border bg-card p-6">
+        <div class="mb-4 text-center">
+          <h2 class="text-xl font-black text-foreground tracking-tighter">
+            Dónde cae cada partido
+          </h2>
+          <p class="text-xs text-muted-foreground">
+            Media de los ejes de sus animes. El eje vertical es libertad personal; el horizontal,
+            económica.
+          </p>
+        </div>
+
+        <NolanScatter puntos={puntos} class="w-full max-w-md mx-auto" />
+
+        <ul class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {
+            puntos.map((punto) => (
+              <li class="flex items-center gap-2 text-[11px]">
+                <span
+                  class="size-2.5 shrink-0 rounded-full"
+                  style={`background-color:${punto.color}`}
+                  aria-hidden="true"
+                />
+                <span class="font-black uppercase tracking-wide text-foreground">{punto.siglas}</span>
+                <span class="text-muted-foreground">
+                  Econ {punto.eco.toFixed(1)} · Pers {punto.pers.toFixed(1)}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {
