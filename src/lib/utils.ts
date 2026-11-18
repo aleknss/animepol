@@ -6,6 +6,19 @@ export function partidosActivos(): boolean {
   return Date.now() < Date.parse(PARTIDOS_CORTE)
 }
 
+export type PosicionNolan = { eco: number; pers: number }
+
+// Posición fija de cada partido en el diagrama. No es la media de sus animes:
+// el reparto se hizo por "vibe" y la media daría cuadrantes absurdos.
+export const POSICION_PARTIDO: Record<string, PosicionNolan> = {
+  vox: { eco: 5, pers: 1 },
+  salf: { eco: 4, pers: 1.5 },
+  pp: { eco: 4, pers: 2 },
+  psoe: { eco: 2, pers: 3 },
+  podemos: { eco: 2, pers: 4 },
+  'frente-amplio': { eco: 1, pers: 5 },
+}
+
 export function textoSobreColor(hex: string): '#000000' | '#ffffff' {
   const value = hex.replace('#', '')
   const r = parseInt(value.slice(0, 2), 16) / 255

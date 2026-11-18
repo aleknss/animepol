@@ -25,7 +25,7 @@ const y = (eco: number, pers: number) => 100 - (eco + pers - 2) * 12.5
   viewBox="-6 -6 112 112"
   class={className}
   role="img"
-  aria-label="Diagrama de Nolan con la media de cada partido"
+  aria-label="Diagrama de Nolan con la posición de cada partido"
 >
   <polygon points="50,0 75,25 50,50 25,25" fill="#22c55e" opacity="0.85" />
   <polygon points="0,50 25,25 50,50 25,75" fill="#ef4444" opacity="0.85" />
@@ -38,11 +38,14 @@ const y = (eco: number, pers: number) => 100 - (eco + pers - 2) * 12.5
   {
     puntos.map((punto) => {
       const activoEste = !activo || activo === punto.slug
+      const px = x(punto.eco, punto.pers)
+      const py = y(punto.eco, punto.pers)
+      const pegadoDerecha = px > 88
       return (
         <g opacity={activoEste ? 1 : 0.3}>
           <circle
-            cx={x(punto.eco, punto.pers)}
-            cy={y(punto.eco, punto.pers)}
+            cx={px}
+            cy={py}
             r={activo && activo === punto.slug ? 4.6 : 3.4}
             fill={punto.color}
             stroke="#000000"
@@ -51,8 +54,9 @@ const y = (eco: number, pers: number) => 100 - (eco + pers - 2) * 12.5
             <title>{`${punto.nombre}: económica ${punto.eco.toFixed(1)}, personal ${punto.pers.toFixed(1)} (${punto.total} animes)`}</title>
           </circle>
           <text
-            x={x(punto.eco, punto.pers) + 5}
-            y={y(punto.eco, punto.pers) + 1.6}
+            x={pegadoDerecha ? px - 5 : px + 5}
+            y={py + 1.6}
+            text-anchor={pegadoDerecha ? 'end' : 'start'}
             font-size="3.4"
             font-weight="800"
             fill="#000000"

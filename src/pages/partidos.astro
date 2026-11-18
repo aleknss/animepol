@@ -5,7 +5,7 @@ import Creditos from '@/components/Creditos.astro'
 import NolanScatter from '@/components/NolanScatter.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 import Layout from '@/layouts/Layout.astro'
-import { partidosActivos, textoSobreColor } from '@/lib/utils'
+import { partidosActivos, POSICION_PARTIDO, textoSobreColor } from '@/lib/utils'
 const partidos = (await getCollection('partidos')).sort((a, b) => a.data.orden - b.data.orden)
 const animes = await getCollection('animes')
 const activo = partidosActivos()
@@ -23,15 +23,22 @@ const media = (values: number[]) => values.reduce((sum, value) => sum + value, 0
 
 const puntos = porPartido
   .filter((item) => item.animes.length > 0)
-  .map((item) => ({
-    slug: item.partido.id,
-    siglas: item.partido.data.siglas,
-    nombre: item.partido.data.nombre,
-    color: item.partido.data.color,
-    eco: Math.round(media(item.animes.map((anime) => anime.data.libertadEconomica)) * 10) / 10,
-    pers: Math.round(media(item.animes.map((anime) => anime.data.libertadPersonal)) * 10) / 10,
-    total: item.animes.length,
-  }))
+  .map((item) => {
+    const posicion = POSICION_PARTIDO[item.partido.id] ?? {
+      eco: media(item.animes.map((anime) => anime.data.libertadEconomica)),
+      pers: media(item.animes.map((anime) => anime.data.libertadPersonal)),
+    }
+
+    return {
+      slug: item.partido.id,
+      siglas: item.partido.data.siglas,
+      nombre: item.partido.data.nombre,
+      color: item.partido.data.color,
+      eco: Math.round(posicion.eco * 10) / 10,
+      pers: Math.round(posicion.pers * 10) / 10,
+      total: item.animes.length,
+    }
+  })
 
 const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
 ---
@@ -93,8 +100,8 @@ const stats = new Map(puntos.map((punto) => [punto.slug, punto]))
             Dónde cae cada partido
           </h2>
           <p class="text-xs text-muted-foreground">
-            Media de los ejes de sus animes. El eje vertical es libertad personal; el horizontal,
-            económica.
+            Posición fija de cada partido, no la media de sus animes. El eje vertical es libertad
+            personal; el horizontal, económica.
           </p>
 
           <NolanScatter puntos={puntos} class="mt-4 w-full max-w-md mx-auto" />

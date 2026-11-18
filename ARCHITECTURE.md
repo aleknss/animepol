@@ -78,8 +78,11 @@ es humor seco en segunda persona, con un bloque `(Spoiler)[...]` al final.
 ## Flujo de datos
 
 - Todo el contenido se resuelve en build con `getCollection`.
-- Los cálculos del evento (medias de Nolan por partido, teaser, listas de `/estadisticas`) se hacen
-  en el frontmatter de cada página, nunca en cliente.
+- Los cálculos del evento (teaser, listas de `/estadisticas`) se hacen en el frontmatter de cada
+  página, nunca en cliente.
+- La posición de cada partido en el diagrama es fija (`POSICION_PARTIDO` en `src/lib/utils.ts`), no
+  la media de sus animes: el reparto se hizo por tono y la media daría cuadrantes absurdos.
+  `/estadisticas` sigue mostrando la media real de los animes como dato aparte.
 - La interactividad vive en islas de `<script>` sin framework: filtros del catálogo, slider de
   partidos, quiz, y el botón de volver arriba.
 - `PARTIDOS_CORTE` (`2026-12-13`) decide en build si el módulo de partidos se renderiza. El corte
