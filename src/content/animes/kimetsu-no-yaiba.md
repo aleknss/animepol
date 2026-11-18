@@ -11,7 +11,7 @@ analisisPolitico: "Si Kimetsu no Yaiba es tu anime favorito, tu alineamiento pol
 anoLanzamiento: 2019
 imagen: "/images/animes/kimetsu-no-yaiba.webp"
 partido: "vox"
-justificacionPartido: "Linaje, espada y abuelos que no se tocan. La tradición no se discute: se hereda y se defiende con uniforme."
+justificacionPartido: "Una familia que hereda la espada y una hermana a la que hay que proteger. Es el programa de familia que cabe en un escaño."
 libertadEconomica: 4
 libertadPersonal: 2
 generos:

@@ -9,7 +9,7 @@ analisisPolitico: "Si Steins;Gate es tu anime favorito, tu alineamiento polític
 anoLanzamiento: 2011
 imagen: "/images/animes/steins-gate.webp"
 partido: "vox"
-justificacionPartido: "Una organización secreta controla el mundo y tú lo sabes porque leíste un foro. Bruselas, el SERN y el 5G en el mismo cuadro."
+justificacionPartido: "Okabe descubre que una organización secreta controla el mundo y se pasa la serie avisando. En España a eso se le llama mitin."
 libertadEconomica: 5
 libertadPersonal: 4
 generos:

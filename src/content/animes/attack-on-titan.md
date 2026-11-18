@@ -10,7 +10,7 @@ analisisPolitico: "Si AOT es tu anime favorito, tu alineamiento político es el 
 anoLanzamiento: 2013
 imagen: "/images/animes/attack-on-titan.webp"
 partido: "vox"
-justificacionPartido: "Murallas, enemigos fuera y ley marcial que apruebas sin leer. El muro te protege hasta que te cobra alquiler y te pide el DNI."
+justificacionPartido: "Toda la serie defendiendo el muro y, cuando descubres que fuera también hay gente, sigues defendiendo el muro. Eso no es ideología: es constancia."
 libertadEconomica: 1
 libertadPersonal: 1
 generos:

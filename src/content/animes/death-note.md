@@ -8,7 +8,7 @@ analisisPolitico: "Si Death Note es tu anime favorito, tu alineamiento político
 anoLanzamiento: 2006
 imagen: "/images/animes/death-note.webp"
 partido: "vox"
-justificacionPartido: "El sistema judicial es lento, tú tienes buena caligrafía y una lista de gente que sobra. Mano dura sin pasar por el trámite parlamentario."
+justificacionPartido: "Light cumple el programa de mano dura sin pasar por el Congreso: juzga sin juzgado, ejecuta sin sentencia y ahorra en policía."
 libertadEconomica: 2
 libertadPersonal: 1
 generos:
