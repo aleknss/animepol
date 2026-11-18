@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
-import { ListFilter, MoveUp } from '@lucide/astro'
+import { ArrowUp, ListFilter } from '@lucide/astro'
 import AnimeList from '@/components/anime/AnimeList.astro'
 import Creditos from '@/components/Creditos.astro'
 import DiscordIcon from '@/components/DiscordIcon.astro'
@@ -188,12 +188,12 @@ const partidos = partidosActivos()
 
   <button
     type="button"
-    id="back-to-search"
+    id="back-to-top"
     hidden
-    aria-label="Volver al buscador"
-    class="fixed bottom-5 right-5 z-40 inline-flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105 lg:hidden"
+    aria-label="Volver arriba"
+    class="fixed bottom-5 right-5 z-40 inline-flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-primary/30 transition-all hover:-translate-y-0.5 hover:shadow-xl lg:hidden"
   >
-    <MoveUp class="size-5" />
+    <ArrowUp class="size-5" stroke-width="2.5" />
   </button>
 
   <div id="catalogo-empty" hidden class="text-center py-10 text-muted-foreground">
@@ -399,20 +399,18 @@ const partidos = partidosActivos()
   applyShuffle()
   applyFilters()
 
-  const backToSearch = document.querySelector<HTMLButtonElement>('#back-to-search')
-  const searchField = document.querySelector<HTMLElement>('#catalogo-search')
+  const backToTop = document.querySelector<HTMLButtonElement>('#back-to-top')
 
-  const toggleBackToSearch = () => {
-    if (!backToSearch) return
-    backToSearch.hidden = window.scrollY < 420
+  const toggleBackToTop = () => {
+    if (!backToTop) return
+    backToTop.hidden = window.scrollY < 420
   }
 
-  window.addEventListener('scroll', toggleBackToSearch, { passive: true })
-  toggleBackToSearch()
+  window.addEventListener('scroll', toggleBackToTop, { passive: true })
+  toggleBackToTop()
 
-  backToSearch?.addEventListener('click', () => {
+  backToTop?.addEventListener('click', () => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    searchField?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
-    window.setTimeout(() => (searchField as HTMLInputElement | null)?.focus({ preventScroll: true }), reduce ? 0 : 350)
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
   })
 </script>
