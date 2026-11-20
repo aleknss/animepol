@@ -12,7 +12,7 @@ imagen: "/images/animes/sword-art-online.webp"
 partido: "pp"
 justificacionPartido: "Sword Art Online es el anime de la actitud firme y contenida: Kirito no provoca ni grita, resuelve el desaguisado con habilidad individual y una economía de gremios voluntarios mientras el Estado brilla por su ausencia y luego aparece tarde con una agencia invasiva. Su fan es el votante que desconfía del regulador que quiere supervisar su casco, que cree que el mercado innova y el usuario asume el riesgo, y que espera que aparezca un héroe solitario a arreglarlo antes de que alguien pida responsabilidades: pragmatismo tecnológico sin épica."
 libertadEconomica: 4
-libertadPersonal: 4
+libertadPersonal: 3
 generos:
   - "Acción"
   - "Aventura"

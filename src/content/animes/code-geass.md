@@ -12,8 +12,8 @@ anoLanzamiento: 2006
 imagen: "/images/animes/code-geass.webp"
 partido: "salf"
 justificacionPartido: "Code Geass es el anime del autoritarismo con complejo de mesías: un líder que se cree el único capaz de tomar las decisiones difíciles, que construye un relato propio a base de máscaras y titulares, y que está dispuesto a sacrificar la libertad de todos —incluida la suya— en el altar de un diseño superior. SALF es, en clave satírica, el partido que mejor encaja: Alvise Pérez lleva años presentándose como el outsider que ve la verdad oculta, el que “hackea” el relato desde el escaño y el que convierte cada causa judicial en un capítulo más de su propia serie. Lelouch tenía el Geass; Alvise tiene el altavoz y el calendario judicial."
-libertadEconomica: 2
-libertadPersonal: 1
+libertadEconomica: 4
+libertadPersonal: 2
 generos:
   - "Acción"
   - "Ciencia Ficción"

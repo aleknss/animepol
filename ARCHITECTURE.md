@@ -106,8 +106,8 @@ es humor seco en segunda persona, con un bloque `(Spoiler)[...]` al final.
 
 ## Evento 29N
 
-- 69 animes repartidos entre seis partidos (PP, PSOE, VOX, SALF, Podemos, Frente Amplio).
-- Reparto 16/14/13/10/8/8 (PP 16, SALF 14, Frente Amplio 13, Podemos 10, PSOE 8, VOX 8).
+- 89 animes repartidos entre seis partidos (PP, PSOE, VOX, SALF, Podemos, Frente Amplio).
+- Reparto 17/16/15/15/13/13 (PSOE 17, VOX 16, Podemos 15, SALF 15, Frente Amplio 13, PP 13).
 - Cada `justificacionPartido` ata la trama a dos referencias reales de la actualidad del partido
   (condenas, causas, crisis internas). Sin nombre propio el chiste se queda genérico.
 - Descripciones de partido en tres capas: `promesa`, `contradiccion` y `frase`.

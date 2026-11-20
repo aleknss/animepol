@@ -11,8 +11,8 @@ anoLanzamiento: 2019
 imagen: "/images/animes/kaguya-sama.webp"
 partido: "psoe"
 justificacionPartido: "Kaguya-sama: Love Is War es el anime de la actitud contenida y estratégica: el Consejo Estudiantil funciona como un pequeño Estado con protocolo, jerarquía y presupuesto, y el amor es un juego de manipulación donde nadie muestra debilidades. Su fan es el votante que prefiere la maniobra a la pancarta, la contención al estallido y el cambio controlado que no altere el estatus de las élites, con la diferencia de que en el anime la confesión llega en el tejado y en la política real llega en una rueda de prensa."
-libertadEconomica: 5
-libertadPersonal: 2
+libertadEconomica: 3
+libertadPersonal: 3
 generos:
   - "Comedia"
   - "Psicológico"

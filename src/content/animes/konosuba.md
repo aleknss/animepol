@@ -11,7 +11,7 @@ anoLanzamiento: 2016
 imagen: "/images/animes/konosuba.webp"
 partido: "salf"
 justificacionPartido: "KonoSuba es el anime de la actitud provocadora y visceral: Kazuma sobrevive mintiendo al recaudador, registrando un objeto legendario como basura y chantajeando al casero, y su política es el fraude de bajo nivel como resistencia. Su fan es el votante que ve el sistema como un circo de gremios y rankings, que no cree en la meritocracia institucional pero tampoco se molesta en derribarla, y que convierte la precariedad en espectáculo: provocación sin proyecto, pero con mucha gracia."
-libertadEconomica: 2
+libertadEconomica: 3
 libertadPersonal: 4
 generos:
   - "Aventura"

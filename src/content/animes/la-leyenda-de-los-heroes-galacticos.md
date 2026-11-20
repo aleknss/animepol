@@ -12,8 +12,8 @@ anoLanzamiento: 1988
 imagen: "/images/animes/la-leyenda-de-los-heroes-galacticos.webp"
 partido: "pp"
 justificacionPartido: "Legend of the Galactic Heroes es el anime de la actitud pragmática y firme: Reinhard es un estratega frío que toma el poder y reorganiza el Imperio con eficiencia administrativa, sin gritos ni visceralidad, y la Alianza es un circo parlamentario que la serie retrata con desdén contenido. Su fan es el votante que prefiere gestión competente a demagogia, orden a ruido y un líder que asuma responsabilidades antes que un comité que se esconda detrás del mandato del pueblo."
-libertadEconomica: 2
-libertadPersonal: 1
+libertadEconomica: 4
+libertadPersonal: 2
 generos:
   - "Ciencia Ficción"
   - "Drama"

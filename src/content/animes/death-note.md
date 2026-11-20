@@ -11,8 +11,8 @@ anoLanzamiento: 2006
 imagen: "/images/animes/death-note.webp"
 partido: "salf"
 justificacionPartido: "Death Note es el anime del absolutismo de salón: la eficiencia por encima de la ética, la paz social comprada con la libertad ajena y la convicción de que “un solo hombre, un solo voto… y ese hombre soy yo”. SALF encaja satíricamente porque su líder se presenta como el único que ve la verdad y aplica justicia mediática sin esperar a los tribunales: Kira escribía nombres en un cuaderno; Alvise los señala en redes sin pruebas. La diferencia es que Kira al menos tenía un plan de limpieza global; SALF tiene un calendario judicial."
-libertadEconomica: 2
-libertadPersonal: 1
+libertadEconomica: 3
+libertadPersonal: 2
 generos:
   - "Misterio"
   - "Psicológico"

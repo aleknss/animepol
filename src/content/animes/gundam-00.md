@@ -11,7 +11,7 @@ anoLanzamiento: 2007
 imagen: "/images/animes/gundam-00.webp"
 partido: "pp"
 justificacionPartido: "Gundam 00 es el anime del despotismo ilustrado armado: una élite iluminada que cree que la humanidad es un rebaño de niños estúpidos, que el libre albedrío es un peligro global y que el mundo solo funcionará cuando alguien tenga el monopolio absoluto de la violencia. El PP encaja satíricamente porque se presenta como el partido de la gestión seria, la institucionalidad y el orden, pero su historial judicial muestra que también tuvo su propia estructura paralela: una A-LAWS con cloaca en el sótano. Celestial Being no pedía permiso; la Kitchen tampoco."
-libertadEconomica: 2
+libertadEconomica: 3
 libertadPersonal: 1
 generos:
   - "Acción"

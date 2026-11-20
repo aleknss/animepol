@@ -11,8 +11,8 @@ anoLanzamiento: 1995
 imagen: "/images/animes/evangelion.webp"
 partido: "psoe"
 justificacionPartido: "Evangelion es el anime del totalitarismo del bienestar espiritual: el Estado no solo te cobra impuestos, también quiere gestionar tus traumas, tus vínculos y tu derecho a no participar. El PSOE encaja satíricamente porque es el partido del Estado del bienestar y de la institucionalización de las políticas de cuidado y salud mental, pero también el de una elite interna que decide por todos mientras los ciudadanos de a pie —como Shinji— son recursos del sistema. NERV sería Ferraz: una maquinaria institucional que promete protección y acaba enviando a los jóvenes al frente."
-libertadEconomica: 1
-libertadPersonal: 1
+libertadEconomica: 2
+libertadPersonal: 2
 generos:
   - "Acción"
   - "Ciencia Ficción"

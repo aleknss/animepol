@@ -11,7 +11,7 @@ anoLanzamiento: 1998
 imagen: "/images/animes/cowboy-bebop.webp"
 partido: "frente-amplio"
 justificacionPartido: "Cowboy Bebop es el anime de la actitud defensiva y contenida: Spike no provoca, no grita y no desafía al sistema, pasa de todo con una sonrisa triste y elige su final sin pedir permiso. Su fan es el votante que desconfía del ruido, que prefiere la prudencia a la pancarta y que sabe que la libertad individual a veces es soledad con jazz de fondo. PSOE encaja porque convierte la contención en método: gestionar sin épica, defender lo poco que queda y no prometer paraísos que luego haya que financiar, con la diferencia de que en el anime Spike al menos cierra su propia historia y en la política real la historia la cierra el calendario judicial."
-libertadEconomica: 4
+libertadEconomica: 3
 libertadPersonal: 5
 generos:
   - "Acción"

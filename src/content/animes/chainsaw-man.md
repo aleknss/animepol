@@ -11,8 +11,8 @@ anoLanzamiento: 2022
 imagen: "/images/animes/chainsaw-man.webp"
 partido: "salf"
 justificacionPartido: "Chainsaw Man es el anime del totalitarismo pasivo: alguien tan cansado del capitalismo tardío y de elegir qué cenar que aceptaría una dictadura absoluta si el uniforme es elegante y le prometen un abrazo. Makima es la personificación de la seguridad a cambio de la sumisión: control total de los medios, gaslighting institucional y un proyecto de mundo “perfecto” que solo funciona si todos son sus perros. SALF es, en clave satírica, el partido que mejor encaja con ese imaginario: un líder que se presenta como el único que puede tomar todas las decisiones, que controla el relato desde el escaño y que convierte cada causa judicial en un capítulo de su propia serie."
-libertadEconomica: 2
-libertadPersonal: 2
+libertadEconomica: 3
+libertadPersonal: 4
 generos:
   - "Acción"
   - "Drama"

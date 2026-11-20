@@ -11,7 +11,7 @@ anoLanzamiento: 2012
 imagen: "/images/animes/psycho-pass.webp"
 partido: "pp"
 justificacionPartido: "Psycho-Pass es el anime del utilitarismo tecnocrático y el Estado paternalista: la política como gestión administrativa de la salud mental, el individuo como incapaz de gobernarse y la libertad como carga que conviene delegar en un comité de expertos. El PP encaja satíricamente porque su relato institucional combina orden, seguridad, gestión seria y la convicción de que el ciudadano necesita que alguien le mida el coeficiente antes de que se equivoque; Sibyl es el Consejo de Ministros con cerebros en un tanque, y la “jaula de oro” es la promesa de estabilidad a cambio de no preguntar demasiado. Makishima es el ciudadano que se atreve a decir que la jaula no es libertad. La diferencia es que en el anime Sibyl al menos reconoce que es una colmena; en Génova, se llama gestión institucional."
-libertadEconomica: 1
+libertadEconomica: 2
 libertadPersonal: 1
 generos:
   - "Acción"
