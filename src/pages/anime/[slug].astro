@@ -1,12 +1,11 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { ArrowLeft, TriangleAlert } from '@lucide/astro'
+import { ArrowLeft, Lightbulb, TriangleAlert } from '@lucide/astro'
 import Layout from '@/layouts/Layout.astro'
-import DiscordIcon from '@/components/DiscordIcon.astro'
 import NolanChart from '@/components/NolanChart.astro'
 import Spoiler from '@/components/Spoiler.astro'
 import { parseSpoilers, stripSpoilers } from '@/lib/spoilers'
-import { DISCORD_INVITE, partidosActivos, textoSobreColor } from '@/lib/utils'
+import { partidosActivos, textoSobreColor } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const animes = await getCollection('animes')
@@ -223,16 +222,16 @@ const jsonLd = {
               <div class="flex flex-wrap items-center justify-between gap-3">
                 <p class="text-sm text-muted-foreground">
                   ¿Está mal clasificado, falta un género o la sinopsis destripa algo?
-                  <span class="text-foreground">Debátelo en el Discord.</span>
+                  <span class="text-foreground">Envíanos una sugerencia.</span>
                 </p>
                 <a
-                  href={DISCORD_INVITE}
+                  href="https://forms.gle/J8MvoiNsiYUoucFx7"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-1.5 text-sm font-bold text-primary transition-colors hover:text-foreground"
                 >
-                  <DiscordIcon class="size-4" />
-                  Debatir en Discord
+                  <Lightbulb class="size-4" />
+                  Sugerir cambios
                 </a>
               </div>
             </section>

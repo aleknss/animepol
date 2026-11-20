@@ -69,6 +69,9 @@ generos[], partido?, justificacionPartido?
 
 `generos`: `nombre`, `slug`.
 
+`nombresAlternativos` es la lista de búsqueda: título inglés, romaji (con y sin macrones), alias
+popular y abreviaturas. Sin variantes de mayúsculas; el buscador ya compara sin distinguirlas.
+
 `partidos`: `nombre`, `siglas`, `color` (`#RRGGBB`), `ideologia`, `descripcion`, `promesa`,
 `contradiccion`, `frase`, `logo`, `orden`.
 
@@ -93,7 +96,7 @@ es humor seco en segunda persona, con un bloque `(Spoiler)[...]` al final.
 
 | Ruta               | Contenido                                                                          |
 | ------------------ | ---------------------------------------------------------------------------------- |
-| `/`                | Hero con Nolan + 29N + Discord, buscador, filtros de partido, grid                 |
+| `/`                | Hero con Nolan + 29N + sugerencias, buscador, filtros de partido, grid              |
 | `/anime/<slug>`    | Ficha, Nolan, bloque de partido, related del mismo partido                         |
 | `/partidos`        | 29N, scatter de medias, CTA del quiz, selector tipo home y slider de un partido    |
 | `/partidos/<slug>` | Ficha de partido con medias y sus animes                                           |
@@ -103,8 +106,8 @@ es humor seco en segunda persona, con un bloque `(Spoiler)[...]` al final.
 
 ## Evento 29N
 
-- 44 animes repartidos entre seis partidos (PP, PSOE, VOX, SALF, Podemos, Frente Amplio).
-- Reparto 7/7/7/7/7/9 (PSOE 7, PP 7, VOX 7, Podemos 7, Frente Amplio 7, SALF 9).
+- 69 animes repartidos entre seis partidos (PP, PSOE, VOX, SALF, Podemos, Frente Amplio).
+- Reparto 16/14/13/10/8/8 (PP 16, SALF 14, Frente Amplio 13, Podemos 10, PSOE 8, VOX 8).
 - Cada `justificacionPartido` ata la trama a dos referencias reales de la actualidad del partido
   (condenas, causas, crisis internas). Sin nombre propio el chiste se queda genérico.
 - Descripciones de partido en tres capas: `promesa`, `contradiccion` y `frase`.
@@ -147,6 +150,11 @@ runtime de Worker. `_redirects` y `_headers` se copian desde `public/`.
 - Botón de volver arriba con animación y microanimaciones de búsqueda y filtros.
 - Slug antiguo de LOTGH corregido con 301 en `_redirects`.
 - `og-image.jpg` a 1200×630, JPG para que WhatsApp y Facebook pinten el preview.
+- Discord sustituido por el formulario de sugerencias (`forms.gle`) en hero y ficha.
+- Nuevas fichas: Gintama, Boku no Hero Academia, One Punch Man, Dandadan y Solo Leveling.
+- Nuevas fichas: Dr. Stone, Sakamoto Days, Kaiju No. 8 y Tokyo Ghoul.
+- Nuevas fichas: Sword Art Online, Konosuba, Overlord y Tensei Slime.
+- Nuevas fichas: Akira, Berserk, Parasyte y Black Lagoon (17 en total).
 
 ## Pendiente
 

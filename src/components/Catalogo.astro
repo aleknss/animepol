@@ -1,14 +1,13 @@
 ---
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
-import { ArrowUp, ListFilter } from '@lucide/astro'
+import { ArrowUp, Lightbulb, ListFilter } from '@lucide/astro'
 import AnimeList from '@/components/anime/AnimeList.astro'
 import Creditos from '@/components/Creditos.astro'
-import DiscordIcon from '@/components/DiscordIcon.astro'
 import NolanChart from '@/components/NolanChart.astro'
 import SearchBar from '@/components/search/SearchBar.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
-import { DISCORD_INVITE, IDEOLOGIAS, IDEO_COLORS, partidosActivos, textoSobreColor } from '@/lib/utils'
+import { IDEOLOGIAS, IDEO_COLORS, partidosActivos, textoSobreColor } from '@/lib/utils'
 
 interface Props {
   animes: CollectionEntry<'animes'>[]
@@ -65,15 +64,15 @@ const partidos = partidosActivos()
         ></span>
       </a>
       <a
-        href={DISCORD_INVITE}
+        href="https://forms.gle/J8MvoiNsiYUoucFx7"
         target="_blank"
         rel="noopener noreferrer"
         class="my-4 inline-flex shrink-0 flex-col items-center gap-1 transition-transform hover:scale-110"
-        aria-label="Participa en el Discord de Animepol"
+        aria-label="Envía sugerencias para Animepol"
       >
-        <DiscordIcon class="size-12 sm:size-16 text-[#5865F2] drop-shadow-sm" />
-        <span class="text-xs font-black text-[#5865F2] sm:text-base">
-          Participa
+        <Lightbulb class="size-12 sm:size-16 text-primary drop-shadow-sm" />
+        <span class="text-xs font-black text-primary sm:text-base">
+          Sugerencias
         </span>
       </a>
     </div>
